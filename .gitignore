@@ -1,0 +1,94 @@
+# ===================================================================
+# GITIGNORE PER GAMEMAKER STUDIO 2
+# ===================================================================
+
+# File temporanei e cache di GameMaker
+*.tmp
+*.temp
+*.yyz
+*.yymp
+*.gm82spk
+*.gm81spk
+
+# Cache e build di GameMaker
+/cache/
+/builds/
+/Export/
+/extensions/*/AndroidSource/
+/extensions/*/iOSSource/
+/datafiles_yy/
+/options/
+
+# File di configurazione personali
+/rooms/*/creation_code.gml
+/rooms/*/RoomCreationCode.gml
+
+# Log e debug
+*.log
+debug.log
+/logs/
+
+# File di backup automatici
+*.backup*
+*.bak
+*~
+
+# File DS_Store (macOS)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# File di sistema Windows
+desktop.ini
+
+# File IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# File di configurazione utente specifici
+*.user
+*.suo
+*.userprefs
+
+# Runtime e temporanei
+/temp/
+/tmp/
+*.dmp
+
+# Output di compilazione specifici GameMaker
+*.runner
+*.plist
+*.exe
+*.app
+*.ipa
+*.apk
+*.aab
+
+# Cache runtime
+/runner/
+/html5game/
+/macOS/
+/windows/
+/ubuntu/
+/android/
+/ios/
+
+# File specifici progetto che non vanno tracciati
+/SeasonVale.yyp.backup*
+
+# ===================================================================
+# MANTIENI QUESTI FILE IMPORTANTI
+# ===================================================================
+# ✅ .gml files (codice sorgente)
+# ✅ .yy files (definizioni asset)  
+# ✅ .yyp file (file progetto principale)
+# ✅ sprite PNG files
+# ✅ sound files
+# ✅ font files
+# ===================================================================
