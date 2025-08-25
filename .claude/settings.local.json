@@ -6,7 +6,9 @@
       "Bash(./git-pull.sh)",
       "Bash(git branch:*)",
       "Bash(git pull:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)"
     ],
     "deny": [],
     "ask": []

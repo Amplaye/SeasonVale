@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore .yy files for language statistics
 *.yy linguist-generated=true
  
@@ -5,4 +6,13 @@
 *.gml text eol=lf
 *.yy text eol=lf
 *.yyp text eol=lf
+=======
+# Ignore .yy files for language statistics
+*.yy linguist-generated=true
+ 
+# force LF for metadata files for merge simplicity
+*.gml text eol=lf
+*.yy text eol=lf
+*.yyp text eol=lf
+>>>>>>> c994bbbc38e60888729406cbab5d6cf78a538b70
 *.json text eol=lf
