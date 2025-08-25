@@ -1,6 +1,6 @@
 {
   "$GMSprite":"",
-  "%Name":"fishing",
+  "%Name":"pepper",
   "bboxMode":0,
   "bbox_bottom":30,
   "bbox_left":1,
@@ -12,28 +12,28 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"c33ee36f-b55d-46e0-80de-0442a8d43b02","name":"c33ee36f-b55d-46e0-80de-0442a8d43b02","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"e7e8c5c6-0f14-4e09-a596-9d606e9b6578","name":"e7e8c5c6-0f14-4e09-a596-9d606e9b6578","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":32,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"bb22eda2-2077-472e-a829-02c301d9db6f","blendMode":0,"displayName":"default","isLocked":false,"name":"bb22eda2-2077-472e-a829-02c301d9db6f","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"0dbc09a9-c43f-4620-9012-50aff8013c52","blendMode":0,"displayName":"default","isLocked":false,"name":"0dbc09a9-c43f-4620-9012-50aff8013c52","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"fishing",
+  "name":"pepper",
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Inventory",
-    "path":"folders/Sprites/Inventory.yy",
+    "name":"farmable_veg",
+    "path":"folders/Sprites/farmable_veg.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"fishing",
+    "%Name":"pepper",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -57,7 +57,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"fishing",
+    "name":"pepper",
     "playback":1,
     "playbackSpeed":10.0,
     "playbackSpeedType":0,
@@ -71,8 +71,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"c33ee36f-b55d-46e0-80de-0442a8d43b02","path":"sprites/fishing/fishing.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"90ed85b2-0661-4b64-adde-376777d13a10","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"e7e8c5c6-0f14-4e09-a596-9d606e9b6578","path":"sprites/pepper/pepper.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"a261f538-d06b-4111-8684-0d208fdaeb56","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

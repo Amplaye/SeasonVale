@@ -26,9 +26,9 @@ global.toolbar_debug_enabled = false;
 if (!variable_global_exists("tool_sprites")) {
     // CONTROLLO SICUREZZA: assegnazione diretta sprite per evitare GM1063
     var axe_sprite = axe;
-    var mining_sprite = mining;
-    var fishing_sprite = fishing;
-    var zappa_sprite = zappa;
+    var mining_sprite = pickaxe;
+    var fishing_sprite = fishing_rod;
+    var zappa_sprite = hoe;
     
     global.tool_sprites = [axe_sprite, mining_sprite, fishing_sprite, zappa_sprite, noone, noone, noone, noone, noone, noone];
     global.tool_quantities = [1, 1, 1, 1, 0, 0, 0, 0, 0, 0];

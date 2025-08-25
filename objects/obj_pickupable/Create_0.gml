@@ -7,9 +7,14 @@
 // ===== CONFIGURAZIONE OGGETTI RACCOGLIBILI =====
 // Lista degli sprite che possono essere raccolti
 global.pickupable_sprites = [
-    rock,    // Sassi
+    rock,
     wood,
-	// Legno
+	bronze,
+	tomato,
+	corn,
+	garlic,
+	lettuce,
+	carrot,
     // Aggiungi qui altri sprite in futuro
 ];
 

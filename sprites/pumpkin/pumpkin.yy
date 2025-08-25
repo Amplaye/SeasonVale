@@ -1,6 +1,6 @@
 {
   "$GMSprite":"",
-  "%Name":"mining",
+  "%Name":"pumpkin",
   "bboxMode":0,
   "bbox_bottom":30,
   "bbox_left":1,
@@ -12,28 +12,28 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"505cde19-259f-4524-9ea7-ceee5d2cfad9","name":"505cde19-259f-4524-9ea7-ceee5d2cfad9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"da31f5fa-d916-4d3a-b46a-f3d999ba603e","name":"da31f5fa-d916-4d3a-b46a-f3d999ba603e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":32,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"eb12af6a-bb51-4788-a3dd-12a07ccd8862","blendMode":0,"displayName":"default","isLocked":false,"name":"eb12af6a-bb51-4788-a3dd-12a07ccd8862","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"e4ed6195-c677-44eb-a009-ce287cee5e4f","blendMode":0,"displayName":"default","isLocked":false,"name":"e4ed6195-c677-44eb-a009-ce287cee5e4f","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"mining",
+  "name":"pumpkin",
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Inventory",
-    "path":"folders/Sprites/Inventory.yy",
+    "name":"farmable_veg",
+    "path":"folders/Sprites/farmable_veg.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"mining",
+    "%Name":"pumpkin",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -57,7 +57,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"mining",
+    "name":"pumpkin",
     "playback":1,
     "playbackSpeed":10.0,
     "playbackSpeedType":0,
@@ -71,8 +71,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"505cde19-259f-4524-9ea7-ceee5d2cfad9","path":"sprites/mining/mining.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"c87f1c08-c444-42fd-99de-3e10de186a88","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"da31f5fa-d916-4d3a-b46a-f3d999ba603e","path":"sprites/pumpkin/pumpkin.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"6d472595-9f94-47b6-9cbd-863058ca9c0c","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
