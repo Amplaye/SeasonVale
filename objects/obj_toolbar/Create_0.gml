@@ -63,27 +63,57 @@ function toolbar_add_item(item_sprite, quantity = 1) {
         return false;
     }
     
+    var max_stack_size = 999;
+    var remaining_quantity = quantity;
+    
     // Prima cerca se l'item esiste già per fare stacking
     for (var i = 0; i < array_length(global.tool_sprites); i++) {
         if (global.tool_sprites[i] == item_sprite && global.tool_quantities[i] > 0) {
-            global.tool_quantities[i] += quantity;
-            show_debug_message("📦 Stack aumentato: " + sprite_get_name(item_sprite) + " x" + string(global.tool_quantities[i]));
-            return true;
+            var current_quantity = global.tool_quantities[i];
+            var space_available = max_stack_size - current_quantity;
+            
+            if (space_available > 0) {
+                var quantity_to_add = min(remaining_quantity, space_available);
+                global.tool_quantities[i] += quantity_to_add;
+                remaining_quantity -= quantity_to_add;
+                
+                show_debug_message("📦 Stack aumentato: " + sprite_get_name(item_sprite) + " x" + string(global.tool_quantities[i]));
+                
+                if (remaining_quantity <= 0) {
+                    return true;
+                }
+            }
         }
     }
     
-    // Se non esiste, cerca primo slot vuoto
-    for (var i = 0; i < array_length(global.tool_sprites); i++) {
-        if (global.tool_sprites[i] == noone || global.tool_quantities[i] == 0) {
-            global.tool_sprites[i] = item_sprite;
-            global.tool_quantities[i] = quantity;
-            show_debug_message("📦 Nuovo item: " + sprite_get_name(item_sprite) + " x" + string(quantity) + " -> Slot #" + string(i + 1));
-            return true;
+    // Se rimane quantità, cerca primi slot vuoti
+    while (remaining_quantity > 0) {
+        var empty_slot_found = false;
+        
+        for (var i = 0; i < array_length(global.tool_sprites); i++) {
+            if (global.tool_sprites[i] == noone || global.tool_quantities[i] == 0) {
+                global.tool_sprites[i] = item_sprite;
+                var quantity_to_add = min(remaining_quantity, max_stack_size);
+                global.tool_quantities[i] = quantity_to_add;
+                remaining_quantity -= quantity_to_add;
+                
+                show_debug_message("📦 Nuovo item: " + sprite_get_name(item_sprite) + " x" + string(quantity_to_add) + " -> Slot #" + string(i + 1));
+                empty_slot_found = true;
+                break;
+            }
+        }
+        
+        if (!empty_slot_found) {
+            if (remaining_quantity > 0) {
+                show_debug_message("⚠️ Toolbar piena! Non si possono aggiungere " + string(remaining_quantity) + " x " + sprite_get_name(item_sprite));
+                show_toolbar_full_popup(item_sprite, remaining_quantity);
+                return false;
+            }
+            break;
         }
     }
     
-    show_debug_message("⚠️ Toolbar piena! Item non aggiunto: " + sprite_get_name(item_sprite));
-    return false;
+    return true;
 }
 
 // Ottiene l'item attualmente selezionato
@@ -115,4 +145,18 @@ function toolbar_get_slot_center(slot_number) {
     var center_y = toolbar_y + (sprite_get_height(tool_slot) / 2);
     
     return {x: center_x, y: center_y};
+}
+
+// ===== SISTEMA POPUP INVENTARIO PIENO =====
+global.popup_active = false;
+global.popup_item_name = "";
+global.popup_quantity = 0;
+
+// Mostra popup quando inventario è pieno
+function show_toolbar_full_popup(item_sprite, quantity) {
+    global.popup_active = true;
+    global.popup_item_name = sprite_get_name(item_sprite);
+    global.popup_quantity = quantity;
+    
+    show_debug_message("🚨 Popup mostrato: Inventario pieno per " + string(quantity) + " x " + global.popup_item_name);
 }

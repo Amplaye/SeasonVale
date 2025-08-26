@@ -29,3 +29,8 @@ if (global.toolbar_dragging && global.toolbar_drag_from_slot >= 0) {
         }
     }
 }
+
+// ===================================================================
+// POPUP INVENTARIO PIENO - ORA GESTITO DA obj_popup_error
+// ===================================================================
+// Il popup è ora gestito dall'oggetto obj_popup_error nel room

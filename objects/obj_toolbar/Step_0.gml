@@ -2,6 +2,9 @@
 // 📋 TOOLBAR CONTROLS & POSITIONING
 // ===================================================================
 
+// ===== GESTIONE POPUP INVENTARIO PIENO =====
+// Il popup è ora gestito dall'oggetto obj_popup_error
+
 // ===== SELEZIONE SLOT CON TASTI NUMERICI =====
 for (var i = 1; i <= 9; i++) {
     if (keyboard_check_pressed(ord(string(i)))) {

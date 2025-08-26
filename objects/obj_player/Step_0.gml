@@ -1,3 +1,55 @@
+// ===== CONTROLLO POPUP ATTIVO - BLOCCA MOVIMENTO =====
+if (variable_global_exists("popup_active") && global.popup_active) {
+    // Se il popup è attivo, blocca tutti i movimenti e passa a idle
+    is_moving = false;
+    hsp = 0;
+    vsp = 0;
+    
+    // Passa allo sprite idle in base alla direzione corrente
+    var idle_sprite = -1;
+    switch(current_direction) {
+        case "right":
+            idle_sprite = idle_right;
+            break;
+        case "left":
+            idle_sprite = idle_left;
+            break;
+        case "front":
+            idle_sprite = idle_front;
+            break;
+        case "back":
+            idle_sprite = idle_back;
+            break;
+        default:
+            idle_sprite = idle_front; // Default se direzione non definita
+            break;
+    }
+    
+    // Cambia sprite solo se diverso da quello attuale
+    if (idle_sprite != -1 && sprite_index != idle_sprite) {
+        var old_frame = image_index;
+        var old_speed = image_speed;
+        var old_sprite = sprite_index;
+        
+        var old_visual_x = x - sprite_get_xoffset(old_sprite);
+        var old_visual_y = y - sprite_get_yoffset(old_sprite);
+        
+        sprite_index = idle_sprite;
+        
+        x = old_visual_x + sprite_get_xoffset(idle_sprite);
+        y = old_visual_y + sprite_get_yoffset(idle_sprite);
+        
+        if (sprite_get_number(sprite_index) > 0) {
+            var frame_ratio = old_frame / max(sprite_get_number(sprite_index), 1);
+            image_index = frame_ratio * sprite_get_number(sprite_index);
+            image_index = clamp(image_index, 0, sprite_get_number(sprite_index) - 1);
+        }
+        image_speed = old_speed;
+    }
+    
+    exit; // Esci dal Step event senza fare altro
+}
+
 var left = keyboard_check(ord("A")) || keyboard_check(vk_left);
 var right = keyboard_check(ord("D")) || keyboard_check(vk_right);
 var up = keyboard_check(ord("W")) || keyboard_check(vk_up);
