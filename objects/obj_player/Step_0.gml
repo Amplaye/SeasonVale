@@ -94,14 +94,20 @@ if (mouse_check_button_pressed(mb_left)) {
             var saved_x = x;
             var saved_y = y;
             
-            // Scegli animazione in base alla direzione corrente
+            // Calcola direzione verso il cursor
+            var cursor_direction = get_direction_to_cursor();
+            
+            // Aggiorna la direzione corrente del player per seguire il cursor
+            current_direction = cursor_direction;
+            
+            // Scegli animazione in base alla direzione verso il cursor
             var chop_sprite = chop_right; // Default
-            switch(current_direction) {
+            switch(cursor_direction) {
                 case "right":
                     chop_sprite = chop_right;
                     break;
                 case "left":
-                    chop_sprite = chop_left; // Ora disponibile!
+                    chop_sprite = chop_left;
                     break;
                 case "front":
                     chop_sprite = chop_front;
@@ -114,15 +120,23 @@ if (mouse_check_button_pressed(mb_left)) {
                     break;
             }
             
+            // Gestisci correttamente il cambio sprite con offset
+            var old_visual_x = x - sprite_get_xoffset(old_sprite);
+            var old_visual_y = y - sprite_get_yoffset(old_sprite);
+            
             sprite_index = chop_sprite;
             image_index = 0;
             image_speed = 0;
             
-            chopping_original_x = saved_x;
-            chopping_original_y = saved_y;
+            // Riposiziona correttamente con il nuovo offset
+            x = old_visual_x + sprite_get_xoffset(chop_sprite);
+            y = old_visual_y + sprite_get_yoffset(chop_sprite);
+            
+            chopping_original_x = x;
+            chopping_original_y = y;
             
             // DEBUG: Mostra informazioni dettagliate degli sprite
-            show_debug_message("🪓 Chopping " + current_direction + " animation started");
+            show_debug_message("🪓 Chopping " + cursor_direction + " animation started (cursor direction)");
             show_debug_message("OLD SPRITE (" + sprite_get_name(old_sprite) + "):");
             show_debug_message("  - Size: " + string(sprite_get_width(old_sprite)) + "x" + string(sprite_get_height(old_sprite)));
             show_debug_message("  - Offset: " + string(sprite_get_xoffset(old_sprite)) + "," + string(sprite_get_yoffset(old_sprite)));
@@ -168,12 +182,17 @@ if (is_chopping) {
         }
         
         if (idle_sprite != -1) {
+            // Gestisci correttamente il cambio sprite con offset
+            var old_visual_x = x - sprite_get_xoffset(sprite_index);
+            var old_visual_y = y - sprite_get_yoffset(sprite_index);
+            
             sprite_index = idle_sprite;
             image_index = 0;
             image_speed = 1.0;
             
-            x = chopping_original_x;
-            y = chopping_original_y;
+            // Riposiziona correttamente con il nuovo offset
+            x = old_visual_x + sprite_get_xoffset(idle_sprite);
+            y = old_visual_y + sprite_get_yoffset(idle_sprite);
             
             show_debug_message("🪓 Ripristinato sprite idle: " + sprite_get_name(idle_sprite));
         }

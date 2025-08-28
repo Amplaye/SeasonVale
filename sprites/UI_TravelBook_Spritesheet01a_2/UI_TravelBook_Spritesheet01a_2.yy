@@ -1,10 +1,10 @@
 {
   "$GMSprite":"",
-  "%Name":"UI_TravelBook_Spritesheet01a_1",
+  "%Name":"UI_TravelBook_Spritesheet01a_2",
   "bboxMode":0,
   "bbox_bottom":845,
   "bbox_left":64,
-  "bbox_right":535,
+  "bbox_right":511,
   "bbox_top":32,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -21,7 +21,7 @@
   "layers":[
     {"$GMImageLayer":"","%Name":"e04e8987-9f86-4fb3-855f-77444e218a0b","blendMode":0,"displayName":"default","isLocked":false,"name":"e04e8987-9f86-4fb3-855f-77444e218a0b","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"UI_TravelBook_Spritesheet01a_1",
+  "name":"UI_TravelBook_Spritesheet01a_2",
   "nineSlice":null,
   "origin":0,
   "parent":{
@@ -71,7 +71,7 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1994e419-7cd3-4e1b-8635-4a0d94cb7845","path":"sprites/UI_TravelBook_Spritesheet01a_1/UI_TravelBook_Spritesheet01a_1.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1994e419-7cd3-4e1b-8635-4a0d94cb7845","path":"sprites/UI_TravelBook_Spritesheet01a_2/UI_TravelBook_Spritesheet01a_2.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"01ad4c46-c971-46f8-9b3b-f95b3fced405","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],

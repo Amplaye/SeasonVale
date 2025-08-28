@@ -25,3 +25,30 @@ image_speed = 1;
 
 base_x = x;
 base_y = y;
+
+// Funzione per determinare direzione verso il cursor
+function get_direction_to_cursor() {
+    var dx = mouse_x - x;
+    var dy = mouse_y - y;
+    
+    // Se il cursor è troppo vicino al player (praticamente sopra), mantieni direzione corrente
+    var distance = sqrt(dx * dx + dy * dy);
+    if (distance < 3) {
+        return current_direction;
+    }
+    
+    // Determina direzione basata su angolo
+    var angle = point_direction(x, y, mouse_x, mouse_y);
+    
+    // Converti angolo in direzione cardinale
+    // GameMaker usa 0° = destra, 90° = su, 180° = sinistra, 270° = giù
+    if (angle >= 315 || angle < 45) {
+        return "right";
+    } else if (angle >= 45 && angle < 135) {
+        return "back";  // Su nella vista top-down
+    } else if (angle >= 135 && angle < 225) {
+        return "left";
+    } else { // angle >= 225 && angle < 315
+        return "front"; // Giù nella vista top-down
+    }
+}

@@ -34,7 +34,7 @@ global.sprite_scales[$ "pumpkin"] = {scale_x: 0.25, scale_y: 0.25};
 global.sprite_scales[$ "tomato"] = {scale_x: 0.25, scale_y: 0.25};
 
 // TOOL
-global.sprite_scales[$ "axe"] = {scale_x: 0.35, scale_y: 0.35};
+global.sprite_scales[$ "axe"] = {scale_x: 0.40, scale_y: 0.40};
 global.sprite_scales[$ "hoe"] = {scale_x: 0.35, scale_y: 0.35};
 global.sprite_scales[$ "pickaxe"] = {scale_x: 0.35, scale_y: 0.35};
 global.sprite_scales[$ "fishing_rod"] = {scale_x: 0.35, scale_y: 0.35};
