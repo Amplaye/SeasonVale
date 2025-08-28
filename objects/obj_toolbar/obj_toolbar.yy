@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"tool_slot",
-    "path":"sprites/tool_slot/tool_slot.yy",
+    "name":"slot",
+    "path":"sprites/slot/slot.yy",
   },
   "spriteMaskId":null,
   "visible":true,

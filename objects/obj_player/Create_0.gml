@@ -12,8 +12,16 @@ vsp = 0;
 current_direction = "idle";
 is_moving = false;
 
+// Variabili per sistema chopping
+is_chopping = false;
+chopping_original_x = 0;
+chopping_original_y = 0;
+
+
 sprite_index = idle_front;
 image_speed = 1;
+
+// Cursore gestito da obj_cursor_manager
 
 base_x = x;
 base_y = y;

@@ -1,5 +1,21 @@
 // ===== CONTROLLO POPUP ATTIVO - BLOCCA MOVIMENTO =====
+// Blocca solo se popup_active E non stiamo facendo drag & drop
+var popup_blocks_movement = false;
 if (variable_global_exists("popup_active") && global.popup_active) {
+    // Permetti il movimento se il popup throw è attivo (per poter fare drag & drop)
+    if (variable_global_exists("popup_throw_active") && global.popup_throw_active) {
+        popup_blocks_movement = false;
+    } else {
+        popup_blocks_movement = true;
+        
+        // Ma permetti drag se stiamo trascinando dalla toolbar
+        if (variable_global_exists("toolbar_dragging") && global.toolbar_dragging) {
+            popup_blocks_movement = false;
+        }
+    }
+}
+
+if (popup_blocks_movement) {
     // Se il popup è attivo, blocca tutti i movimenti e passa a idle
     is_moving = false;
     hsp = 0;
@@ -48,6 +64,124 @@ if (variable_global_exists("popup_active") && global.popup_active) {
     }
     
     exit; // Esci dal Step event senza fare altro
+}
+
+// ===== NOTIFICA CURSOR MANAGER DEL CLICK =====
+// RIMOSSO: animazione click cursor non più necessaria
+
+// ===== CHOPPING SYSTEM =====
+// Controlla se l'axe è selezionato e click sinistro
+if (mouse_check_button_pressed(mb_left)) {
+    // Non avviare chopping se il click è sulla toolbar (y >= 220)
+    // O se un popup è attivo
+    var is_click_on_toolbar = (mouse_y >= 220);
+    var popup_is_active = (variable_global_exists("popup_active") && global.popup_active) ||
+                         (variable_global_exists("popup_throw_active") && global.popup_throw_active);
+    
+    if (!is_click_on_toolbar && !popup_is_active) {
+        var selected_tool_sprite = noone;
+        if (global.selected_tool >= 0 && global.selected_tool < array_length(global.tool_sprites)) {
+            selected_tool_sprite = global.tool_sprites[global.selected_tool];
+        }
+        
+        if (selected_tool_sprite == axe) {
+        // Avvia animazione chopping
+        if (!is_chopping) {
+            is_chopping = true;
+            
+            // Salva sprite attuale e posizione
+            var old_sprite = sprite_index;
+            var saved_x = x;
+            var saved_y = y;
+            
+            // Scegli animazione in base alla direzione corrente
+            var chop_sprite = chop_right; // Default
+            switch(current_direction) {
+                case "right":
+                    chop_sprite = chop_right;
+                    break;
+                case "left":
+                    chop_sprite = chop_left; // Ora disponibile!
+                    break;
+                case "front":
+                    chop_sprite = chop_front;
+                    break;
+                case "back":
+                    chop_sprite = chop_back;
+                    break;
+                default:
+                    chop_sprite = chop_right;
+                    break;
+            }
+            
+            sprite_index = chop_sprite;
+            image_index = 0;
+            image_speed = 0;
+            
+            chopping_original_x = saved_x;
+            chopping_original_y = saved_y;
+            
+            // DEBUG: Mostra informazioni dettagliate degli sprite
+            show_debug_message("🪓 Chopping " + current_direction + " animation started");
+            show_debug_message("OLD SPRITE (" + sprite_get_name(old_sprite) + "):");
+            show_debug_message("  - Size: " + string(sprite_get_width(old_sprite)) + "x" + string(sprite_get_height(old_sprite)));
+            show_debug_message("  - Offset: " + string(sprite_get_xoffset(old_sprite)) + "," + string(sprite_get_yoffset(old_sprite)));
+            show_debug_message("  - BBox: " + string(sprite_get_bbox_left(old_sprite)) + "," + string(sprite_get_bbox_top(old_sprite)) + " to " + string(sprite_get_bbox_right(old_sprite)) + "," + string(sprite_get_bbox_bottom(old_sprite)));
+            
+            show_debug_message("NEW SPRITE (" + sprite_get_name(chop_sprite) + "):");
+            show_debug_message("  - Size: " + string(sprite_get_width(chop_sprite)) + "x" + string(sprite_get_height(chop_sprite)));
+            show_debug_message("  - Offset: " + string(sprite_get_xoffset(chop_sprite)) + "," + string(sprite_get_yoffset(chop_sprite)));
+            show_debug_message("  - BBox: " + string(sprite_get_bbox_left(chop_sprite)) + "," + string(sprite_get_bbox_top(chop_sprite)) + " to " + string(sprite_get_bbox_right(chop_sprite)) + "," + string(sprite_get_bbox_bottom(chop_sprite)));
+        }
+        }
+    }
+}
+
+// Controlla fine animazione chopping - controllo manuale
+if (is_chopping) {
+    // Avanza manualmente l'animazione
+    image_index += 0.2; // Velocità controllata manualmente
+    
+    // Quando raggiunge l'ultimo frame, ferma
+    if (image_index >= sprite_get_number(sprite_index)) {
+        is_chopping = false;
+        show_debug_message("🪓 Chopping animation finished");
+        
+        // Forza il ritorno all'animazione idle corretta
+        var idle_sprite = -1;
+        switch(current_direction) {
+            case "right":
+                idle_sprite = idle_right;
+                break;
+            case "left":
+                idle_sprite = idle_left;
+                break;
+            case "front":
+                idle_sprite = idle_front;
+                break;
+            case "back":
+                idle_sprite = idle_back;
+                break;
+            default:
+                idle_sprite = idle_front;
+                break;
+        }
+        
+        if (idle_sprite != -1) {
+            sprite_index = idle_sprite;
+            image_index = 0;
+            image_speed = 1.0;
+            
+            x = chopping_original_x;
+            y = chopping_original_y;
+            
+            show_debug_message("🪓 Ripristinato sprite idle: " + sprite_get_name(idle_sprite));
+        }
+    }
+    // Se in chopping, blocca il movimento
+    if (is_chopping) {
+        exit;
+    }
 }
 
 var left = keyboard_check(ord("A")) || keyboard_check(vk_left);

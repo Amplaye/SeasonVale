@@ -6,6 +6,9 @@
 
 depth = -10000; // Molto alto per essere eseguito prima di tutto
 
+// Variabile per applicare scale solo una volta
+scales_applied = false;
+
 // ===== CONFIGURAZIONE SCALING PER OGNI SPRITE =====
 // Formato: sprite_name = {scale_x, scale_y}
 // Valori attuali presi dal room - modificabili individualmente
@@ -13,22 +16,28 @@ depth = -10000; // Molto alto per essere eseguito prima di tutto
 global.sprite_scales = {};
 
 // MATERIALI BASE
-global.sprite_scales[$ "wood"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "rock"] = {scale_x: 0.5, scale_y: 0.5};  
-global.sprite_scales[$ "bronze"] = {scale_x: 0.6, scale_y: 0.6};
+global.sprite_scales[$ "wood"] = {scale_x: 0.2, scale_y: 0.2};
+global.sprite_scales[$ "rock"] = {scale_x: 0.3, scale_y: 0.3};  
+global.sprite_scales[$ "bronze"] = {scale_x: 0.4, scale_y: 0.4};
 
-// VERDURE - GRUPPO 1 (Scale piccole - 0.3)
-global.sprite_scales[$ "aubergine"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "carrot"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "corn"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "cucumber"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "garlic"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "lettuce"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "onion"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "pepper"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "potato"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "pumpkin"] = {scale_x: 0.3, scale_y: 0.3};
-global.sprite_scales[$ "tomato"] = {scale_x: 0.3, scale_y: 0.3};
+// VERDURE
+global.sprite_scales[$ "aubergine"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "carrot"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "corn"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "cucumber"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "garlic"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "lettuce"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "onion"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "pepper"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "potato"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "pumpkin"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "tomato"] = {scale_x: 0.25, scale_y: 0.25};
+
+// TOOL
+global.sprite_scales[$ "axe"] = {scale_x: 0.35, scale_y: 0.35};
+global.sprite_scales[$ "hoe"] = {scale_x: 0.35, scale_y: 0.35};
+global.sprite_scales[$ "pickaxe"] = {scale_x: 0.35, scale_y: 0.35};
+global.sprite_scales[$ "fishing_rod"] = {scale_x: 0.35, scale_y: 0.35};
 
 // ===== FUNZIONI UTILITY =====
 

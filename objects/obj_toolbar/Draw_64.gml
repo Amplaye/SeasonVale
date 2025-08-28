@@ -2,6 +2,8 @@
 // TOOLBAR DRAG VISUAL FEEDBACK - DRAW GUI LAYER
 // ===================================================================
 
+// DEBUG: Rimosso per evitare spam nei log
+
 // Disegna l'item che viene trascinato sopra tutto usando coordinate GUI
 if (global.toolbar_dragging && global.toolbar_drag_from_slot >= 0) {
     // Ottieni lo sprite direttamente dall'array usando l'indice del slot
@@ -11,7 +13,15 @@ if (global.toolbar_dragging && global.toolbar_drag_from_slot >= 0) {
         var sprite_to_draw = global.tool_sprites[slot_index];
         
         if (sprite_to_draw != noone) {
-            var drag_scale = 1.5; // Scala aumentata per visibilità
+            // Ottieni scala dal scaling manager e aumentala per visibilità
+            var drag_scale = 1.5; // Default
+            if (variable_global_exists("sprite_scales")) {
+                var sprite_name = sprite_get_name(sprite_to_draw);
+                if (variable_struct_exists(global.sprite_scales, sprite_name)) {
+                    var scale_data = global.sprite_scales[$ sprite_name];
+                    drag_scale = scale_data.scale_x * 4.0;
+                }
+            }
             
             // Converti mouse da coordinate mondo a coordinate GUI
             var gui_mouse_x = device_mouse_x_to_gui(0);

@@ -42,8 +42,9 @@ var cam_y = camera_get_view_y(cam);
 var screen_w = 480;
 var screen_h = 270;
 
-var slot_width = sprite_get_width(tool_slot);
-var total_width = (global.toolbar_slots_count * slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
+var slot_scale = 0.5;
+var scaled_slot_width = sprite_get_width(slot) * slot_scale;
+var total_width = (global.toolbar_slots_count * scaled_slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
 
 var toolbar_start_x = cam_x + (screen_w - total_width) / 2;
 var toolbar_y = cam_y + screen_h - global.toolbar_distance_from_bottom;
@@ -56,5 +57,5 @@ with (obj_toolbar) {
 }
 
 // Posiziona questo slot
-x = toolbar_start_x + (my_slot_index * (slot_width + global.toolbar_gap));
+x = toolbar_start_x + (my_slot_index * (scaled_slot_width + global.toolbar_gap));
 y = toolbar_y;

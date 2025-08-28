@@ -92,7 +92,7 @@ function item_manager_get_slot_center(slot_number) {
     var screen_w = 480;
     var screen_h = 270;
     
-    var slot_width = sprite_get_width(tool_slot);
+    var slot_width = sprite_get_width(slot);
     var total_width = (global.toolbar_slots_count * slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
     
     var toolbar_start_x = cam_x + (screen_w - total_width) / 2;
@@ -101,7 +101,7 @@ function item_manager_get_slot_center(slot_number) {
     var slot_index = slot_number - 1;
     var slot_x = toolbar_start_x + (slot_index * (slot_width + global.toolbar_gap));
     var center_x = slot_x + (slot_width / 2);
-    var center_y = toolbar_y + (sprite_get_height(tool_slot) / 2);
+    var center_y = toolbar_y + (sprite_get_height(slot) / 2);
     
     return {x: center_x, y: center_y};
 }

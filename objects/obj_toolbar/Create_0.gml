@@ -17,9 +17,21 @@ global.toolbar_drag_start_y = 0;
 
 // ===== IMPOSTAZIONI TOOLBAR =====
 global.toolbar_slots_count = 10;
-global.toolbar_gap = 2;
-global.toolbar_distance_from_bottom = 50;
+global.toolbar_gap = 1;
+global.toolbar_distance_from_bottom = 30;
 global.toolbar_debug_enabled = false;
+
+// ===== POSIZIONAMENTO AUTOMATICO =====
+// Calcola posizione centrata
+var cam = view_camera[0];
+var screen_w = 480;
+var slot_scale = 0.5;
+var scaled_slot_width = sprite_get_width(slot) * slot_scale;
+var total_width = (global.toolbar_slots_count * scaled_slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
+var toolbar_start_x = (screen_w - total_width) / 2;
+
+x = toolbar_start_x;
+y = 270 - global.toolbar_distance_from_bottom;
 
 // ===== STORAGE ITEMS =====
 // Inizializzazione solo una volta
@@ -30,7 +42,7 @@ if (!variable_global_exists("tool_sprites")) {
     var fishing_sprite = fishing_rod;
     var zappa_sprite = hoe;
     
-    global.tool_sprites = [axe_sprite, mining_sprite, fishing_sprite, zappa_sprite, noone, noone, noone, noone, noone, noone];
+    global.tool_sprites = [axe_sprite, mining_sprite, zappa_sprite, fishing_sprite, noone, noone, noone, noone, noone, noone];
     global.tool_quantities = [1, 1, 1, 1, 0, 0, 0, 0, 0, 0];
     global.selected_tool = 0;
     
@@ -133,16 +145,18 @@ function toolbar_get_slot_center(slot_number) {
     var screen_w = 480;
     var screen_h = 270;
     
-    var slot_width = sprite_get_width(tool_slot);
-    var total_width = (global.toolbar_slots_count * slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
+    var slot_scale = 0.5;
+    var scaled_slot_width = sprite_get_width(slot) * slot_scale;
+    var scaled_slot_height = sprite_get_height(slot) * slot_scale;
+    var total_width = (global.toolbar_slots_count * scaled_slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
     
     var toolbar_start_x = cam_x + (screen_w - total_width) / 2;
     var toolbar_y = cam_y + screen_h - global.toolbar_distance_from_bottom;
     
     var slot_index = slot_number - 1;
-    var slot_x = toolbar_start_x + (slot_index * (slot_width + global.toolbar_gap));
-    var center_x = slot_x + (slot_width / 2);
-    var center_y = toolbar_y + (sprite_get_height(tool_slot) / 2);
+    var slot_x = toolbar_start_x + (slot_index * (scaled_slot_width + global.toolbar_gap));
+    var center_x = slot_x + (scaled_slot_width / 2);
+    var center_y = toolbar_y + (scaled_slot_height / 2);
     
     return {x: center_x, y: center_y};
 }
