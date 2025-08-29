@@ -37,6 +37,7 @@
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"gude-2025-08-26.log","CopyToMask":-1,"filePath":"datafiles","name":"gude-2025-08-26.log","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"iz.eps","CopyToMask":-1,"filePath":"datafiles","name":"iz.eps","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
@@ -63,6 +64,7 @@
     {"id":{"name":"obj_trash_chest","path":"objects/obj_trash_chest/obj_trash_chest.yy",},},
     {"id":{"name":"obj_tree_opacity_trigger","path":"objects/obj_tree_opacity_trigger/obj_tree_opacity_trigger.yy",},},
     {"id":{"name":"obj_tree","path":"objects/obj_tree/obj_tree.yy",},},
+    {"id":{"name":"obj_wood_drop","path":"objects/obj_wood_drop/obj_wood_drop.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"arrow_dx","path":"sprites/arrow_dx/arrow_dx.yy",},},
     {"id":{"name":"arrow_lx","path":"sprites/arrow_lx/arrow_lx.yy",},},
