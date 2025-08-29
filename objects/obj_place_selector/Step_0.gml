@@ -2,8 +2,8 @@
 // 🎯 PLACE SELECTOR - MOVIMENTO E LOGICA GRIGLIA
 // ===================================================================
 
-// Sempre visibile come puntatore principale
-visible = true;
+// Visibile solo quando il menu principale NON è aperto
+visible = !(instance_exists(obj_main_menu) && obj_main_menu.visible);
 
 // Cambia sprite in base al tool selezionato
 var show_selector = false;
@@ -46,6 +46,11 @@ if (show_selector) {
     image_alpha = 1.0;
 }
 
-// Forza nascondere cursor di sistema sempre
-window_set_cursor(cr_none);
-if (cursor_sprite != -1) cursor_sprite = -1;
+// Gestisci cursor solo quando il place_selector è visibile (fuori dal menu)
+if (visible) {
+    window_set_cursor(cr_none);
+    if (cursor_sprite != -1) cursor_sprite = -1;
+} else if (instance_exists(obj_main_menu) && obj_main_menu.visible) {
+    // Quando il menu è aperto, mostra cursor normale
+    window_set_cursor(cr_default);
+}

@@ -1,7 +1,7 @@
 if (visible && obj_dressing_menu.visible) {
     var menu = obj_dressing_menu;
     
-    current_frame += frame_speed / room_speed;
+    current_frame += frame_speed / game_get_speed(gamespeed_fps);
     if (current_frame >= sprite_get_number(base_sprite)) {
         current_frame = 0;
     }
