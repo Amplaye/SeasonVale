@@ -32,7 +32,9 @@ if (pickup_layer == -1) {
 // Ottieni tutti gli elementi del layer
 var layer_elements = layer_get_all_elements(pickup_layer);
 
-// Scorri tutti gli elementi del layer
+// Sistema semplificato - solo sprite nel layer
+
+// Poi scorri tutti gli elementi del layer
 for (var i = 0; i < array_length(layer_elements); i++) {
     var element = layer_elements[i];
     
@@ -65,29 +67,19 @@ for (var i = 0; i < array_length(layer_elements); i++) {
                 layer_sprite_x(element, element_x + move_x);
                 layer_sprite_y(element, element_y + move_y);
                 
-                if (global.pickup_debug) {
-                    show_debug_message("🧲 Attrazione: " + sprite_get_name(element_sprite) + 
-                                     " dist:" + string(round(distance)));
-                }
             }
             
             // ===== RACCOLTA =====
             else if (distance <= global.pickup_range && global.pickup_cooldown <= 0) {
-                // Prova a raccogliere l'oggetto
+                // Prova a raccogliere l'oggetto (quantità gestita internamente)
                 var was_added = pickup_item(element_sprite, element);
                 
                 // Rimuovi lo sprite dal layer SOLO se è stato aggiunto all'inventario
                 if (was_added) {
                     layer_sprite_destroy(element);
                     
-                    if (global.pickup_debug) {
-                        show_debug_message("📦 Raccolto: " + sprite_get_name(element_sprite));
-                    }
                 } else {
                     // Se non aggiunto, l'oggetto rimbalza (già gestito in pickup_item)
-                    if (global.pickup_debug) {
-                        show_debug_message("🔀 Oggetto rimbalzato, inventario pieno!");
-                    }
                 }
                 
                 // Imposta cooldown in ogni caso per evitare spam
@@ -111,10 +103,7 @@ function pickup_item(sprite_id, element_id) {
         added = toolbar_instance.toolbar_add_item(sprite_id, 1);
     }
     
-    if (added && global.pickup_debug) {
-        show_debug_message("✅ Item aggiunto alla toolbar: " + sprite_get_name(sprite_id));
-    } else if (!added && global.pickup_debug) {
-        show_debug_message("❌ Toolbar piena! Effetto rimbalzante per: " + sprite_get_name(sprite_id));
+    if (!added && global.pickup_debug) {
         
         // EFFETTO RIMBALZANTE: Sposta l'oggetto lontano dal player
         var element_x = layer_sprite_get_x(element_id);
@@ -133,7 +122,6 @@ function pickup_item(sprite_id, element_id) {
             layer_sprite_x(element_id, new_x);
             layer_sprite_y(element_id, new_y);
             
-            show_debug_message("🔀 Oggetto rimbalzato a: " + string(new_x) + "," + string(new_y));
         }
     }
     

@@ -3,6 +3,56 @@ if (chop_cooldown > 0) {
     chop_cooldown--;
 }
 
+// ===== CONTROLLO MOVIMENTO BLOCCATO =====
+if (!can_move) {
+    is_moving = false;
+    hsp = 0;
+    vsp = 0;
+    
+    // Passa allo sprite idle in base alla direzione corrente
+    var idle_sprite = -1;
+    switch(current_direction) {
+        case "right":
+            idle_sprite = idle_right;
+            break;
+        case "left":
+            idle_sprite = idle_left;
+            break;
+        case "front":
+            idle_sprite = idle_front;
+            break;
+        case "back":
+            idle_sprite = idle_back;
+            break;
+        default:
+            idle_sprite = idle_front;
+            break;
+    }
+    
+    if (idle_sprite != -1 && sprite_index != idle_sprite && !is_chopping) {
+        var old_frame = image_index;
+        var old_speed = image_speed;
+        var old_sprite = sprite_index;
+        
+        var old_visual_x = x - sprite_get_xoffset(old_sprite);
+        var old_visual_y = y - sprite_get_yoffset(old_sprite);
+        
+        sprite_index = idle_sprite;
+        
+        x = old_visual_x + sprite_get_xoffset(idle_sprite);
+        y = old_visual_y + sprite_get_yoffset(idle_sprite);
+        
+        if (sprite_get_number(sprite_index) > 0) {
+            var frame_ratio = old_frame / max(sprite_get_number(sprite_index), 1);
+            image_index = frame_ratio * sprite_get_number(sprite_index);
+            image_index = clamp(image_index, 0, sprite_get_number(sprite_index) - 1);
+        }
+        image_speed = old_speed;
+    }
+    
+    exit;
+}
+
 // ===== CONTROLLO POPUP ATTIVO - BLOCCA MOVIMENTO =====
 // Blocca solo se popup_active E non stiamo facendo drag & drop
 var popup_blocks_movement = false;
@@ -142,7 +192,6 @@ if (mouse_check_button_pressed(mb_left)) {
             chopping_original_y = y;
             
             // DEBUG: Mostra informazioni dettagliate degli sprite
-            show_debug_message("🪓 Chopping " + chopping_direction + " animation started (cursor direction)");
             show_debug_message("OLD SPRITE (" + sprite_get_name(old_sprite) + "):");
             show_debug_message("  - Size: " + string(sprite_get_width(old_sprite)) + "x" + string(sprite_get_height(old_sprite)));
             show_debug_message("  - Offset: " + string(sprite_get_xoffset(old_sprite)) + "," + string(sprite_get_yoffset(old_sprite)));
@@ -165,7 +214,6 @@ if (is_chopping) {
     // Quando raggiunge l'ultimo frame, ferma
     if (image_index >= sprite_get_number(sprite_index)) {
         is_chopping = false;
-        show_debug_message("🪓 Chopping animation finished");
         
         // Controlla se abbiamo colpito un albero
         var tree_hit = noone;
@@ -235,7 +283,6 @@ if (is_chopping) {
             
             current_direction = chopping_direction; // Aggiorna current_direction
             chop_cooldown = 20; // 30 frame di cooldown (circa 0.5 secondi)
-            show_debug_message("🪓 Ripristinato sprite idle: " + sprite_get_name(idle_sprite) + " - Cooldown attivato");
         }
     }
     
@@ -275,28 +322,60 @@ if (hsp != 0 || vsp != 0) {
 
 is_moving = (hsp != 0) || (vsp != 0);
 
-if (is_moving) {
-    // Controllo collisioni con oggetti solid (come obj_tree)
-    if (hsp != 0) {
-        if (place_meeting(x + hsp, y, obj_tree)) {
-            // Ferma movimento orizzontale se collisione
-            while (!place_meeting(x + sign(hsp), y, obj_tree)) {
-                x += sign(hsp);
-            }
-            hsp = 0;
+// Prima di muovere, controlla se siamo già in collisione e spingi fuori
+if (place_meeting(x, y, obj_tree)) {
+    // Trova la direzione per uscire dalla collisione
+    for (var push_dist = 1; push_dist <= 5; push_dist++) {
+        // Prova in tutte le direzioni
+        if (!place_meeting(x - push_dist, y, obj_tree)) {
+            x -= push_dist;
+            break;
+        } else if (!place_meeting(x + push_dist, y, obj_tree)) {
+            x += push_dist;
+            break;
+        } else if (!place_meeting(x, y - push_dist, obj_tree)) {
+            y -= push_dist;
+            break;
+        } else if (!place_meeting(x, y + push_dist, obj_tree)) {
+            y += push_dist;
+            break;
         }
-        x += hsp;
+    }
+}
+
+if (is_moving) {
+    // Movimento orizzontale con collisione precisa
+    if (hsp != 0) {
+        var move_x = hsp;
+        
+        // Controlla se il movimento completo è possibile
+        if (place_meeting(x + move_x, y, obj_tree)) {
+            // Muovi fino al punto di contatto
+            while (abs(move_x) > 0.1 && !place_meeting(x + sign(move_x), y, obj_tree)) {
+                x += sign(move_x);
+                move_x -= sign(move_x);
+            }
+        } else {
+            // Movimento libero
+            x += move_x;
+        }
     }
     
+    // Movimento verticale con collisione precisa
     if (vsp != 0) {
-        if (place_meeting(x, y + vsp, obj_tree)) {
-            // Ferma movimento verticale se collisione
-            while (!place_meeting(x, y + sign(vsp), obj_tree)) {
-                y += sign(vsp);
+        var move_y = vsp;
+        
+        // Controlla se il movimento completo è possibile
+        if (place_meeting(x, y + move_y, obj_tree)) {
+            // Muovi fino al punto di contatto
+            while (abs(move_y) > 0.1 && !place_meeting(x, y + sign(move_y), obj_tree)) {
+                y += sign(move_y);
+                move_y -= sign(move_y);
             }
-            vsp = 0;
+        } else {
+            // Movimento libero
+            y += move_y;
         }
-        y += vsp;
     }
     
     var new_sprite = -1;

@@ -11,6 +11,7 @@ vsp = 0;
 
 current_direction = "idle";
 is_moving = false;
+can_move = true;
 
 // Variabili per sistema chopping
 is_chopping = false;

@@ -10,7 +10,13 @@
       "Bash(git commit:*)",
       "Bash(git config:*)",
       "Bash(git push:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(find:*)",
+      "Bash(claude auth login)",
+      "Bash(/Users/amplaye/.npm-global/bin/claude:*)",
+      "Bash(echo $PATH)",
+      "Read(/Users/amplaye/.npm-global/lib/node_modules/@anthropic-ai/claude-code/**)",
+      "Bash(claude auth status)"
     ],
     "deny": [],
     "ask": [],
