@@ -10,7 +10,7 @@ if (!global.inventory_visible) {
 // ===== DISEGNA BACKGROUND INVENTARIO =====
 var bg_alpha = 0.8;
 // Centra il background rispetto agli slot
-var bg_padding = 10;
+var bg_padding = 8;
 var bg_x = x - bg_padding;
 var bg_y = y - bg_padding;
 
@@ -41,7 +41,7 @@ for (var i = 0; i < global.inventory_total_slots; i++) {
     
     if (!is_unlocked) {
         slot_sprite = slot_blocked;
-        slot_alpha = 0.7;
+        slot_alpha = 1;
     }
     
     // Disegna slot usando scaling manuale
@@ -79,12 +79,17 @@ for (var i = 0; i < global.inventory_total_slots; i++) {
                            slot_center_y - (item_height / 2), 
                            fixed_scale, fixed_scale, 0, c_white, 1.0);
             
-            // Disegna quantità se > 1
+            // Disegna quantità se > 1 (stile toolbar con scala 0.1 più grande)
             if (quantity > 1) {
                 draw_set_color(c_white);
                 draw_set_halign(fa_right);
                 draw_set_valign(fa_bottom);
-                draw_text(slot_x + scaled_slot_width - 2, slot_y + scaled_slot_height - 2, string(quantity));
+                
+                var scale = 0.4; // Toolbar usa 0.3, qui 0.1 più grande
+                var text_x = slot_x + scaled_slot_width - 2;
+                var text_y = slot_y + scaled_slot_height - 2;
+                
+                draw_text_transformed(text_x, text_y, string(quantity), scale, scale, 0);
                 
                 // Reset text alignment
                 draw_set_halign(fa_left);
@@ -95,21 +100,11 @@ for (var i = 0; i < global.inventory_total_slots; i++) {
     
     // Evidenzia slot attualmente selezionato dalla toolbar (se in prima riga)
     if (is_unlocked && i < 10 && variable_global_exists("selected_tool") && global.selected_tool == i) {
-        draw_sprite_ext(slot_select, 0, slot_x, slot_y, final_slot_scale, final_slot_scale, 0, c_white, 0.8);
+        // Usa blend mode additive per non coprire l'item
+        gpu_set_blendmode(bm_add);
+        draw_sprite_ext(slot_select, 0, slot_x, slot_y, final_slot_scale, final_slot_scale, 0, c_white, 0.3);
+        gpu_set_blendmode(bm_normal);
     }
 }
 
-// ===== DEBUG INFO =====
-if (global.inventory_visible) {
-    draw_set_color(c_yellow);
-    draw_set_halign(fa_left);
-    draw_set_valign(fa_top);
-    
-    var debug_text = "🎒 INVENTORY\n";
-    debug_text += "Righe sbloccate: " + string(global.inventory_unlocked_rows) + "/" + string(global.inventory_rows) + "\n";
-    debug_text += "Press I to close";
-    
-    draw_text(10, 10, debug_text);
-    
-    draw_set_color(c_white);
-}
+

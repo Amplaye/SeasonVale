@@ -39,8 +39,6 @@ if (global.inventory_visible) {
         var slot_x = slot_pos[0];
         var slot_y = slot_pos[1];
         
-        var scaled_slot_width = sprite_get_width(slot) * global.slot_scale * global.inventory_scale;
-        var scaled_slot_height = sprite_get_height(slot) * global.slot_scale * global.inventory_scale;
         
         var mouse_over = point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + scaled_slot_width, slot_y + scaled_slot_height);
         
@@ -79,9 +77,21 @@ if (global.inventory_visible) {
     
     // DRAG DROP - gestione rilascio
     if (global.toolbar_dragging && mouse_check_button_released(mb_left)) {
-        show_debug_message("🖱️ Drop nell'inventory - controllo slot target");
+        // Prima controlla se si sta droppando sulla trash chest
+        var dropped_on_trash = false;
+        if (inventory_trash_chest != noone && instance_exists(inventory_trash_chest)) {
+            var trash_obj = inventory_trash_chest;
+            if (point_in_rectangle(mouse_x, mouse_y, trash_obj.x, trash_obj.y, trash_obj.x + trash_obj.sprite_width, trash_obj.y + trash_obj.sprite_height)) {
+                dropped_on_trash = true;
+                show_debug_message("🗑️ DROP SU TRASH CHEST - Lasciamo che obj_trash_chest gestisca");
+            }
+        }
         
-        var drop_slot = -1;
+        // Solo se NON è stato droppato sulla trash, gestisci il drop nell'inventory
+        if (!dropped_on_trash) {
+            show_debug_message("🖱️ Drop nell'inventory - controllo slot target");
+            
+            var drop_slot = -1;
         
         // Trova slot di drop nell'inventory
         for (var i = 0; i < global.inventory_total_slots; i++) {
@@ -91,8 +101,6 @@ if (global.inventory_visible) {
             var slot_x = slot_pos[0];
             var slot_y = slot_pos[1];
             
-            var scaled_slot_width = sprite_get_width(slot) * global.slot_scale * global.inventory_scale;
-            var scaled_slot_height = sprite_get_height(slot) * global.slot_scale * global.inventory_scale;
             
             if (point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + scaled_slot_width, slot_y + scaled_slot_height)) {
                 drop_slot = i;
@@ -111,9 +119,38 @@ if (global.inventory_visible) {
             set_slot_data(global.toolbar_drag_from_slot, target_data[0], target_data[1]);
         }
         
-        // Reset drag state
-        global.toolbar_dragging = false;
-        global.toolbar_drag_from_slot = -1;
-        global.toolbar_drag_item = noone;
+            // Reset drag state solo se non droppato su trash
+            global.toolbar_dragging = false;
+            global.toolbar_drag_from_slot = -1;
+            global.toolbar_drag_item = noone;
+        }
+        // Se droppato su trash, obj_trash_chest gestirà il reset
+    }
+}
+
+// ===== GESTIONE TRASH CHEST =====
+if (global.inventory_visible) {
+    // Calcola posizione per trash chest
+    var inventory_end_x = x + (global.inventory_cols * scaled_slot_width) + ((global.inventory_cols - 1) * global.inventory_gap_x);
+    var inventory_end_y = y + (global.inventory_rows * scaled_slot_height) + ((global.inventory_rows - 2.2) * global.inventory_gap_y);
+    
+    var trash_x = inventory_end_x + 10;
+    // Allinea la trash chest al bottom dell'inventario (non considerando il padding)
+    var trash_y = inventory_end_y - (sprite_get_height(trash_chest) * global.slot_scale * global.inventory_scale);
+    
+    // Crea istanza se non esiste
+    if (inventory_trash_chest == noone || !instance_exists(inventory_trash_chest)) {
+        inventory_trash_chest = instance_create_layer(trash_x, trash_y, "Instances", obj_trash_chest);
+    } else {
+        // Aggiorna posizione
+        inventory_trash_chest.x = trash_x;
+        inventory_trash_chest.y = trash_y;
+        inventory_trash_chest.visible = true;
+    }
+} else {
+    // Distruggi completamente quando inventario chiuso
+    if (inventory_trash_chest != noone && instance_exists(inventory_trash_chest)) {
+        instance_destroy(inventory_trash_chest);
+        inventory_trash_chest = noone;
     }
 }

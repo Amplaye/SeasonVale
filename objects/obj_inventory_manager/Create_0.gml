@@ -17,9 +17,12 @@ global.inventory_gap_y = 2; // Gap verticale tra righe
 global.inventory_visible = false; // Inizialmente nascosto
 
 // ===== SCALING MANUALE INVENTARIO =====
-global.inventory_scale = 1.0; // Scala globale inventario
-global.slot_scale = 0.8; // Scala specifica slot
+global.inventory_scale = 0.85; // Scala globale inventario
+global.slot_scale = 0.7; // Scala specifica slot
 global.inventory_background_scale = 1.0; // Scala background inventario
+
+// Variabile per trash chest dedicata all'inventario
+inventory_trash_chest = noone;
 
 // ===== SISTEMA DI ESPANSIONE =====
 // Riga 0: slot 0-9 (condivisi con toolbar - sempre disponibili)

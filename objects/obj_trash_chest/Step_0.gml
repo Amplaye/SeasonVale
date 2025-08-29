@@ -1,5 +1,6 @@
 if (variable_global_exists("toolbar_dragging") && global.toolbar_dragging) {
-    if (position_meeting(mouse_x, mouse_y, id)) {
+    // Detection più diretta usando bounding box
+    if (point_in_rectangle(mouse_x, mouse_y, x, y, x + sprite_width, y + sprite_height)) {
         if (!hovered) {
             hovered = true;
             image_index = 1;
@@ -9,14 +10,33 @@ if (variable_global_exists("toolbar_dragging") && global.toolbar_dragging) {
         if (mouse_check_button_released(mb_left)) {
             if (variable_global_exists("toolbar_drag_from_slot") && global.toolbar_drag_from_slot >= 0) {
                 var slot_index = global.toolbar_drag_from_slot;
-                if (slot_index >= 0 && slot_index < array_length(global.tool_sprites)) {
-                    show_debug_message("🗑️ Eliminando oggetto slot " + string(slot_index) + ": " + sprite_get_name(global.tool_sprites[slot_index]));
-                    
-                    global.tool_sprites[slot_index] = noone;
-                    global.tool_quantities[slot_index] = 0;
-                    
-                    if (global.selected_tool == slot_index) {
-                        global.selected_tool = -1;
+                show_debug_message("🗑️ RICEVUTO DROP - Slot: " + string(slot_index));
+                
+                // Gestisce tutti gli slot (toolbar e inventory)
+                if (slot_index < 10) {
+                    // Slot toolbar (0-9)
+                    if (slot_index >= 0 && slot_index < array_length(global.tool_sprites)) {
+                        var item_sprite = global.tool_sprites[slot_index];
+                        if (item_sprite != noone) {
+                            show_debug_message("🗑️ Eliminando oggetto toolbar slot " + string(slot_index) + ": " + sprite_get_name(item_sprite));
+                            global.tool_sprites[slot_index] = noone;
+                            global.tool_quantities[slot_index] = 0;
+                            
+                            if (global.selected_tool == slot_index) {
+                                global.selected_tool = -1;
+                            }
+                        }
+                    }
+                } else {
+                    // Slot inventory estesi (10+)
+                    var extended_index = slot_index - 10;
+                    if (extended_index >= 0 && extended_index < array_length(global.inventory_extended_sprites)) {
+                        var item_sprite = global.inventory_extended_sprites[extended_index];
+                        if (item_sprite != noone) {
+                            show_debug_message("🗑️ Eliminando oggetto inventory slot " + string(slot_index) + ": " + sprite_get_name(item_sprite));
+                            global.inventory_extended_sprites[extended_index] = noone;
+                            global.inventory_extended_quantities[extended_index] = 0;
+                        }
                     }
                 }
             }

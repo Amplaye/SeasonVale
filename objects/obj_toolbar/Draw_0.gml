@@ -57,9 +57,10 @@ for (var slot_i = 0; slot_i < global.toolbar_slots_count; slot_i++) {
             var item_height = sprite_get_height(item_sprite) * fixed_scale;
             
                 var item_alpha = 1.0;
-                if (global.toolbar_dragging && global.toolbar_drag_from_slot == slot_i) {
-                    item_alpha = 0.3;
-                }
+                // Rimuovo l'opacità durante il drag
+                // if (global.toolbar_dragging && global.toolbar_drag_from_slot == slot_i) {
+                //     item_alpha = 0.3;
+                // }
             
             draw_sprite_ext(item_sprite, 0, 
                            slot_center_x - (item_width / 2), 
