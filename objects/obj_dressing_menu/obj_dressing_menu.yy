@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"main_menu",
-    "path":"sprites/main_menu/main_menu.yy",
+    "name":"menu_stats",
+    "path":"sprites/menu_stats/menu_stats.yy",
   },
   "spriteMaskId":null,
   "visible":true,

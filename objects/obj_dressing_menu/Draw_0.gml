@@ -1,6 +1,19 @@
 if (visible) {
-    // Usa lo scaling dell'editor
-    draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+    // Controlla se obj_mark_stats è attivo - se sì, non disegnare il menu (solo obj_mark_stats lo farà)
+    var should_draw_menu = true;
+    
+    if (instance_exists(obj_mark_stats)) {
+        with (obj_mark_stats) {
+            if (is_active) {
+                should_draw_menu = false;
+            }
+        }
+    }
+    
+    if (should_draw_menu) {
+        // Usa lo scaling dell'editor
+        draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+    }
     
     // Aggiungi testo per categoria e controlli
     draw_set_color(c_black);
