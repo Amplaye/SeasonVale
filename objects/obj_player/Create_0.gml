@@ -29,6 +29,19 @@ image_speed = 1;
 base_x = x;
 base_y = y;
 
+// Sistema vestiti - variabili per tenere traccia dell'abbigliamento attuale
+current_hat_index = 0;     // 0 = nudo, 1 = primo vestito
+current_hair_index = 0;    // 0 = nudo, 1 = primo vestito  
+current_shirt_index = 1;   // 0 = nudo, 1 = primo vestito - ATTIVO per test
+current_pants_index = 1;   // 0 = nudo, 1 = primo vestito - ATTIVO per test
+
+// Array degli sprite dei vestiti (corrispondenti al dressing menu)
+hat_sprites = [noone, hat_front, hat_back];
+hair_sprites = [noone, hair_front, hair_back];
+shirt_sprites = [noone, shirt_front, shirt_back];
+pants_sprites = [noone, pants_and_shoes_front, pants_and_shoes_back];
+
+
 // Funzione per determinare direzione verso il cursor
 function get_direction_to_cursor() {
     var dx = mouse_x - x;

@@ -1,15 +1,23 @@
 visible = false;
 depth = -1000;
 
-current_hat_index = 0;
-current_hair_index = 0;
-current_shirt_index = 0;
-current_pants_index = 0;
+// Sincronizza con lo stato del player se esiste
+if (instance_exists(obj_player)) {
+    current_hat_index = obj_player.current_hat_index;
+    current_hair_index = obj_player.current_hair_index;
+    current_shirt_index = obj_player.current_shirt_index;
+    current_pants_index = obj_player.current_pants_index;
+} else {
+    current_hat_index = 1;
+    current_hair_index = 1;
+    current_shirt_index = 1;
+    current_pants_index = 1;
+}
 
-hat_sprites = [noone, Hat];
-hair_sprites = [noone, hair];
-shirt_sprites = [noone, shirt];
-pants_sprites = [noone, pants_and_shoes];
+hat_sprites = [noone, hat_front];
+hair_sprites = [noone, hair_front];
+shirt_sprites = [noone, shirt_front];
+pants_sprites = [noone, pants_and_shoes_front];
 
 current_category = "hat";
 categories = ["hat", "hair", "shirt", "pants"];
