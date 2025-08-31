@@ -16,7 +16,9 @@
       "Bash(/Users/amplaye/.npm-global/bin/claude:*)",
       "Bash(echo $PATH)",
       "Read(/Users/amplaye/.npm-global/lib/node_modules/@anthropic-ai/claude-code/**)",
-      "Bash(claude auth status)"
+      "Bash(claude auth status)",
+      "Bash(grep:*)",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": [],
