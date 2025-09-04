@@ -18,7 +18,14 @@
       "Read(/Users/amplaye/.npm-global/lib/node_modules/@anthropic-ai/claude-code/**)",
       "Bash(claude auth status)",
       "Bash(grep:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(taskkill:*)",
+      "Bash(wmic:*)",
+      "Bash(\"C:\\ProgramData/GameMakerStudio2/Cache/runtimes\\runtime-2024.13.1.242/windows/x64/Runner.exe\" -game \"C:\\Users\\Steward\\AppData\\Local\\GameMakerStudio2\\GMS2TEMP\\SeasonVale_2023035E_VM\\SeasonVale.win\" -mode=vm)",
+      "Bash(\"C:\\ProgramData/GameMakerStudio2/Cache/runtimes\\runtime-2024.13.1.242/windows/x64/Runner.exe\" -game \"C:\\Users\\Steward\\AppData\\Local\\GameMakerStudio2\\GMS2TEMP\\SeasonVale_2023035E_VM\\SeasonVale.win\" -dx9)",
+      "Bash(\"C:\\ProgramData/GameMakerStudio2/Cache/runtimes\\runtime-2024.13.1.242/windows/x64/Runner.exe\" -game \"C:\\Users\\Steward\\AppData\\Local\\GameMakerStudio2\\GMS2TEMP\\SeasonVale_2023035E_VM\\SeasonVale.win\" -windowed)",
+      "Bash(dxdiag:*)",
+      "Bash(rd:*)"
     ],
     "deny": [],
     "ask": [],

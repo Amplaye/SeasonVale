@@ -1,6 +1,6 @@
 {
   "$GMSprite":"",
-  "%Name":"Plants_2",
+  "%Name":"tomatoes",
   "bboxMode":0,
   "bbox_bottom":36,
   "bbox_left":2,
@@ -24,7 +24,7 @@
   "layers":[
     {"$GMImageLayer":"","%Name":"63b963b0-81bd-4322-b28a-8737c964cc2c","blendMode":0,"displayName":"default","isLocked":false,"name":"63b963b0-81bd-4322-b28a-8737c964cc2c","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"Plants_2",
+  "name":"tomatoes",
   "nineSlice":{
     "$GMNineSliceData":"",
     "bottom":35,
@@ -47,15 +47,15 @@
   },
   "origin":4,
   "parent":{
-    "name":"Sprites",
-    "path":"folders/Sprites.yy",
+    "name":"Crops",
+    "path":"folders/Sprites/Crops.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"Plants",
+    "%Name":"tomatoes",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -79,7 +79,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"Plants",
+    "name":"tomatoes",
     "playback":1,
     "playbackSpeed":1.0,
     "playbackSpeedType":0,
@@ -93,16 +93,16 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"048d26d5-a70d-4c77-917b-432ed823cd8c","path":"sprites/Plants_2/Plants_2.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"048d26d5-a70d-4c77-917b-432ed823cd8c","path":"sprites/tomatoes/tomatoes.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"db37c9ea-5e02-490a-ac91-3d82f7b6a2e2","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f9e82289-d900-4fac-b4de-a01251771c33","path":"sprites/Plants_2/Plants_2.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f9e82289-d900-4fac-b4de-a01251771c33","path":"sprites/tomatoes/tomatoes.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"75b95b1d-7b25-4ab1-8303-9f6451ff5be2","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"c8cfb39a-46f6-454a-8022-575eeda8a0e1","path":"sprites/Plants_2/Plants_2.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"c8cfb39a-46f6-454a-8022-575eeda8a0e1","path":"sprites/tomatoes/tomatoes.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"d9c2b4df-39a4-42f1-93d9-0d75fd0dc810","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"182880b8-1575-42df-8369-d049de726b5a","path":"sprites/Plants_2/Plants_2.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"182880b8-1575-42df-8369-d049de726b5a","path":"sprites/tomatoes/tomatoes.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"18b7bd76-a325-4d39-993e-c86205b000d8","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
