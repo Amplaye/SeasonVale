@@ -30,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"idle_front",
-    "path":"sprites/idle_front/idle_front.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

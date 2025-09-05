@@ -36,5 +36,5 @@
     "path":"sprites/menu_stats/menu_stats.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

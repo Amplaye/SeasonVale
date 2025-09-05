@@ -31,10 +31,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"menu_basic",
-    "path":"sprites/menu_basic/menu_basic.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

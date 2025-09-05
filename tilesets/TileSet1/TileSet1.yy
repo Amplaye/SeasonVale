@@ -2,9 +2,9 @@
   "$GMTileSet":"v1",
   "%Name":"TileSet1",
   "autoTileSets":[
-    {"$GMAutoTileSet":"","%Name":"autotile_1","closed_edge":false,"name":"autotile_1","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[46,49,48,16,19,45,79,15,18,78,47,17,76,75,77,0,],},
-    {"$GMAutoTileSet":"","%Name":"autotile_2","closed_edge":false,"name":"autotile_2","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[31,34,33,1,4,30,64,310,3,63,32,2,61,60,62,0,],},
-    {"$GMAutoTileSet":"","%Name":"autotile_3","closed_edge":false,"name":"autotile_3","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[51,54,53,21,24,50,84,20,23,83,52,22,81,80,82,0,],},
+    {"$GMAutoTileSet":"","%Name":"flor","closed_edge":false,"name":"flor","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[46,49,48,16,19,45,79,15,18,78,47,17,76,75,77,0,],},
+    {"$GMAutoTileSet":"","%Name":"street","closed_edge":false,"name":"street","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[31,34,33,1,4,30,64,310,3,63,32,2,61,60,62,0,],},
+    {"$GMAutoTileSet":"","%Name":"soil","closed_edge":false,"name":"soil","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[51,54,53,21,24,50,84,20,23,83,52,22,81,80,82,0,],},
   ],
   "macroPageTiles":{
     "SerialiseHeight":0,

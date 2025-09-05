@@ -1,3 +1,8 @@
+// Non disegnare il player se il menu è aperto
+if (instance_exists(obj_main_menu) && obj_main_menu.visible) {
+    return; // Esce dal Draw event
+}
+
 // Disegna il player base
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 

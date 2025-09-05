@@ -29,7 +29,6 @@
     {"name":"obj_camera","order":1,"path":"objects/obj_camera/obj_camera.yy",},
     {"name":"obj_dressing_arrow_left","order":1,"path":"objects/obj_dressing_arrow_left/obj_dressing_arrow_left.yy",},
     {"name":"obj_dressing_arrow_right","order":3,"path":"objects/obj_dressing_arrow_right/obj_dressing_arrow_right.yy",},
-    {"name":"obj_dressing_player_preview","order":2,"path":"objects/obj_dressing_player_preview/obj_dressing_player_preview.yy",},
     {"name":"obj_inventory_manager","order":11,"path":"objects/obj_inventory_manager/obj_inventory_manager.yy",},
     {"name":"obj_main_menu_stats","order":16,"path":"objects/obj_main_menu_stats/obj_main_menu_stats.yy",},
     {"name":"obj_main_menu","order":9,"path":"objects/obj_main_menu/obj_main_menu.yy",},

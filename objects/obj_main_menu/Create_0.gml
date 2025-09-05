@@ -1,5 +1,8 @@
-visible = false;
+visible = false;  // Controllato dal sistema di menu
 depth = -1000;
+
+// Forza GameMaker a includere gli sprite nella compilazione
+sprite_add_to_cache = [menu_basic, menu_stats];
 
 current_page_index = 0;
 
