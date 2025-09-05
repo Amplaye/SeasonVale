@@ -7,9 +7,10 @@
     {"$GMAutoTileSet":"","%Name":"soil","closed_edge":false,"name":"soil","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[51,54,53,21,24,50,84,20,23,83,52,22,81,80,82,0,],},
   ],
   "macroPageTiles":{
-    "SerialiseHeight":0,
-    "SerialiseWidth":0,
-    "TileSerialiseData":[],
+    "SerialiseHeight":15,
+    "SerialiseWidth":16,
+    "TileCompressedData":[-240,0,],
+    "TileDataFormat":1,
   },
   "name":"TileSet1",
   "out_columns":18,

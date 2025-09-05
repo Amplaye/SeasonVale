@@ -140,7 +140,8 @@ if (global.inventory_visible) {
     
     // Crea istanza se non esiste
     if (inventory_trash_chest == noone || !instance_exists(inventory_trash_chest)) {
-        inventory_trash_chest = instance_create_layer(trash_x, trash_y, "Instances", obj_trash_chest);
+        show_debug_message("🗑️ CREANDO trash chest - inventory_visible = " + string(global.inventory_visible));
+        inventory_trash_chest = instance_create_layer(trash_x, trash_y, "UI", obj_trash_chest);
     } else {
         // Aggiorna posizione
         inventory_trash_chest.x = trash_x;
@@ -148,8 +149,9 @@ if (global.inventory_visible) {
         inventory_trash_chest.visible = true;
     }
 } else {
-    // Distruggi completamente quando inventario chiuso
+    // Distruggi quando inventario chiuso
     if (inventory_trash_chest != noone && instance_exists(inventory_trash_chest)) {
+        show_debug_message("🗑️ DISTRUGGENDO trash chest - inventory chiuso");
         instance_destroy(inventory_trash_chest);
         inventory_trash_chest = noone;
     }
