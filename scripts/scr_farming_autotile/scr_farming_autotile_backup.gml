@@ -198,13 +198,3 @@ function scr_is_farming_tile(check_x, check_y) {
     var tile_key = string(check_x) + "," + string(check_y);
     return ds_map_exists(global.farmed_tiles, tile_key);
 }
-
-/// @description Verifica se una tile è stata zappata (versione TEST)
-/// @param {real} check_x Coordinata X da verificare
-/// @param {real} check_y Coordinata Y da verificare
-/// @return {bool} True se la tile è zappata nei test
-
-function scr_is_farming_tile_test(check_x, check_y) {
-    var tile_key = string(check_x) + "," + string(check_y);
-    return ds_map_exists(global.farmed_tiles_test, tile_key);
-}
