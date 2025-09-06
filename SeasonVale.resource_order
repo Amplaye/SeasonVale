@@ -117,6 +117,7 @@
     {"name":"trash_chest","order":5,"path":"sprites/trash_chest/trash_chest.yy",},
     {"name":"UI_TravelBook_Spritesheet01a_3","order":18,"path":"sprites/UI_TravelBook_Spritesheet01a_3/UI_TravelBook_Spritesheet01a_3.yy",},
     {"name":"UI_TravelBookAnimated_Spritesheet01a_1","order":4,"path":"sprites/UI_TravelBookAnimated_Spritesheet01a_1/UI_TravelBookAnimated_Spritesheet01a_1.yy",},
+    {"name":"water_detilazation","order":8,"path":"sprites/water_detilazation/water_detilazation.yy",},
     {"name":"wood","order":1,"path":"sprites/wood/wood.yy",},
   ],
 }

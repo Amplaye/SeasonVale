@@ -152,6 +152,7 @@
     {"id":{"name":"tree","path":"sprites/tree/tree.yy",},},
     {"id":{"name":"UI_TravelBook_Spritesheet01a_3","path":"sprites/UI_TravelBook_Spritesheet01a_3/UI_TravelBook_Spritesheet01a_3.yy",},},
     {"id":{"name":"UI_TravelBookAnimated_Spritesheet01a_1","path":"sprites/UI_TravelBookAnimated_Spritesheet01a_1/UI_TravelBookAnimated_Spritesheet01a_1.yy",},},
+    {"id":{"name":"water_detilazation","path":"sprites/water_detilazation/water_detilazation.yy",},},
     {"id":{"name":"wood","path":"sprites/wood/wood.yy",},},
     {"id":{"name":"TileSet1","path":"tilesets/TileSet1/TileSet1.yy",},},
   ],

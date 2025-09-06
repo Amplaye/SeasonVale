@@ -84,8 +84,9 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
             // Salva prima nel storage globale
             ds_map_add(global.farmed_tiles, tile_key, current_tile);
             
-            // Piazza la nuova tile con autotiling
-            scr_farming_autotile(farming_tilemap, farming_autotile_index, tile_x, tile_y);
+            // Piazza la nuova tile con autotiling - usa layer_tilemap_get_id()
+            var tilemap_id = layer_tilemap_get_id(farming_tilemap_layer);
+            scr_farming_autotile(tilemap_id, farming_autotile_index, tile_x, tile_y);
             
             // Aggiorna le tile vicine per autotiling corretto
             for (var dx = -1; dx <= 1; dx++) {
@@ -97,7 +98,7 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
                     
                     // Se il vicino è una tile zappata, ricalcola il suo autotiling
                     if (scr_is_farming_tile(neighbor_x, neighbor_y)) {
-                        scr_farming_autotile(farming_tilemap, farming_autotile_index, neighbor_x, neighbor_y);
+                        scr_farming_autotile(tilemap_id, farming_autotile_index, neighbor_x, neighbor_y);
                     }
                 }
             }

@@ -61,15 +61,28 @@ draw_set_color(c_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
+// Ottieni tile ID corrente dove punta il mouse
+var current_tile_id = tilemap_get(farming_tilemap, target_tile_x, target_tile_y);
+
 var info_text = "FARMING DEBUG (F to toggle)\n";
 info_text += "Range: " + string(farming_range) + " pixels\n";
 info_text += "Target Tile: " + string(target_tile_x) + ", " + string(target_tile_y) + "\n";
+info_text += "TILE ID at mouse: " + string(current_tile_id) + "\n";
 info_text += "Distance: " + string(round(distance_to_target)) + "\n";
 info_text += "In Range: " + (in_range ? "YES" : "NO") + "\n";
 info_text += "Already Farmed: " + (already_farmed ? "YES" : "NO") + "\n";
 info_text += "Farmed Tiles Count: " + string(ds_map_size(global.farmed_tiles));
 
 draw_text(10, 10, info_text);
+
+// ===== DISEGNA TILE ID SULLA TILE =====
+// Mostra l'ID della tile direttamente sulla tile dove punta il mouse
+if (current_tile_id != 0) {
+    draw_set_color(c_yellow);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_text(target_pixel_x + 8, target_pixel_y + 8, string(current_tile_id));
+}
 
 // Reset drawing settings
 draw_set_color(c_white);
