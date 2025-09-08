@@ -99,6 +99,7 @@
     {"id":{"name":"fence_alt","path":"sprites/fence_alt/fence_alt.yy",},},
     {"id":{"name":"fishing_rod","path":"sprites/fishing_rod/fishing_rod.yy",},},
     {"id":{"name":"garlic","path":"sprites/garlic/garlic.yy",},},
+    {"id":{"name":"Ground_grass_1","path":"sprites/Ground_grass_1/Ground_grass_1.yy",},},
     {"id":{"name":"Ground_grass","path":"sprites/Ground_grass/Ground_grass.yy",},},
     {"id":{"name":"hair_back","path":"sprites/hair_back/hair_back.yy",},},
     {"id":{"name":"hair_front","path":"sprites/hair_front/hair_front.yy",},},

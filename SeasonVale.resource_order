@@ -70,6 +70,7 @@
     {"name":"fence_alt","order":3,"path":"sprites/fence_alt/fence_alt.yy",},
     {"name":"fishing_rod","order":13,"path":"sprites/fishing_rod/fishing_rod.yy",},
     {"name":"garlic","order":8,"path":"sprites/garlic/garlic.yy",},
+    {"name":"Ground_grass_1","order":4,"path":"sprites/Ground_grass_1/Ground_grass_1.yy",},
     {"name":"Ground_grass","order":2,"path":"sprites/Ground_grass/Ground_grass.yy",},
     {"name":"hair_back","order":6,"path":"sprites/hair_back/hair_back.yy",},
     {"name":"hat_back","order":7,"path":"sprites/hat_back/hat_back.yy",},
