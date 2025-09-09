@@ -29,7 +29,7 @@ if (!can_move) {
             break;
     }
     
-    if (idle_sprite != -1 && sprite_index != idle_sprite && !is_chopping) {
+    if (idle_sprite != -1 && sprite_index != idle_sprite && !is_chopping && !is_mining) {
         var old_frame = image_index;
         var old_speed = image_speed;
         var old_sprite = sprite_index;
@@ -97,7 +97,7 @@ if (popup_blocks_movement) {
     }
     
     // Cambia sprite solo se diverso da quello attuale E non stiamo choppando
-    if (idle_sprite != -1 && sprite_index != idle_sprite && !is_chopping) {
+    if (idle_sprite != -1 && sprite_index != idle_sprite && !is_chopping && !is_mining) {
         var old_frame = image_index;
         var old_speed = image_speed;
         var old_sprite = sprite_index;
@@ -127,11 +127,16 @@ if (popup_blocks_movement) {
 // ===== CHOPPING SYSTEM =====
 // Controlla se l'axe è selezionato e click sinistro
 if (mouse_check_button_pressed(mb_left)) {
+    // Debug per ogni click
+    show_debug_message("MOUSE CLICK! Position: " + string(mouse_x) + "," + string(mouse_y) + " | Selected tool: " + string(global.selected_tool));
+    
     // Non avviare chopping se il click è sulla toolbar (y >= 220)
     // O se un popup è attivo
     var is_click_on_toolbar = (mouse_y >= 220);
     var popup_is_active = (variable_global_exists("popup_active") && global.popup_active) ||
                          (variable_global_exists("popup_throw_active") && global.popup_throw_active);
+    
+    show_debug_message("Click check: toolbar=" + string(is_click_on_toolbar) + " | popup=" + string(popup_is_active));
     
     if (!is_click_on_toolbar && !popup_is_active) {
         var selected_tool_sprite = noone;
@@ -139,9 +144,58 @@ if (mouse_check_button_pressed(mb_left)) {
             selected_tool_sprite = global.tool_sprites[global.selected_tool];
         }
         
+        // Debug generale per gli strumenti
+        show_debug_message("CLICK! Tool slot: " + string(global.selected_tool) + ", Tool sprite: " + string(selected_tool_sprite));
+        show_debug_message("Confronto numerico: selected=" + string(real(selected_tool_sprite)) + " vs pickaxe=" + string(real(pickaxe)));
+        show_debug_message("Cooldown: " + string(chop_cooldown));
+        
+        // CONTROLLO PICKAXE PER PRIMO
+        if (global.selected_tool == 1 && chop_cooldown <= 0) {
+            show_debug_message("PICKAXE RILEVATO! Avvio mining!");
+            if (!is_mining && !is_chopping) {
+                is_mining = true;
+                
+                // Salva posizione originale
+                mining_original_x = x;
+                mining_original_y = y;
+                
+                // Calcola direzione verso il cursor
+                var cursor_x = mouse_x;
+                var cursor_y = mouse_y;
+                var angle_to_cursor = point_direction(x, y, cursor_x, cursor_y);
+                
+                // Determina direzione mining basata sull'angolo
+                if (angle_to_cursor >= 315 || angle_to_cursor < 45) {
+                    mining_direction = "right";
+                } else if (angle_to_cursor >= 45 && angle_to_cursor < 135) {
+                    mining_direction = "back";
+                } else if (angle_to_cursor >= 135 && angle_to_cursor < 225) {
+                    mining_direction = "left";
+                } else {
+                    mining_direction = "front";
+                }
+                
+                // Per ora usa sprite chopping (quando avrai animazioni mining sostituisci qui)
+                var mining_sprite = -1;
+                switch(mining_direction) {
+                    case "front": mining_sprite = chop_front; break;
+                    case "back": mining_sprite = chop_back; break;
+                    case "left": mining_sprite = chop_left; break;
+                    case "right": mining_sprite = chop_right; break;
+                }
+                
+                if (mining_sprite != -1) {
+                    sprite_index = mining_sprite;
+                    image_index = 0;
+                }
+                
+                show_debug_message("MINING INIZIATO!");
+            }
+        }
+        
         if (selected_tool_sprite == axe && chop_cooldown <= 0) {
-        // Avvia animazione chopping
-        if (!is_chopping) {
+            // Avvia animazione chopping
+            if (!is_chopping && !is_mining) {
             is_chopping = true;
             
             // Salva sprite attuale e posizione
@@ -201,6 +255,62 @@ if (mouse_check_button_pressed(mb_left)) {
             show_debug_message("  - Size: " + string(sprite_get_width(chop_sprite)) + "x" + string(sprite_get_height(chop_sprite)));
             show_debug_message("  - Offset: " + string(sprite_get_xoffset(chop_sprite)) + "," + string(sprite_get_yoffset(chop_sprite)));
             show_debug_message("  - BBox: " + string(sprite_get_bbox_left(chop_sprite)) + "," + string(sprite_get_bbox_top(chop_sprite)) + " to " + string(sprite_get_bbox_right(chop_sprite)) + "," + string(sprite_get_bbox_bottom(chop_sprite)));
+        }
+        
+        show_debug_message("DEBUG PRIMA DEL CONTROLLO PICKAXE - global.selected_tool = " + string(global.selected_tool));
+        
+        // Confronto diretto per pickaxe - i numeri sono identici!
+        var is_pickaxe = (global.selected_tool == 1); // Slot 1 = pickaxe
+        show_debug_message("Test pickaxe: " + string(is_pickaxe) + " | slot==1: " + string(global.selected_tool == 1));
+        
+        if (is_pickaxe && chop_cooldown <= 0) {
+        // Debug per mining
+        show_debug_message("PICKAXE RILEVATO! Selected tool: " + string(selected_tool_sprite) + ", Pickaxe sprite: " + string(pickaxe));
+        
+        // Avvia animazione mining
+        if (!is_mining) {
+            show_debug_message("AVVIO MINING!");
+            is_mining = true;
+            
+            // Salva sprite attuale e posizione
+            var old_sprite = sprite_index;
+            var saved_x = x;
+            var saved_y = y;
+            
+            // Calcola direzione verso il cursor
+            var cursor_x = mouse_x;
+            var cursor_y = mouse_y;
+            var angle_to_cursor = point_direction(x, y, cursor_x, cursor_y);
+            
+            // Determina direzione mining basata sull'angolo
+            if (angle_to_cursor >= 315 || angle_to_cursor < 45) {
+                mining_direction = "right";
+            } else if (angle_to_cursor >= 45 && angle_to_cursor < 135) {
+                mining_direction = "back";
+            } else if (angle_to_cursor >= 135 && angle_to_cursor < 225) {
+                mining_direction = "left";
+            } else {
+                mining_direction = "front";
+            }
+            
+            // Salva posizione originale
+            mining_original_x = x;
+            mining_original_y = y;
+            
+            // Per ora usa stesso sprite del front (quando avrai animazioni mining le aggiungi qui)
+            var mining_sprite = -1;
+            switch(mining_direction) {
+                case "front": mining_sprite = spr_char_front; break;
+                case "back": mining_sprite = spr_char_back; break;
+                case "left": mining_sprite = spr_char_left; break;
+                case "right": mining_sprite = spr_char_right; break;
+            }
+            
+            if (mining_sprite != -1) {
+                sprite_index = mining_sprite;
+                image_index = 0;
+            }
+        }
         }
         }
     }
@@ -284,6 +394,69 @@ if (is_chopping) {
             current_direction = chopping_direction; // Aggiorna current_direction
             chop_cooldown = 20; // 30 frame di cooldown (circa 0.5 secondi)
         }
+    }
+    
+    // BLOCCA COMPLETAMENTE TUTTO IL RESTO DEL CODICE
+    exit;
+}
+
+// BLOCCA TUTTO DURANTE IL MINING
+if (is_mining) {
+    // Avanza manualmente l'animazione
+    image_index += 0.2; // Velocità controllata manualmente
+    
+    // Quando raggiunge l'ultimo frame, ferma
+    if (image_index >= sprite_get_number(sprite_index)) {
+        is_mining = false;
+        
+        // Controlla se abbiamo colpito una roccia
+        var rock_hit = noone;
+        var hit_distance = 40; // Distanza massima per colpire la roccia
+        
+        // Calcola posizione di attacco basata sulla direzione
+        var attack_x = x;
+        var attack_y = y;
+        
+        switch(mining_direction) {
+            case "right":
+                attack_x = x + hit_distance;
+                break;
+            case "left":
+                attack_x = x - hit_distance;
+                break;
+            case "back":
+                attack_y = y - hit_distance;
+                break;
+            case "front":
+                attack_y = y + hit_distance;
+                break;
+        }
+        
+        // Cerca roccia nel raggio di attacco
+        var rocks = instance_place(attack_x, attack_y, obj_rock);
+        if (rocks != noone) {
+            rock_hit = rocks;
+        }
+        
+        if (rock_hit == noone) {
+            // Cerca in un'area più ampia
+            rock_hit = instance_nearest(attack_x, attack_y, obj_rock);
+            if (rock_hit != noone && point_distance(attack_x, attack_y, rock_hit.x, rock_hit.y) > hit_distance) {
+                rock_hit = noone;
+            }
+        }
+        
+        // Ripristina sprite originale e posizione
+        x = mining_original_x;
+        y = mining_original_y;
+        
+        if (rock_hit != noone) {
+            show_debug_message("Roccia colpita: " + string(rock_hit));
+        }
+        
+        // Aggiorna current_direction per mantenere coerenza
+        current_direction = mining_direction; // Aggiorna current_direction
+        chop_cooldown = 25; // Cooldown più lungo per mining
     }
     
     // BLOCCA COMPLETAMENTE TUTTO IL RESTO DEL CODICE
@@ -443,7 +616,7 @@ if (is_moving) {
     
     if (new_sprite != -1) {
         current_direction = new_direction;
-        if (sprite_index != new_sprite && !is_chopping) {
+        if (sprite_index != new_sprite && !is_chopping && !is_mining) {
             var old_frame = image_index;
             var old_speed = image_speed;
             var old_sprite = sprite_index;
@@ -485,7 +658,7 @@ if (is_moving) {
             break;
     }
     
-    if (new_sprite != -1 && sprite_index != new_sprite && !is_chopping) {
+    if (new_sprite != -1 && sprite_index != new_sprite && !is_chopping && !is_mining) {
         var old_frame = image_index;
         var old_speed = image_speed;
         var old_sprite = sprite_index;

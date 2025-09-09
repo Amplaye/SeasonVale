@@ -9,9 +9,9 @@ for (var i = 0; i < num_final_drops; i++) {
     // Crea wood_drop con effetto fontana esplosione contenuta
     var drop = instance_create_depth(x, y - 60, depth - 10, obj_wood_drop);
     
-    // EFFETTO FONTANA CONTENUTA: massimo 3 tile di distanza
-    drop.hspeed = lengthdir_x(explosion_force, angle);
-    drop.vspeed = random_range(-4, -2);  // Spinta più contenuta
+    // EFFETTO FONTANA CONTENUTA: massimo 2 tiles di distanza
+    drop.hspeed = lengthdir_x(explosion_force * 0.6, angle);  // Forza ridotta per max 2 tiles
+    drop.vspeed = random_range(-3, -1.5);  // Spinta contenuta
     
     // Varia la gravità ridotta per effetto più naturale
     drop.gravity_acc = random_range(0.1, 0.2);

@@ -1,4 +1,4 @@
-// Sistema multi-rimbalzo naturale
+// Sistema multi-rimbalzo naturale per rocce
 vspeed = 0;
 hspeed = 0;
 gravity_acc = 0.15;
@@ -11,4 +11,4 @@ bounce_strength = [0.5, 0.3, 0.15];  // Forza ridotta per ogni rimbalzo
 friction_horizontal = 0.85;  // Attrito orizzontale
 energy_loss = 0.02;  // Perdita energia continua per stop naturale
 
-// Movimento iniziale (sarà impostato dall'albero)
+// Movimento iniziale (sarà impostato dalla roccia)

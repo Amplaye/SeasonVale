@@ -3,6 +3,9 @@ if (instance_number(obj_player) > 1) {
     exit;
 }
 
+// Riferimenti sprite tools (per confronti) - usa direttamente i nomi
+// axe e pickaxe sono già disponibili globalmente come sprite resources
+
 speed_walk = 2;
 speed_run = 4;
 
@@ -17,6 +20,12 @@ can_move = true;
 is_chopping = false;
 chopping_original_x = 0;
 chopping_original_y = 0;
+
+// Variabili per sistema mining
+is_mining = false;
+mining_original_x = 0;
+mining_original_y = 0;
+mining_direction = "front";
 chopping_direction = "front"; // Direzione salvata per l'animazione corrente
 chop_cooldown = 0; // Cooldown dopo ogni chop
 
