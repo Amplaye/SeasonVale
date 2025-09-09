@@ -1,5 +1,5 @@
 // ===================================================================
-// 🚜 FARMING INPUT & LOGIC - GESTIONE ZAPPATURA
+// 🧪 FARMING TEST INPUT & LOGIC - GESTIONE ZAPPATURA TEST
 // ===================================================================
 
 // Aggiorna cooldown
@@ -51,7 +51,7 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
     // Verifica distanza dal player
     var distance_to_target = point_distance(player.x, player.y, target_x, target_y);
     if (distance_to_target > farming_range) {
-        show_debug_message("🚜 Troppo lontano per zappare! Distanza: " + string(distance_to_target));
+        show_debug_message("🚜: Troppo lontano per zappare! Distanza: " + string(distance_to_target));
         mouse_was_pressed = false;
         exit;
     }
@@ -63,7 +63,7 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
     
     // Verifica che la tile sia valida
     if (tile_x < 0 || tile_y < 0) {
-        show_debug_message("🚜 Coordinate tile non valide: " + string(tile_x) + ", " + string(tile_y));
+        show_debug_message("🚜: Coordinate tile non valide: " + string(tile_x) + ", " + string(tile_y));
         mouse_was_pressed = false;
         exit;
     }
@@ -76,15 +76,15 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
         // Crea key per storage globale
         var tile_key = string(tile_x) + "," + string(tile_y);
         
-        // Verifica se già zappata
+        // Verifica se già zappata (usa storage test)
         if (ds_map_exists(global.farmed_tiles, tile_key)) {
-            show_debug_message("🚜 Tile già zappata a: " + string(tile_x) + ", " + string(tile_y));
+            show_debug_message("🚜: Tile già zappata a: " + string(tile_x) + ", " + string(tile_y));
         } else {
             // ===== USA AUTOTILING CON AGGIORNAMENTO VICINI =====
-            // Salva prima nel storage globale
+            // Salva prima nel storage TEST
             ds_map_add(global.farmed_tiles, tile_key, current_tile);
             
-            // Piazza la nuova tile con autotiling - usa layer_tilemap_get_id()
+            // Piazza la nuova tile con autotiling TEST - usa script pulito
             var tilemap_id = layer_tilemap_get_id(farming_tilemap_layer);
             scr_farming_autotile(tilemap_id, farming_autotile_index, tile_x, tile_y);
             
@@ -96,7 +96,7 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
                     var neighbor_x = tile_x + dx;
                     var neighbor_y = tile_y + dy;
                     
-                    // Se il vicino è una tile zappata, ricalcola il suo autotiling
+                    // Se il vicino è una tile zappata TEST, ricalcola il suo autotiling
                     if (scr_is_farming_tile(neighbor_x, neighbor_y)) {
                         scr_farming_autotile(tilemap_id, farming_autotile_index, neighbor_x, neighbor_y);
                     }
@@ -104,13 +104,13 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
             }
             
             // Feedback visivo e audio
-            show_debug_message("🚜 Terra zappata con AUTOTILING a: " + string(tile_x) + ", " + string(tile_y) + " (era tile: " + string(current_tile) + ")");
+            show_debug_message("🚜: Terra zappata con AUTOTILING a: " + string(tile_x) + ", " + string(tile_y) + " (era tile: " + string(current_tile) + ")");
             
             // Imposta cooldown
             farming_cooldown = 10; // 10 frame di cooldown
         }
     } else {
-        show_debug_message("⚠️ Tilemap non disponibile per farming!");
+        show_debug_message("⚠️ TEST: Tilemap non disponibile per farming!");
     }
 }
 
@@ -119,8 +119,8 @@ if (!mouse_held) {
     mouse_was_pressed = false;
 }
 
-// ===== DEBUG TOGGLE =====
-if (keyboard_check_pressed(ord("F"))) {
+// ===== DEBUG TOGGLE TEST =====
+if (keyboard_check_pressed(ord("G"))) {
     show_farming_debug = !show_farming_debug;
     show_debug_message("🚜 Debug farming: " + (show_farming_debug ? "ON" : "OFF"));
 }

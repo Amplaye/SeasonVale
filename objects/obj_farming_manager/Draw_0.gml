@@ -1,5 +1,5 @@
 // ===================================================================
-// 🚜 FARMING VISUAL DEBUG - INDICATORI VISIVI
+// 🧪 FARMING TEST VISUAL DEBUG - INDICATORI VISIVI TEST
 // ===================================================================
 
 // Solo se debug è attivato
@@ -12,14 +12,14 @@ var player = instance_find(obj_player, 0);
 if (player == noone) exit;
 
 // ===== DISEGNA RANGE DI FARMING =====
-// Cerchio semi-trasparente attorno al player
+// Cerchio semi-trasparente attorno al player (TEST - colore diverso)
 draw_set_alpha(0.2);
-draw_set_color(c_green);
+draw_set_color(c_blue);
 draw_circle(player.x, player.y, farming_range, false);
 draw_set_alpha(1.0);
 
-// Bordo del cerchio
-draw_set_color(c_lime);
+// Bordo del cerchio (TEST - colore diverso)
+draw_set_color(c_aqua);
 draw_circle(player.x, player.y, farming_range, true);
 
 // ===== EVIDENZIA TILE TARGET =====
@@ -37,7 +37,7 @@ var in_range = distance_to_target <= farming_range;
 
 // Colore basato su range e stato
 var tile_key = string(target_tile_x) + "," + string(target_tile_y);
-var already_farmed = ds_map_exists(global.farmed_tiles, tile_key);
+var already_farmed = ds_map_exists(global.farmed_tiles_test, tile_key);
 
 if (already_farmed) {
     draw_set_color(c_yellow); // Già zappata
@@ -64,14 +64,14 @@ draw_set_valign(fa_top);
 // Ottieni tile ID corrente dove punta il mouse
 var current_tile_id = tilemap_get(farming_tilemap, target_tile_x, target_tile_y);
 
-var info_text = "FARMING DEBUG (F to toggle)\n";
+var info_text = "FARMING TEST DEBUG (G to toggle)\n";
 info_text += "Range: " + string(farming_range) + " pixels\n";
 info_text += "Target Tile: " + string(target_tile_x) + ", " + string(target_tile_y) + "\n";
 info_text += "TILE ID at mouse: " + string(current_tile_id) + "\n";
 info_text += "Distance: " + string(round(distance_to_target)) + "\n";
 info_text += "In Range: " + (in_range ? "YES" : "NO") + "\n";
 info_text += "Already Farmed: " + (already_farmed ? "YES" : "NO") + "\n";
-info_text += "Farmed Tiles Count: " + string(ds_map_size(global.farmed_tiles));
+info_text += "TEST Farmed Tiles Count: " + string(ds_map_size(global.farmed_tiles_test));
 
 draw_text(10, 10, info_text);
 
