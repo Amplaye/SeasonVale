@@ -37,7 +37,7 @@ var in_range = distance_to_target <= farming_range;
 
 // Colore basato su range e stato
 var tile_key = string(target_tile_x) + "," + string(target_tile_y);
-var already_farmed = ds_map_exists(global.farmed_tiles_test, tile_key);
+var already_farmed = ds_map_exists(global.farmed_tiles, tile_key);
 
 if (already_farmed) {
     draw_set_color(c_yellow); // Già zappata
@@ -71,7 +71,7 @@ info_text += "TILE ID at mouse: " + string(current_tile_id) + "\n";
 info_text += "Distance: " + string(round(distance_to_target)) + "\n";
 info_text += "In Range: " + (in_range ? "YES" : "NO") + "\n";
 info_text += "Already Farmed: " + (already_farmed ? "YES" : "NO") + "\n";
-info_text += "TEST Farmed Tiles Count: " + string(ds_map_size(global.farmed_tiles_test));
+info_text += "Farmed Tiles Count: " + string(ds_map_size(global.farmed_tiles));
 
 draw_text(10, 10, info_text);
 

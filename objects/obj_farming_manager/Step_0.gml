@@ -103,6 +103,18 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
                 }
             }
             
+            // ===== CREA OGGETTO TILLED SOIL =====
+            // Converti coordinate tile in coordinate mondo
+            var soil_x = tile_x * 16 + 8;  // Centro della tile (16x16 pixel)
+            var soil_y = tile_y * 16 + 8;
+            
+            // Controlla se esiste già un tilled_soil in quella posizione
+            var existing_soil = instance_position(soil_x, soil_y, obj_tilled_soil);
+            if (existing_soil == noone) {
+                // Crea oggetto terreno zappato solo se non esiste già
+                instance_create_depth(soil_x, soil_y, 5, obj_tilled_soil);
+            }
+            
             // Feedback visivo e audio
             show_debug_message("🚜: Terra zappata con AUTOTILING a: " + string(tile_x) + ", " + string(tile_y) + " (era tile: " + string(current_tile) + ")");
             

@@ -41,9 +41,10 @@ if (!variable_global_exists("tool_sprites")) {
     var mining_sprite = pickaxe;
     var fishing_sprite = fishing_rod;
     var zappa_sprite = hoe;
+    var tomato_seed_sprite = tomato;  // Seme di pomodoro
     
-    global.tool_sprites = [axe_sprite, mining_sprite, zappa_sprite, fishing_sprite, noone, noone, noone, noone, noone, noone];
-    global.tool_quantities = [1, 1, 1, 1, 0, 0, 0, 0, 0, 0];
+    global.tool_sprites = [axe_sprite, mining_sprite, zappa_sprite, fishing_sprite, tomato_seed_sprite, noone, noone, noone, noone, noone];
+    global.tool_quantities = [1, 1, 1, 1, 10, 0, 0, 0, 0, 0];  // 10 semi di pomodoro
     global.selected_tool = 0;
     
     show_debug_message("🔧 Toolbar inizializzata:");

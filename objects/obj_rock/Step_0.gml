@@ -9,7 +9,8 @@ if (!is_dying) {
     if (player != noone && variable_instance_exists(player, "is_mining") && player.is_mining) {
         var dist_to_player = point_distance(x, y, player.x, player.y);
         
-        if (dist_to_player < 50 && hit_cooldown <= 0) {
+        // Controlla che il player abbia il piccone selezionato (tool slot 1)
+        if (dist_to_player < 50 && hit_cooldown <= 0 && global.selected_tool == 1) {
             // Danneggia roccia - UN SOLO DANNO per colpo con cooldown
             health--;
             hit_count++;

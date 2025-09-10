@@ -31,7 +31,7 @@ if (farming_tilemap == -1) {
 
 // ===== STORAGE PERSISTENTE TEST =====
 // Array globale separato per tracciare le posizioni zappate nei test
-if (!variable_global_exists("farmed_tiles_test")) {
+if (!variable_global_exists("farmed_tiles")) {
     global.farmed_tiles = ds_map_create();
     show_debug_message("🚜 Creato storage TEST per tile zappate");
 }
