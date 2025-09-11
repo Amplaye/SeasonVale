@@ -14,10 +14,10 @@ if (instance_exists(obj_player)) {
     current_pants_index = 1;
 }
 
-hat_sprites = [noone, hat_front];
-hair_sprites = [noone, hair_front];
-shirt_sprites = [noone, shirt_front];
-pants_sprites = [noone, pants_and_shoes_front];
+hat_sprites = [noone, spr_hat_front];
+hair_sprites = [noone, spr_hair_front];
+shirt_sprites = [noone, spr_shirt_front];
+pants_sprites = [noone, spr_pants_and_shoes_front];
 
 current_category = "hat";
 categories = ["hat", "hair", "shirt", "pants"];

@@ -102,7 +102,12 @@ function advance_day() {
     global.game_hour = min_hour;  // Reset alle 6:00 AM
     global.game_minute = 0;
     
-    // Notifica crescita piante
+    // Notifica crescita piante - ora usa sistema universale
+    with (obj_universal_plant) {
+        advance_plant_growth(id);
+    }
+    
+    // Mantieni compatibilità con vecchie piante durante transizione
     with (obj_tomato_plant) {
         advance_growth();
     }

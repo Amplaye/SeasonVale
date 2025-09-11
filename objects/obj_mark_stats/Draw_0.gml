@@ -18,5 +18,5 @@ if (visible) {
     y = center_y + offset_y;
     
     // Disegna il mark nella posizione corretta
-    draw_sprite_ext(mark, image_index, x, y, 1, 1, 0, c_white, 1);
+    draw_sprite_ext(spr_mark, image_index, x, y, 1, 1, 0, c_white, 1);
 }

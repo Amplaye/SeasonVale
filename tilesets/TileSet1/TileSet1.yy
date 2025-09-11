@@ -13,8 +13,8 @@
     "TileDataFormat":1,
   },
   "name":"TileSet1",
-  "out_columns":18,
-  "out_tilehborder":2,
+  "out_columns":20,
+  "out_tilehborder":0,
   "out_tilevborder":2,
   "parent":{
     "name":"Tile Sets",
@@ -23,8 +23,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"Ground_grass",
-    "path":"sprites/Ground_grass/Ground_grass.yy",
+    "name":"spr_Ground_grass",
+    "path":"sprites/spr_Ground_grass/spr_Ground_grass.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{

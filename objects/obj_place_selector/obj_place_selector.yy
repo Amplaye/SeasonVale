@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"place_selector",
-    "path":"sprites/place_selector/place_selector.yy",
+    "name":"spr_place_selector",
+    "path":"sprites/spr_place_selector/spr_place_selector.yy",
   },
   "spriteMaskId":null,
   "visible":true,

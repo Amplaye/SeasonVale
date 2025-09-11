@@ -8,7 +8,7 @@ if (!global.inventory_visible) {
 }
 
 show_debug_message("🎒 Drawing inventory at position: " + string(x) + ", " + string(y));
-show_debug_message("🎒 Inventory sprite exists: " + string(sprite_exists(inventory)));
+show_debug_message("🎒 Inventory sprite exists: " + string(sprite_exists(spr_inventory)));
 
 // ===== DISEGNA BACKGROUND INVENTARIO =====
 var bg_alpha = 0.8;
@@ -18,17 +18,17 @@ var bg_x = x - bg_padding;
 var bg_y = y - bg_padding;
 
 // Calcola dimensioni background usando scaling manuale
-var scaled_slot_width = sprite_get_width(slot) * global.slot_scale * global.inventory_scale;
-var scaled_slot_height = sprite_get_height(slot) * global.slot_scale * global.inventory_scale;
+var scaled_slot_width = sprite_get_width(spr_slot) * global.slot_scale * global.inventory_scale;
+var scaled_slot_height = sprite_get_height(spr_slot) * global.slot_scale * global.inventory_scale;
 var total_width = (global.inventory_cols * scaled_slot_width) + ((global.inventory_cols - 1) * global.inventory_gap_x);
 var total_height = (global.inventory_rows * scaled_slot_height) + ((global.inventory_rows - 1) * global.inventory_gap_y);
 
 // Disegna sfondo inventario centrato perfettamente
 var bg_center_x = x + (total_width / 2);
 var bg_center_y = y + (total_height / 2);
-draw_sprite_ext(inventory, 0, bg_center_x, bg_center_y, 
-                ((total_width + (bg_padding * 2)) / sprite_get_width(inventory)) * global.inventory_background_scale, 
-                ((total_height + (bg_padding * 2)) / sprite_get_height(inventory)) * global.inventory_background_scale, 
+draw_sprite_ext(spr_inventory, 0, bg_center_x, bg_center_y, 
+                ((total_width + (bg_padding * 2)) / sprite_get_width(spr_inventory)) * global.inventory_background_scale, 
+                ((total_height + (bg_padding * 2)) / sprite_get_height(spr_inventory)) * global.inventory_background_scale, 
                 0, c_white, bg_alpha);
 
 // ===== DISEGNA SLOT E ITEMS =====
@@ -39,11 +39,11 @@ for (var i = 0; i < global.inventory_total_slots; i++) {
     var is_unlocked = is_slot_unlocked(i);
     
     // Scegli sprite slot in base allo stato
-    var slot_sprite = slot;
+    var slot_sprite = spr_slot;
     var slot_alpha = 1.0;
     
     if (!is_unlocked) {
-        slot_sprite = slot_blocked;
+        slot_sprite = spr_slot_blocked;
         slot_alpha = 1;
     }
     
@@ -105,7 +105,7 @@ for (var i = 0; i < global.inventory_total_slots; i++) {
     if (is_unlocked && i < 10 && variable_global_exists("selected_tool") && global.selected_tool == i) {
         // Usa blend mode additive per non coprire l'item
         gpu_set_blendmode(bm_add);
-        draw_sprite_ext(slot_select, 0, slot_x, slot_y, final_slot_scale, final_slot_scale, 0, c_white, 0.3);
+        draw_sprite_ext(spr_slot_select, 0, slot_x, slot_y, final_slot_scale, final_slot_scale, 0, c_white, 0.3);
         gpu_set_blendmode(bm_normal);
     }
 }

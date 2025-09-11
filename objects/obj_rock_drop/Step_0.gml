@@ -29,7 +29,7 @@ if (abs(vspeed) < 0.1 && abs(hspeed) < 0.1 && y >= ground_y) {
     y = ground_y;
     
     // Crea sprite rock nel layer pickupable
-    var rock_sprite = layer_sprite_create("pickupable", x, y, rock);
+    var rock_sprite = layer_sprite_create("pickupable", x, y, spr_rock);
     layer_sprite_xscale(rock_sprite, 0.5);
     layer_sprite_yscale(rock_sprite, 0.5);
     

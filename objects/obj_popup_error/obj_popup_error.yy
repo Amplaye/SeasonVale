@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"popup_error",
-    "path":"sprites/popup_error/popup_error.yy",
+    "name":"spr_popup_error",
+    "path":"sprites/spr_popup_error/spr_popup_error.yy",
   },
   "spriteMaskId":null,
   "visible":false,

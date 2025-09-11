@@ -10,8 +10,8 @@
   "name":"obj_player",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Gameplay",
+    "path":"folders/Objects/Gameplay.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"idle_front",
-    "path":"sprites/idle_front/idle_front.yy",
+    "name":"spr_idle_front",
+    "path":"sprites/spr_idle_front/spr_idle_front.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -13,6 +13,6 @@ image_yscale = 1.0;
 // Stato iniziale
 image_alpha = 1.0;
 image_speed = 0;
-sprite_index = pointer;
+sprite_index = spr_pointer;
 
 show_debug_message("🎯 Place selector inizializzato");

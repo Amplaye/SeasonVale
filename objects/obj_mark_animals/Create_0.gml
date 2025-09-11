@@ -9,4 +9,4 @@ image_index = 0; // Frame 0 = chiuso
 image_speed = 0; // Ferma l'animazione automatica
 
 // Forza GameMaker a includere lo sprite nella compilazione
-sprite_ref = mark;
+sprite_ref = spr_mark;

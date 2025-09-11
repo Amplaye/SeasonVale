@@ -11,8 +11,8 @@
   "name":"obj_tree",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Gameplay",
+    "path":"folders/Objects/Gameplay.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -33,12 +33,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"tree",
-    "path":"sprites/tree/tree.yy",
+    "name":"spr_tree",
+    "path":"sprites/spr_tree/spr_tree.yy",
   },
   "spriteMaskId":{
-    "name":"tree",
-    "path":"sprites/tree/tree.yy",
+    "name":"spr_tree",
+    "path":"sprites/spr_tree/spr_tree.yy",
   },
   "visible":true,
 }

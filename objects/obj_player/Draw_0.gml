@@ -26,9 +26,9 @@ if (current_direction == "front" || current_direction == "idle") {
 if (should_draw_clothes && current_pants_index > 0 && current_pants_index < array_length(pants_sprites)) {
     var pants_sprite = noone;
     if (sprite_suffix == "_front") {
-        pants_sprite = pants_and_shoes_front;
+        pants_sprite = spr_pants_and_shoes_front;
     } else {
-        pants_sprite = pants_and_shoes_back;
+        pants_sprite = spr_pants_and_shoes_back;
     }
     
     if (pants_sprite != noone) {
@@ -46,9 +46,9 @@ if (should_draw_clothes && current_pants_index > 0 && current_pants_index < arra
 if (should_draw_clothes && current_shirt_index > 0 && current_shirt_index < array_length(shirt_sprites)) {
     var shirt_sprite = noone;
     if (sprite_suffix == "_front") {
-        shirt_sprite = shirt_front;
+        shirt_sprite = spr_shirt_front;
     } else {
-        shirt_sprite = shirt_back;
+        shirt_sprite = spr_shirt_back;
     }
     
     if (shirt_sprite != noone) {
@@ -66,9 +66,9 @@ if (should_draw_clothes && current_shirt_index > 0 && current_shirt_index < arra
 if (should_draw_clothes && current_hair_index > 0 && current_hair_index < array_length(hair_sprites)) {
     var hair_sprite = noone;
     if (sprite_suffix == "_front") {
-        hair_sprite = hair_front;
+        hair_sprite = spr_hair_front;
     } else {
-        hair_sprite = hair_back;
+        hair_sprite = spr_hair_back;
     }
     
     if (hair_sprite != noone) {
@@ -86,9 +86,9 @@ if (should_draw_clothes && current_hair_index > 0 && current_hair_index < array_
 if (should_draw_clothes && current_hat_index > 0 && current_hat_index < array_length(hat_sprites)) {
     var hat_sprite = noone;
     if (sprite_suffix == "_front") {
-        hat_sprite = hat_front;
+        hat_sprite = spr_hat_front;
     } else {
-        hat_sprite = hat_back;
+        hat_sprite = spr_hat_back;
     }
     
     if (hat_sprite != noone) {

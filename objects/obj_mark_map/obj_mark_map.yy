@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"mark",
-    "path":"sprites/mark/mark.yy",
+    "name":"spr_mark",
+    "path":"sprites/spr_mark/spr_mark.yy",
   },
   "spriteMaskId":null,
   "visible":true,

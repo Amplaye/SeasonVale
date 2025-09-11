@@ -11,8 +11,8 @@
   "name":"obj_rock",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Gameplay",
+    "path":"folders/Objects/Gameplay.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -33,12 +33,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"mining_rock",
-    "path":"sprites/mining_rock/mining_rock.yy",
+    "name":"spr_mining_rock",
+    "path":"sprites/spr_mining_rock/spr_mining_rock.yy",
   },
   "spriteMaskId":{
-    "name":"mining_rock",
-    "path":"sprites/mining_rock/mining_rock.yy",
+    "name":"spr_mining_rock",
+    "path":"sprites/spr_mining_rock/spr_mining_rock.yy",
   },
   "visible":true,
 }

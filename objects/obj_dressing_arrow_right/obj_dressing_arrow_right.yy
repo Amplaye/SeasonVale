@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"arrow_dx",
-    "path":"sprites/arrow_dx/arrow_dx.yy",
+    "name":"spr_arrow_dx",
+    "path":"sprites/spr_arrow_dx/spr_arrow_dx.yy",
   },
   "spriteMaskId":null,
   "visible":true,

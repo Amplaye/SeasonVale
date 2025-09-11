@@ -33,7 +33,7 @@ if (global.popup_active && !visible) {
 if (keyboard_check_pressed(ord("T"))) {
     if (!global.popup_active) {
         global.popup_active = true;
-        global.popup_item_name = "rock";
+        global.popup_item_name = "spr_rock";
         global.popup_quantity = 5;
         show_debug_message("🧪 TEST: Popup attivato manualmente con T");
     } else {

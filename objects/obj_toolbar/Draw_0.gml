@@ -8,12 +8,12 @@ var toolbar_bg_padding_left = 5.5;   // Padding sinistro
 var toolbar_bg_padding_right = 5.5;  // Padding destro  
 var toolbar_bg_padding_top = 4.5;    // Padding superiore
 var toolbar_bg_padding_bottom = 3.5; // Padding inferiore
-var scaled_slot_width = sprite_get_width(slot) * slot_scale;
-var scaled_slot_height = sprite_get_height(slot) * slot_scale;
+var scaled_slot_width = sprite_get_width(spr_slot) * slot_scale;
+var scaled_slot_height = sprite_get_height(spr_slot) * slot_scale;
 var toolbar_bg_width = (global.toolbar_slots_count * scaled_slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
 var toolbar_bg_x = x - toolbar_bg_padding_left;
 var toolbar_bg_y = y - toolbar_bg_padding_top;
-draw_sprite_stretched(toolbar, 0, toolbar_bg_x, toolbar_bg_y, toolbar_bg_width + toolbar_bg_padding_left + toolbar_bg_padding_right, scaled_slot_height + toolbar_bg_padding_top + toolbar_bg_padding_bottom);
+draw_sprite_stretched(spr_toolbar, 0, toolbar_bg_x, toolbar_bg_y, toolbar_bg_width + toolbar_bg_padding_left + toolbar_bg_padding_right, scaled_slot_height + toolbar_bg_padding_top + toolbar_bg_padding_bottom);
 
 // Disegna tutti i 10 slot
 for (var slot_i = 0; slot_i < global.toolbar_slots_count; slot_i++) {
@@ -24,11 +24,11 @@ for (var slot_i = 0; slot_i < global.toolbar_slots_count; slot_i++) {
     var mouse_over = point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + scaled_slot_width, slot_y + scaled_slot_height);
 
     // Disegna lo slot con sprite appropriato
-    var slot_sprite = slot;
+    var slot_sprite = spr_slot;
     if (global.selected_tool == slot_i) {
-        slot_sprite = slot_select;
+        slot_sprite = spr_slot_select;
     } else if (mouse_over) {
-        slot_sprite = slot_hover;
+        slot_sprite = spr_slot_hover;
     }
     draw_sprite_ext(slot_sprite, 0, slot_x, slot_y, slot_scale, slot_scale, 0, c_white, 1);
 

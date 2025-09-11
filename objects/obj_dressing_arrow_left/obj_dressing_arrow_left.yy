@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"arrow_lx",
-    "path":"sprites/arrow_lx/arrow_lx.yy",
+    "name":"spr_arrow_lx",
+    "path":"sprites/spr_arrow_lx/spr_arrow_lx.yy",
   },
   "spriteMaskId":null,
   "visible":true,

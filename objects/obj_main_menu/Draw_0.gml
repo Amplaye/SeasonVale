@@ -1,16 +1,16 @@
 if (visible) {
     // Nascondi il cursore di Windows e usa solo lo sprite personalizzato
     window_set_cursor(cr_none);
-    cursor_sprite = pointer;
+    cursor_sprite = spr_pointer;
     
     // Determina quale sprite usare
-    var menu_sprite = menu_basic;
+    var menu_sprite = spr_menu_basic;
     
     // Se Stats è attiva, usa menu_stats
     if (instance_exists(obj_mark_stats)) {
         with (obj_mark_stats) {
             if (is_active) {
-                menu_sprite = menu_stats;
+                menu_sprite = spr_menu_stats;
             }
         }
     }

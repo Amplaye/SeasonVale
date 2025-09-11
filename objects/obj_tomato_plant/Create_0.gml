@@ -14,7 +14,7 @@ harvest_amount = 3;         // Quantità di pomodori per harvest
 depth = 3;                  // Sopra il terreno ma sotto il player
 
 // Imposta sprite e frame iniziale
-sprite_index = tomatoes;    // Sprite con 5 frame
+sprite_index = spr_tomatoes;    // Sprite con 5 frame
 image_index = growth_stage;
 image_speed = 0;            // Niente animazione automatica
 

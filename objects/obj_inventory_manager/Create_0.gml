@@ -115,8 +115,8 @@ function get_slot_position(slot_index) {
     var row = row_col[0];
     var col = row_col[1];
     
-    var scaled_slot_width = sprite_get_width(slot) * global.slot_scale * global.inventory_scale;
-    var scaled_slot_height = sprite_get_height(slot) * global.slot_scale * global.inventory_scale;
+    var scaled_slot_width = sprite_get_width(spr_slot) * global.slot_scale * global.inventory_scale;
+    var scaled_slot_height = sprite_get_height(spr_slot) * global.slot_scale * global.inventory_scale;
     
     var slot_x = x + (col * (scaled_slot_width + global.inventory_gap_x));
     var slot_y = y + (row * (scaled_slot_height + global.inventory_gap_y));

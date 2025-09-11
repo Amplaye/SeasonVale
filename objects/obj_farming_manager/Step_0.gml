@@ -19,7 +19,7 @@ var hoe_slot = -1;
 if (variable_global_exists("tool_sprites") && variable_global_exists("selected_tool")) {
     if (global.selected_tool >= 0 && global.selected_tool < array_length(global.tool_sprites)) {
         var selected_sprite = global.tool_sprites[global.selected_tool];
-        if (sprite_exists(selected_sprite) && sprite_get_name(selected_sprite) == "hoe") {
+        if (sprite_exists(selected_sprite) && sprite_get_name(selected_sprite) == "spr_hoe") {
             player_has_hoe = true;
             hoe_slot = global.selected_tool;
         }
@@ -41,8 +41,12 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
     mouse_was_pressed = true;
     
     // ===== CALCOLA POSIZIONE TARGET =====
-    var target_x = mouse_x;
-    var target_y = mouse_y;
+    // Converti coordinate mouse da view a mondo
+    var cam = camera_get_active();
+    var view_x = camera_get_view_x(cam);
+    var view_y = camera_get_view_y(cam);
+    var target_x = mouse_x + view_x;
+    var target_y = mouse_y + view_y;
     
     // Trova il player
     var player = instance_find(obj_player, 0);
@@ -104,7 +108,7 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
             }
             
             // ===== CREA OGGETTO TILLED SOIL =====
-            // Converti coordinate tile in coordinate mondo
+            // Converti coordinate tile in coordinate mondo (centro della tile)
             var soil_x = tile_x * 16 + 8;  // Centro della tile (16x16 pixel)
             var soil_y = tile_y * 16 + 8;
             

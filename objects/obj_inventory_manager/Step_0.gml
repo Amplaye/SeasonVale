@@ -17,8 +17,8 @@ var cam_y = camera_get_view_y(cam);
 
 var screen_w = 480;
 var screen_h = 270;
-var scaled_slot_width = sprite_get_width(slot) * global.slot_scale * global.inventory_scale;
-var scaled_slot_height = sprite_get_height(slot) * global.slot_scale * global.inventory_scale;
+var scaled_slot_width = sprite_get_width(spr_slot) * global.slot_scale * global.inventory_scale;
+var scaled_slot_height = sprite_get_height(spr_slot) * global.slot_scale * global.inventory_scale;
 
 // Calcola dimensioni totali inventario
 var total_width = (global.inventory_cols * scaled_slot_width) + ((global.inventory_cols - 1) * global.inventory_gap_x);
@@ -136,7 +136,7 @@ if (global.inventory_visible) {
     
     var trash_x = inventory_end_x + 10;
     // Allinea la trash chest al bottom dell'inventario (non considerando il padding)
-    var trash_y = inventory_end_y - (sprite_get_height(trash_chest) * global.slot_scale * global.inventory_scale);
+    var trash_y = inventory_end_y - (sprite_get_height(spr_trash_chest) * global.slot_scale * global.inventory_scale);
     
     // Crea istanza se non esiste
     if (inventory_trash_chest == noone || !instance_exists(inventory_trash_chest)) {

@@ -38,8 +38,8 @@ if (!variable_global_exists("farmed_tiles")) {
 
 // ===== CONFIGURAZIONE TOOL =====
 // Verifica che lo sprite hoe esista
-if (sprite_exists(hoe)) {
-    show_debug_message("🚜 Sprite zappa trovato: " + sprite_get_name(hoe));
+if (sprite_exists(spr_hoe)) {
+    show_debug_message("🚜 Sprite zappa trovato: " + sprite_get_name(spr_hoe));
 } else {
     show_debug_message("⚠️ ERRORE: Sprite 'hoe' non trovato!");
 }

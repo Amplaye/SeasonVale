@@ -9,7 +9,6 @@
 for (var i = 1; i <= 9; i++) {
     if (keyboard_check_pressed(ord(string(i)))) {
         global.selected_tool = i - 1;
-        show_debug_message("🎯 Selezionato Slot #" + string(i));
         break;
     }
 }
@@ -17,7 +16,6 @@ for (var i = 1; i <= 9; i++) {
 // Tasto 0 per il decimo slot
 if (keyboard_check_pressed(ord("0"))) {
     global.selected_tool = 9;
-    show_debug_message("🎯 Selezionato Slot #10");
 }
 
 // ===== DEBUG CONTROLS (TASTIERA 60%) =====
@@ -43,7 +41,7 @@ var screen_w = 480;
 var screen_h = 270;
 
 var slot_scale = 0.5;
-var scaled_slot_width = sprite_get_width(slot) * slot_scale;
+var scaled_slot_width = sprite_get_width(spr_slot) * slot_scale;
 var total_width = (global.toolbar_slots_count * scaled_slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
 
 var toolbar_start_x = cam_x + (screen_w - total_width) / 2;

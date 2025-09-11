@@ -30,7 +30,7 @@ chopping_direction = "front"; // Direzione salvata per l'animazione corrente
 chop_cooldown = 0; // Cooldown dopo ogni chop
 
 
-sprite_index = idle_front;
+sprite_index = spr_idle_front;
 image_speed = 1;
 
 // Cursore gestito da obj_cursor_manager
@@ -45,10 +45,10 @@ current_shirt_index = 1;   // 0 = nudo, 1 = primo vestito - ATTIVO per test
 current_pants_index = 1;   // 0 = nudo, 1 = primo vestito - ATTIVO per test
 
 // Array degli sprite dei vestiti (corrispondenti al dressing menu)
-hat_sprites = [noone, hat_front, hat_back];
-hair_sprites = [noone, hair_front, hair_back];
-shirt_sprites = [noone, shirt_front, shirt_back];
-pants_sprites = [noone, pants_and_shoes_front, pants_and_shoes_back];
+hat_sprites = [noone, spr_hat_front, spr_hat_back];
+hair_sprites = [noone, spr_hair_front, spr_hair_back];
+shirt_sprites = [noone, spr_shirt_front, spr_shirt_back];
+pants_sprites = [noone, spr_pants_and_shoes_front, spr_pants_and_shoes_back];
 
 
 // Funzione per determinare direzione verso il cursor

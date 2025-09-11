@@ -13,19 +13,19 @@ if (!can_move) {
     var idle_sprite = -1;
     switch(current_direction) {
         case "right":
-            idle_sprite = idle_right;
+            idle_sprite = spr_idle_right;
             break;
         case "left":
-            idle_sprite = idle_left;
+            idle_sprite = spr_idle_left;
             break;
         case "front":
-            idle_sprite = idle_front;
+            idle_sprite = spr_idle_front;
             break;
         case "back":
-            idle_sprite = idle_back;
+            idle_sprite = spr_idle_back;
             break;
         default:
-            idle_sprite = idle_front;
+            idle_sprite = spr_idle_front;
             break;
     }
     
@@ -80,19 +80,19 @@ if (popup_blocks_movement) {
     var idle_sprite = -1;
     switch(current_direction) {
         case "right":
-            idle_sprite = idle_right;
+            idle_sprite = spr_idle_right;
             break;
         case "left":
-            idle_sprite = idle_left;
+            idle_sprite = spr_idle_left;
             break;
         case "front":
-            idle_sprite = idle_front;
+            idle_sprite = spr_idle_front;
             break;
         case "back":
-            idle_sprite = idle_back;
+            idle_sprite = spr_idle_back;
             break;
         default:
-            idle_sprite = idle_front; // Default se direzione non definita
+            idle_sprite = spr_idle_front; // Default se direzione non definita
             break;
     }
     
@@ -127,16 +127,11 @@ if (popup_blocks_movement) {
 // ===== CHOPPING SYSTEM =====
 // Controlla se l'axe è selezionato e click sinistro
 if (mouse_check_button_pressed(mb_left)) {
-    // Debug per ogni click
-    show_debug_message("MOUSE CLICK! Position: " + string(mouse_x) + "," + string(mouse_y) + " | Selected tool: " + string(global.selected_tool));
-    
     // Non avviare chopping se il click è sulla toolbar (y >= 220)
     // O se un popup è attivo
     var is_click_on_toolbar = (mouse_y >= 220);
     var popup_is_active = (variable_global_exists("popup_active") && global.popup_active) ||
                          (variable_global_exists("popup_throw_active") && global.popup_throw_active);
-    
-    show_debug_message("Click check: toolbar=" + string(is_click_on_toolbar) + " | popup=" + string(popup_is_active));
     
     if (!is_click_on_toolbar && !popup_is_active) {
         var selected_tool_sprite = noone;
@@ -144,14 +139,9 @@ if (mouse_check_button_pressed(mb_left)) {
             selected_tool_sprite = global.tool_sprites[global.selected_tool];
         }
         
-        // Debug generale per gli strumenti
-        show_debug_message("CLICK! Tool slot: " + string(global.selected_tool) + ", Tool sprite: " + string(selected_tool_sprite));
-        show_debug_message("Confronto numerico: selected=" + string(real(selected_tool_sprite)) + " vs pickaxe=" + string(real(pickaxe)));
-        show_debug_message("Cooldown: " + string(chop_cooldown));
         
         // CONTROLLO PICKAXE PER PRIMO
         if (global.selected_tool == 1 && chop_cooldown <= 0) {
-            show_debug_message("PICKAXE RILEVATO! Avvio mining!");
             if (!is_mining && !is_chopping) {
                 is_mining = true;
                 
@@ -178,22 +168,20 @@ if (mouse_check_button_pressed(mb_left)) {
                 // Per ora usa sprite chopping (quando avrai animazioni mining sostituisci qui)
                 var mining_sprite = -1;
                 switch(mining_direction) {
-                    case "front": mining_sprite = chop_front; break;
-                    case "back": mining_sprite = chop_back; break;
-                    case "left": mining_sprite = chop_left; break;
-                    case "right": mining_sprite = chop_right; break;
+                    case "front": mining_sprite = spr_chop_front; break;
+                    case "back": mining_sprite = spr_chop_back; break;
+                    case "left": mining_sprite = spr_chop_left; break;
+                    case "right": mining_sprite = spr_chop_right; break;
                 }
                 
                 if (mining_sprite != -1) {
                     sprite_index = mining_sprite;
                     image_index = 0;
                 }
-                
-                show_debug_message("MINING INIZIATO!");
             }
         }
         
-        if (selected_tool_sprite == axe && chop_cooldown <= 0) {
+        if (selected_tool_sprite == spr_axe && chop_cooldown <= 0) {
             // Avvia animazione chopping
             if (!is_chopping && !is_mining) {
             is_chopping = true;
@@ -211,22 +199,22 @@ if (mouse_check_button_pressed(mb_left)) {
             chopping_direction = cursor_direction; // Salva direzione per questa animazione
             
             // Usa la direzione salvata per l'animazione chop
-            var chop_sprite = chop_right; // Default
+            var chop_sprite = spr_chop_right; // Default
             switch(chopping_direction) {
                 case "right":
-                    chop_sprite = chop_right;
+                    chop_sprite = spr_chop_right;
                     break;
                 case "left":
-                    chop_sprite = chop_left;
+                    chop_sprite = spr_chop_left;
                     break;
                 case "front":
-                    chop_sprite = chop_front;
+                    chop_sprite = spr_chop_front;
                     break;
                 case "back":
-                    chop_sprite = chop_back;
+                    chop_sprite = spr_chop_back;
                     break;
                 default:
-                    chop_sprite = chop_right;
+                    chop_sprite = spr_chop_right;
                     break;
             }
             
@@ -244,32 +232,15 @@ if (mouse_check_button_pressed(mb_left)) {
             
             chopping_original_x = x;
             chopping_original_y = y;
-            
-            // DEBUG: Mostra informazioni dettagliate degli sprite
-            show_debug_message("OLD SPRITE (" + sprite_get_name(old_sprite) + "):");
-            show_debug_message("  - Size: " + string(sprite_get_width(old_sprite)) + "x" + string(sprite_get_height(old_sprite)));
-            show_debug_message("  - Offset: " + string(sprite_get_xoffset(old_sprite)) + "," + string(sprite_get_yoffset(old_sprite)));
-            show_debug_message("  - BBox: " + string(sprite_get_bbox_left(old_sprite)) + "," + string(sprite_get_bbox_top(old_sprite)) + " to " + string(sprite_get_bbox_right(old_sprite)) + "," + string(sprite_get_bbox_bottom(old_sprite)));
-            
-            show_debug_message("NEW SPRITE (" + sprite_get_name(chop_sprite) + "):");
-            show_debug_message("  - Size: " + string(sprite_get_width(chop_sprite)) + "x" + string(sprite_get_height(chop_sprite)));
-            show_debug_message("  - Offset: " + string(sprite_get_xoffset(chop_sprite)) + "," + string(sprite_get_yoffset(chop_sprite)));
-            show_debug_message("  - BBox: " + string(sprite_get_bbox_left(chop_sprite)) + "," + string(sprite_get_bbox_top(chop_sprite)) + " to " + string(sprite_get_bbox_right(chop_sprite)) + "," + string(sprite_get_bbox_bottom(chop_sprite)));
         }
         
-        show_debug_message("DEBUG PRIMA DEL CONTROLLO PICKAXE - global.selected_tool = " + string(global.selected_tool));
-        
-        // Confronto diretto per pickaxe - i numeri sono identici!
-        var is_pickaxe = (global.selected_tool == 1); // Slot 1 = pickaxe
-        show_debug_message("Test pickaxe: " + string(is_pickaxe) + " | slot==1: " + string(global.selected_tool == 1));
+        // Confronto diretto per pickaxe - slot 1
+        var is_pickaxe = (global.selected_tool == 1); 
         
         if (is_pickaxe && chop_cooldown <= 0) {
-        // Debug per mining
-        show_debug_message("PICKAXE RILEVATO! Selected tool: " + string(selected_tool_sprite) + ", Pickaxe sprite: " + string(pickaxe));
         
         // Avvia animazione mining
         if (!is_mining) {
-            show_debug_message("AVVIO MINING!");
             is_mining = true;
             
             // Salva sprite attuale e posizione
@@ -300,10 +271,10 @@ if (mouse_check_button_pressed(mb_left)) {
             // Per ora usa stesso sprite del front (quando avrai animazioni mining le aggiungi qui)
             var mining_sprite = -1;
             switch(mining_direction) {
-                case "front": mining_sprite = spr_char_front; break;
-                case "back": mining_sprite = spr_char_back; break;
-                case "left": mining_sprite = spr_char_left; break;
-                case "right": mining_sprite = spr_char_right; break;
+                case "front": mining_sprite = spr_chop_front; break;
+                case "back": mining_sprite = spr_chop_back; break;
+                case "left": mining_sprite = spr_chop_left; break;
+                case "right": mining_sprite = spr_chop_right; break;
             }
             
             if (mining_sprite != -1) {
@@ -355,26 +326,25 @@ if (is_chopping) {
             tree_hit.shake_timer = 30; // 30 frame di shake
             tree_hit.shake_intensity = 1.5; // Intensità iniziale ridotta del 50%
             tree_hit.shake_direction = point_direction(tree_hit.x, tree_hit.y, x, y); // Direzione opposta al player
-            show_debug_message("🌳 Albero colpito! Shake attivato");
         }
         
         // Forza il ritorno all'animazione idle corretta
         var idle_sprite = -1;
         switch(chopping_direction) { // Usa chopping_direction per l'idle
             case "right":
-                idle_sprite = idle_right;
+                idle_sprite = spr_idle_right;
                 break;
             case "left":
-                idle_sprite = idle_left;
+                idle_sprite = spr_idle_left;
                 break;
             case "front":
-                idle_sprite = idle_front;
+                idle_sprite = spr_idle_front;
                 break;
             case "back":
-                idle_sprite = idle_back;
+                idle_sprite = spr_idle_back;
                 break;
             default:
-                idle_sprite = idle_front;
+                idle_sprite = spr_idle_front;
                 break;
         }
         
@@ -559,59 +529,59 @@ if (is_moving) {
             if (abs(hsp) >= abs(vsp) * 0.7) {
                 if (hsp > 0) {
                     new_direction = "right";
-                    new_sprite = run_right;
+                    new_sprite = spr_run_right;
                 }
                 else {
                     new_direction = "left";
-                    new_sprite = run_left;
+                    new_sprite = spr_run_left;
                 }
             } else {
                 if (vsp > 0) {
                     new_direction = "front";
-                    new_sprite = run_front;
+                    new_sprite = spr_run_front;
                 }
                 else {
                     new_direction = "back";
-                    new_sprite = run_back;
+                    new_sprite = spr_run_back;
                 }
             }
         } else {
             if (abs(vsp) >= abs(hsp) * 0.7) {
                 if (vsp > 0) {
                     new_direction = "front";
-                    new_sprite = run_front;
+                    new_sprite = spr_run_front;
                 }
                 else {
                     new_direction = "back";
-                    new_sprite = run_back;
+                    new_sprite = spr_run_back;
                 }
             } else {
                 if (hsp > 0) {
                     new_direction = "right";
-                    new_sprite = run_right;
+                    new_sprite = spr_run_right;
                 }
                 else {
                     new_direction = "left";
-                    new_sprite = run_left;
+                    new_sprite = spr_run_left;
                 }
             }
         }
     }
     else if (hsp > 0) {
         new_direction = "right";
-        new_sprite = run_right;
+        new_sprite = spr_run_right;
     }
     else if (hsp < 0) {
         new_direction = "left";
-        new_sprite = run_left;
+        new_sprite = spr_run_left;
     }
     else if (vsp > 0) {
         new_direction = "front";
-        new_sprite = run_front;
+        new_sprite = spr_run_front;
     }
     else if (vsp < 0) {
         new_direction = "back";
-        new_sprite = run_back;
+        new_sprite = spr_run_back;
     }
     
     if (new_sprite != -1) {
@@ -642,19 +612,19 @@ if (is_moving) {
     
     switch(current_direction) {
         case "right":
-            new_sprite = idle_right;
+            new_sprite = spr_idle_right;
             break;
         case "left":
-            new_sprite = idle_left;
+            new_sprite = spr_idle_left;
             break;
         case "front":
-            new_sprite = idle_front;
+            new_sprite = spr_idle_front;
             break;
         case "back":
-            new_sprite = idle_back;
+            new_sprite = spr_idle_back;
             break;
         default:
-            new_sprite = idle_front;
+            new_sprite = spr_idle_front;
             break;
     }
     

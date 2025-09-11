@@ -10,8 +10,8 @@
   "name":"obj_wood_drop",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Gameplay",
+    "path":"folders/Objects/Gameplay.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -37,8 +37,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"wood",
-    "path":"sprites/wood/wood.yy",
+    "name":"spr_wood",
+    "path":"sprites/spr_wood/spr_wood.yy",
   },
   "spriteMaskId":null,
   "visible":true,

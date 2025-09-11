@@ -2,8 +2,8 @@ visible = false;
 depth = -1001;
 
 // Forza GameMaker a includere lo sprite nella compilazione
-sprite_ref = idle_front;
-base_sprite = idle_front;
+sprite_ref = spr_idle_front;
+base_sprite = spr_idle_front;
 current_frame = 0;
 frame_speed = 8;
 

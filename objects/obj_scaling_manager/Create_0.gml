@@ -16,28 +16,28 @@ scales_applied = false;
 global.sprite_scales = {};
 
 // MATERIALI BASE
-global.sprite_scales[$ "wood"] = {scale_x: 0.2, scale_y: 0.2};
-global.sprite_scales[$ "rock"] = {scale_x: 0.3, scale_y: 0.3};  
-global.sprite_scales[$ "bronze"] = {scale_x: 0.4, scale_y: 0.4};
+global.sprite_scales[$ "spr_wood"] = {scale_x: 0.2, scale_y: 0.2};
+global.sprite_scales[$ "spr_rock"] = {scale_x: 0.3, scale_y: 0.3};  
+global.sprite_scales[$ "spr_bronze"] = {scale_x: 0.4, scale_y: 0.4};
 
 // VERDURE
-global.sprite_scales[$ "aubergine"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "carrot"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "corn"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "cucumber"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "garlic"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "lettuce"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "onion"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "pepper"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "potato"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "pumpkin"] = {scale_x: 0.25, scale_y: 0.25};
-global.sprite_scales[$ "tomato"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_aubergine"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_carrot"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_corn"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_cucumber"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_garlic"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_lettuce"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_onion"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_pepper"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_potato"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_pumpkin"] = {scale_x: 0.25, scale_y: 0.25};
+global.sprite_scales[$ "spr_tomato"] = {scale_x: 0.25, scale_y: 0.25};
 
 // TOOL
-global.sprite_scales[$ "axe"] = {scale_x: 0.40, scale_y: 0.40};
-global.sprite_scales[$ "hoe"] = {scale_x: 0.35, scale_y: 0.35};
-global.sprite_scales[$ "pickaxe"] = {scale_x: 0.35, scale_y: 0.35};
-global.sprite_scales[$ "fishing_rod"] = {scale_x: 0.35, scale_y: 0.35};
+global.sprite_scales[$ "spr_axe"] = {scale_x: 0.45, scale_y: 0.45};
+global.sprite_scales[$ "spr_hoe"] = {scale_x: 0.45, scale_y: 0.45};
+global.sprite_scales[$ "spr_pickaxe"] = {scale_x: 0.40, scale_y: 0.40};
+global.sprite_scales[$ "spr_fishing_rod"] = {scale_x: 0.45, scale_y: 0.45};
 
 // ===== FUNZIONI UTILITY =====
 

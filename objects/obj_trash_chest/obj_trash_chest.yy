@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"trash_chest",
-    "path":"sprites/trash_chest/trash_chest.yy",
+    "name":"spr_trash_chest",
+    "path":"sprites/spr_trash_chest/spr_trash_chest.yy",
   },
   "spriteMaskId":null,
   "visible":true,

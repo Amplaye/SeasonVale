@@ -26,7 +26,7 @@ global.toolbar_debug_enabled = false;
 var cam = view_camera[0];
 var screen_w = 480;
 var slot_scale = 0.5;
-var scaled_slot_width = sprite_get_width(slot) * slot_scale;
+var scaled_slot_width = sprite_get_width(spr_slot) * slot_scale;
 var total_width = (global.toolbar_slots_count * scaled_slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
 var toolbar_start_x = (screen_w - total_width) / 2;
 
@@ -37,14 +37,15 @@ y = 270 - global.toolbar_distance_from_bottom;
 // Inizializzazione solo una volta
 if (!variable_global_exists("tool_sprites")) {
     // CONTROLLO SICUREZZA: assegnazione diretta sprite per evitare GM1063
-    var axe_sprite = axe;
-    var mining_sprite = pickaxe;
-    var fishing_sprite = fishing_rod;
-    var zappa_sprite = hoe;
-    var tomato_seed_sprite = tomato;  // Seme di pomodoro
+    var axe_sprite = spr_axe;
+    var mining_sprite = spr_pickaxe;
+    var fishing_sprite = spr_fishing_rod;
+    var zappa_sprite = spr_hoe;
+    var tomato_seed_sprite = spr_tomato;  // Seme di pomodoro
+    var carrot_seed_sprite = spr_carrot;  // Seme di carota
     
-    global.tool_sprites = [axe_sprite, mining_sprite, zappa_sprite, fishing_sprite, tomato_seed_sprite, noone, noone, noone, noone, noone];
-    global.tool_quantities = [1, 1, 1, 1, 10, 0, 0, 0, 0, 0];  // 10 semi di pomodoro
+    global.tool_sprites = [axe_sprite, mining_sprite, zappa_sprite, fishing_sprite, tomato_seed_sprite, carrot_seed_sprite, noone, noone, noone, noone];
+    global.tool_quantities = [1, 1, 1, 1, 10, 5, 0, 0, 0, 0];  // 10 semi pomodoro, 5 semi carota
     global.selected_tool = 0;
     
     show_debug_message("🔧 Toolbar inizializzata:");
@@ -147,8 +148,8 @@ function toolbar_get_slot_center(slot_number) {
     var screen_h = 270;
     
     var slot_scale = 0.5;
-    var scaled_slot_width = sprite_get_width(slot) * slot_scale;
-    var scaled_slot_height = sprite_get_height(slot) * slot_scale;
+    var scaled_slot_width = sprite_get_width(spr_slot) * slot_scale;
+    var scaled_slot_height = sprite_get_height(spr_slot) * slot_scale;
     var total_width = (global.toolbar_slots_count * scaled_slot_width) + ((global.toolbar_slots_count - 1) * global.toolbar_gap);
     
     var toolbar_start_x = cam_x + (screen_w - total_width) / 2;

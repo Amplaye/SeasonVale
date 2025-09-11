@@ -10,8 +10,8 @@
   "name":"obj_rock_drop",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Gameplay",
+    "path":"folders/Objects/Gameplay.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"rock",
-    "path":"sprites/rock/rock.yy",
+    "name":"spr_rock",
+    "path":"sprites/spr_rock/spr_rock.yy",
   },
   "spriteMaskId":null,
   "visible":true,
