@@ -17,8 +17,10 @@ if (can_harvest && harvest_cooldown <= 0) {
     if (player != noone) {
         var dist_to_player = point_distance(x, y, player.x, player.y);
         
-        // Se il player è vicino e clicca con tasto destro
-        if (dist_to_player < 48 && mouse_check_button_pressed(mb_right)) {
+        // Se il player è vicino e clicca con tasto destro E non è già stato fatto harvest questo frame
+        if (dist_to_player < 32 && mouse_check_button_pressed(mb_right) && !global.harvest_this_frame) {
+            // Imposta flag per impedire altri harvest questo frame
+            global.harvest_this_frame = true;
             harvest_plant();
         }
     }

@@ -22,4 +22,6 @@ can_regrow = true;
 // NOTA: Questo oggetto viene inizializzato chiamando init_plant(plant_type, id)
 // dal tilled_soil quando viene piantato un seme
 
-show_debug_message("🌱 Universal plant created (awaiting initialization)");
+// Depth rimosso - sarà impostato direttamente nell'editor
+
+// show_debug_message("🌱 Universal plant created (awaiting initialization)");

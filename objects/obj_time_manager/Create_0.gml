@@ -54,8 +54,8 @@ ds_map_add(time_colors, 25, [make_color_rgb(10, 10, 60), 0.8]); // 01:00
 // Aggiorna overlay iniziale
 update_time_overlay();
 
-// Debug
-show_debug_message("Time Manager created - Day: " + string(global.game_day) + " Time: " + format_time());
+// Debug (disabled for performance)
+// show_debug_message("Time Manager created - Day: " + string(global.game_day) + " Time: " + format_time());
 
 // Funzione per formattare l'orario
 function format_time() {
@@ -113,7 +113,7 @@ function advance_day() {
     }
     
     update_time_overlay();
-    show_debug_message("🌅 New day: " + string(global.game_day) + " - " + format_time());
+    // show_debug_message("🌅 New day: " + string(global.game_day) + " - " + format_time());
 }
 
 // Funzione per avanzare di un'ora
@@ -125,6 +125,6 @@ function advance_hour() {
         advance_day();
     } else {
         update_time_overlay();
-        show_debug_message("⏰ Time: " + format_time());
+        // show_debug_message("⏰ Time: " + format_time());
     }
 }

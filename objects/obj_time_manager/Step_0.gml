@@ -16,13 +16,13 @@ if (keyboard_check_pressed(ord("Y"))) {
         global.game_minute -= 60;
         advance_hour();
     }
-    show_debug_message("⏰ +30min - Time: " + format_time());
+    // show_debug_message("⏰ +30min - Time: " + format_time());
 }
 
 // U = toggle auto advance tempo
 if (keyboard_check_pressed(ord("U"))) {
     auto_advance = !auto_advance;
-    show_debug_message("🕐 Auto time: " + (auto_advance ? "ON" : "OFF"));
+    // show_debug_message("🕐 Auto time: " + (auto_advance ? "ON" : "OFF"));
 }
 
 // Avanzamento automatico tempo (se abilitato)
@@ -37,7 +37,7 @@ if (auto_advance) {
             global.game_minute = 0;
             advance_hour();
         } else {
-            show_debug_message("⏰ Time: " + format_time());
+            // show_debug_message("⏰ Time: " + format_time());
         }
     }
 }

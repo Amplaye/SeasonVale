@@ -20,7 +20,7 @@ function get_plant_configs() {
                 harvest_item: spr_tomato,
                 harvest_cooldown_frames: 30,
                 reset_stage_after_harvest: 3, // Reset a stadio 0 per differenza visiva più marcata
-                depth: 3,
+                // depth: 3, // Rimosso per usare depth dinamico basato su Y
                 can_regrow: true,  // Se può essere raccolta più volte
                 description: "Pomodori succosi e rossi"
             },
@@ -34,7 +34,7 @@ function get_plant_configs() {
                 harvest_item: spr_carrot,
                 harvest_cooldown_frames: 45,
                 reset_stage_after_harvest: -1, // -1 = distruggi pianta dopo harvest
-                depth: 3,
+                // depth: 3, // Rimosso per usare depth dinamico basato su Y
                 can_regrow: false,
                 description: "Carote croccanti e arancioni"
             }
@@ -52,7 +52,7 @@ function get_plant_config(plant_type) {
         return configs[$ plant_type];
     }
     
-    show_debug_message("⚠️ Plant config non trovato per: " + plant_type);
+    // show_debug_message("⚠️ Plant config non trovato per: " + plant_type);
     return undefined;
 }
 
@@ -81,7 +81,7 @@ function init_plant(plant_type, instance_id) {
         sprite_index = config.sprite;
         image_index = self.growth_stage;
         image_speed = 0;
-        depth = config.depth;
+        // depth = config.depth; // Rimosso - mantieni depth dinamico impostato in Create
         
         show_debug_message("🌱 " + string_upper(plant_type) + " plant created - Stage: " + string(self.growth_stage) + " Day: " + string(self.planted_day));
     }
@@ -225,4 +225,4 @@ function debug_print_plant_status(instance_id) {
     }
 }
 
-show_debug_message("🌱 Plant System loaded successfully!");
+// show_debug_message("🌱 Plant System loaded successfully!");

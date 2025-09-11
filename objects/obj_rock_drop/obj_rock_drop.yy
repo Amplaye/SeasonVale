@@ -13,7 +13,10 @@
     "name":"Gameplay",
     "path":"folders/Objects/Gameplay.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_depth_sorted",
+    "path":"objects/obj_depth_sorted/obj_depth_sorted.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

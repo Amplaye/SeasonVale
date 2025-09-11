@@ -48,7 +48,11 @@
       "Read(/C:\\Users\\Steward\\SeasonVale\\objects\\obj_main_menu_stats/**)",
       "Read(/C:\\Users\\Steward\\SeasonVale\\objects\\obj_main_menu_stats/**)",
       "Read(/C:\\Users\\Steward\\SeasonVale\\objects\\obj_main_menu_stats/**)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(code:*)",
+      "Bash(gh:*)",
+      "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_universal_plant\\Draw_0.gml\")",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": [],

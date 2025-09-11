@@ -20,6 +20,7 @@
     {"name":"Clothes","order":6,"path":"folders/Sprites/Clothes.yy",},
     {"name":"Crops","order":7,"path":"folders/Sprites/Crops.yy",},
     {"name":"farmable_veg","order":4,"path":"folders/Sprites/farmable_veg.yy",},
+    {"name":"Global","order":8,"path":"folders/Sprites/Global.yy",},
     {"name":"Inventory","order":2,"path":"folders/Sprites/Inventory.yy",},
     {"name":"Items","order":3,"path":"folders/Sprites/Items.yy",},
     {"name":"TileSets","order":1,"path":"folders/Sprites/TileSets.yy",},
@@ -28,6 +29,8 @@
     {"name":"Timelines","order":8,"path":"folders/Timelines.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"obj_depth_sorted","order":9,"path":"objects/obj_depth_sorted/obj_depth_sorted.yy",},
+    {"name":"obj_draw","order":8,"path":"objects/obj_draw/obj_draw.yy",},
     {"name":"obj_dressing_arrow_left","order":1,"path":"objects/obj_dressing_arrow_left/obj_dressing_arrow_left.yy",},
     {"name":"obj_dressing_arrow_right","order":3,"path":"objects/obj_dressing_arrow_right/obj_dressing_arrow_right.yy",},
     {"name":"obj_farming_manager","order":4,"path":"objects/obj_farming_manager/obj_farming_manager.yy",},
@@ -61,6 +64,7 @@
     {"name":"obj_universal_plant","order":6,"path":"objects/obj_universal_plant/obj_universal_plant.yy",},
     {"name":"obj_wood_drop","order":7,"path":"objects/obj_wood_drop/obj_wood_drop.yy",},
     {"name":"Room1","order":1,"path":"rooms/Room1/Room1.yy",},
+    {"name":"scr_addto_depthgrid","order":5,"path":"scripts/scr_addto_depthgrid/scr_addto_depthgrid.yy",},
     {"name":"scr_farming_autotile","order":1,"path":"scripts/scr_farming_autotile/scr_farming_autotile.yy",},
     {"name":"scr_plant_system","order":2,"path":"scripts/scr_plant_system/scr_plant_system.yy",},
     {"name":"scr_seed_system","order":3,"path":"scripts/scr_seed_system/scr_seed_system.yy",},
@@ -128,5 +132,6 @@
     {"name":"test_menu","order":15,"path":"sprites/test_menu/test_menu.yy",},
     {"name":"UI_TravelBook_Spritesheet01a_3","order":18,"path":"sprites/UI_TravelBook_Spritesheet01a_3/UI_TravelBook_Spritesheet01a_3.yy",},
     {"name":"UI_TravelBookAnimated_Spritesheet01a_1","order":4,"path":"sprites/UI_TravelBookAnimated_Spritesheet01a_1/UI_TravelBookAnimated_Spritesheet01a_1.yy",},
+    {"name":"t_collision","order":1,"path":"tilesets/t_collision/t_collision.yy",},
   ],
 }

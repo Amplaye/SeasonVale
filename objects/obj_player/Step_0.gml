@@ -1,10 +1,40 @@
+// Reset harvest flag all'inizio di ogni frame
+global.harvest_this_frame = false;
+
+// ===== INIZIALIZZAZIONE DIRETTA VARIABILI =====
+if (!variable_global_exists("player_initialized")) {
+    global.player_initialized = true;
+    can_move = true;
+    chop_cooldown = 0;
+    is_moving = false;
+    hsp = 0;
+    vsp = 0;
+    current_direction = "front";
+    is_chopping = false;
+    is_mining = false;
+    speed_walk = 2;
+    speed_run = 4;
+    chopping_original_x = 0;
+    chopping_original_y = 0;
+    mining_original_x = 0;
+    mining_original_y = 0;
+    mining_direction = "front";
+    chopping_direction = "front";
+}
+
+// ===== DEBUG COLLISION TOGGLE =====
+if (keyboard_check_pressed(vk_f1)) {
+    toggle_collision_debug();
+}
+
 // ===== COOLDOWN CHOP =====
 if (chop_cooldown > 0) {
     chop_cooldown--;
 }
 
 // ===== CONTROLLO MOVIMENTO BLOCCATO =====
-if (!can_move) {
+var movement_blocked = (variable_instance_exists(id, "can_move") && !can_move);
+if (movement_blocked) {
     is_moving = false;
     hsp = 0;
     vsp = 0;
@@ -465,21 +495,20 @@ if (hsp != 0 || vsp != 0) {
 
 is_moving = (hsp != 0) || (vsp != 0);
 
-// Prima di muovere, controlla se siamo già in collisione e spingi fuori
-if (place_meeting(x, y, obj_tree)) {
-    // Trova la direzione per uscire dalla collisione
+
+// Controlla collision tilemap per push out
+if (check_tilemap_collision(x, y)) {
     for (var push_dist = 1; push_dist <= 5; push_dist++) {
-        // Prova in tutte le direzioni
-        if (!place_meeting(x - push_dist, y, obj_tree)) {
+        if (!check_tilemap_collision(x - push_dist, y)) {
             x -= push_dist;
             break;
-        } else if (!place_meeting(x + push_dist, y, obj_tree)) {
+        } else if (!check_tilemap_collision(x + push_dist, y)) {
             x += push_dist;
             break;
-        } else if (!place_meeting(x, y - push_dist, obj_tree)) {
+        } else if (!check_tilemap_collision(x, y - push_dist)) {
             y -= push_dist;
             break;
-        } else if (!place_meeting(x, y + push_dist, obj_tree)) {
+        } else if (!check_tilemap_collision(x, y + push_dist)) {
             y += push_dist;
             break;
         }
@@ -490,11 +519,21 @@ if (is_moving) {
     // Movimento orizzontale con collisione precisa
     if (hsp != 0) {
         var move_x = hsp;
+        var collision_found = false;
         
-        // Controlla se il movimento completo è possibile
-        if (place_meeting(x + move_x, y, obj_tree)) {
+        // Controlla tilemap collision
+        if (check_tilemap_collision(x + move_x, y)) {
+            collision_found = true;
+        }
+        
+        if (collision_found) {
             // Muovi fino al punto di contatto
-            while (abs(move_x) > 0.1 && !place_meeting(x + sign(move_x), y, obj_tree)) {
+            while (abs(move_x) > 0.1) {
+                // Controlla tilemap collision
+                if (check_tilemap_collision(x + sign(move_x), y)) {
+                    break;
+                }
+                
                 x += sign(move_x);
                 move_x -= sign(move_x);
             }
@@ -507,11 +546,21 @@ if (is_moving) {
     // Movimento verticale con collisione precisa
     if (vsp != 0) {
         var move_y = vsp;
+        var collision_found = false;
         
-        // Controlla se il movimento completo è possibile
-        if (place_meeting(x, y + move_y, obj_tree)) {
+        // Controlla tilemap collision
+        if (check_tilemap_collision(x, y + move_y)) {
+            collision_found = true;
+        }
+        
+        if (collision_found) {
             // Muovi fino al punto di contatto
-            while (abs(move_y) > 0.1 && !place_meeting(x, y + sign(move_y), obj_tree)) {
+            while (abs(move_y) > 0.1) {
+                // Controlla tilemap collision
+                if (check_tilemap_collision(x, y + sign(move_y))) {
+                    break;
+                }
+                
                 y += sign(move_y);
                 move_y -= sign(move_y);
             }
@@ -649,3 +698,5 @@ if (is_moving) {
         image_speed = old_speed;
     }
 }
+
+// Depth rimosso - sarà impostato direttamente nell'editor

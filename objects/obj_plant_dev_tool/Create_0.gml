@@ -16,16 +16,17 @@ test_plants = [
     {type: "carrot", x: 250, y: 200}
 ];
 
-show_debug_message("🛠️ Plant Development Tool loaded");
-show_debug_message("🛠️ Commands:");
-show_debug_message("  P = Toggle plant dev mode");
-show_debug_message("  I = Show plant info");
-show_debug_message("  C = Create test plants");
-show_debug_message("  G = Grow all plants +1 stage");
-show_debug_message("  H = Harvest all ready plants");
-show_debug_message("  R = Remove all plants");
-show_debug_message("  D = Debug all plant configs");
-show_debug_message("  S = Add all seeds to toolbar");
-show_debug_message("  X = Remove all seeds from toolbar");
-show_debug_message("  M = Refill seeds (more seeds)");
-show_debug_message("  B = Buy starter seeds pack");
+// Debug messages disabled for performance
+// show_debug_message("🛠️ Plant Development Tool loaded");
+// show_debug_message("🛠️ Commands:");
+// show_debug_message("  P = Toggle plant dev mode");
+// show_debug_message("  I = Show plant info");
+// show_debug_message("  C = Create test plants");
+// show_debug_message("  G = Grow all plants +1 stage");
+// show_debug_message("  H = Harvest all ready plants");
+// show_debug_message("  R = Remove all plants");
+// show_debug_message("  D = Debug all plant configs");
+// show_debug_message("  S = Add all seeds to toolbar");
+// show_debug_message("  X = Remove all seeds from toolbar");
+// show_debug_message("  M = Refill seeds (more seeds)");
+// show_debug_message("  B = Buy starter seeds pack");

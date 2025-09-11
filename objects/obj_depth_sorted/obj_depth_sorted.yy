@@ -1,21 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_universal_plant",
+  "%Name":"obj_depth_sorted",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_universal_plant",
+  "name":"obj_depth_sorted",
   "overriddenProperties":[],
   "parent":{
     "name":"Meta",
     "path":"folders/Objects/Meta.yy",
   },
-  "parentObjectId":{
-    "name":"obj_depth_sorted",
-    "path":"objects/obj_depth_sorted/obj_depth_sorted.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
