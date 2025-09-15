@@ -1,0 +1,1 @@
+global.transitioning = false;

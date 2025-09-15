@@ -4,10 +4,21 @@ if (instance_number(obj_time_manager) > 1) {
     exit;
 }
 
-// Variabili tempo
-global.game_day = 1;
-global.game_hour = 6;  // Inizia alle 6:00 AM
-global.game_minute = 0;
+// Inizializza variabili tempo SOLO se non esistono già
+if (!variable_global_exists("game_day") || global.game_day == undefined) {
+    global.game_day = 1;
+}
+if (!variable_global_exists("game_hour") || global.game_hour == undefined) {
+    global.game_hour = 6;  // Inizia alle 6:00 AM
+}
+if (!variable_global_exists("game_minute") || global.game_minute == undefined) {
+    global.game_minute = 0;
+}
+
+// Resetta flag di ripristino tempo (permette il caricamento quando si cambia room)
+if (variable_global_exists("time_restored")) {
+    global.time_restored = undefined;
+}
 
 // Configurazione tempo
 minutes_per_hour = 60;
@@ -96,35 +107,4 @@ function update_time_overlay() {
     }
 }
 
-// Funzione per avanzare al giorno successivo
-function advance_day() {
-    global.game_day++;
-    global.game_hour = min_hour;  // Reset alle 6:00 AM
-    global.game_minute = 0;
-    
-    // Notifica crescita piante - ora usa sistema universale
-    with (obj_universal_plant) {
-        advance_plant_growth(id);
-    }
-    
-    // Mantieni compatibilità con vecchie piante durante transizione
-    with (obj_tomato_plant) {
-        advance_growth();
-    }
-    
-    update_time_overlay();
-    // show_debug_message("🌅 New day: " + string(global.game_day) + " - " + format_time());
-}
-
-// Funzione per avanzare di un'ora
-function advance_hour() {
-    global.game_hour++;
-    
-    // Se supera l'ora massima, avanza al giorno successivo
-    if (global.game_hour > max_hour) {
-        advance_day();
-    } else {
-        update_time_overlay();
-        // show_debug_message("⏰ Time: " + format_time());
-    }
-}
+// Funzioni advance_day() e advance_hour() sono ora in scr_time_functions

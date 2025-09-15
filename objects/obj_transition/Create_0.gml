@@ -1,0 +1,1 @@
+// Le proprietà targetRoom, targetX, targetY sono definite nelle proprietà dell'oggetto

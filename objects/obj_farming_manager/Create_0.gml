@@ -55,4 +55,10 @@ show_farming_debug = false; // Mostra debug visivo delle tile zappabili
 // ===== AUTOTILING GESTITO TRAMITE SCRIPT =====
 // Le funzioni di autotiling sono ora nel file scr_farming_autotile.gml
 
-show_debug_message("🚜 Farming TEST Manager creato con autotiling per sperimentazione");
+// ===== NASCONDI TILEMAP FARMING PER SISTEMA DISCRETO =====
+if (farming_tilemap_layer != -1) {
+    layer_set_visible(farming_tilemap_layer, false);
+    show_debug_message("🚜 Layer farming tilemap nascosto - usando solo quadrati discreti");
+}
+
+show_debug_message("🚜 Farming DISCRETO Manager creato - sistema a quadrati separati");

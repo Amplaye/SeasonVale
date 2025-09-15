@@ -39,7 +39,7 @@ var mouse_held = mouse_check_button(mb_left);
 // Previeni multi-click
 if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
     mouse_was_pressed = true;
-    
+
     // ===== CALCOLA POSIZIONE TARGET =====
     // Converti coordinate mouse da view a mondo
     var cam = camera_get_active();
@@ -47,11 +47,11 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
     var view_y = camera_get_view_y(cam);
     var target_x = mouse_x + view_x;
     var target_y = mouse_y + view_y;
-    
+
     // Trova il player
     var player = instance_find(obj_player, 0);
     if (player == noone) exit;
-    
+
     // Verifica distanza dal player
     var distance_to_target = point_distance(player.x, player.y, target_x, target_y);
     if (distance_to_target > farming_range) {
@@ -59,27 +59,27 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
         mouse_was_pressed = false;
         exit;
     }
-    
+
     // ===== CONVERTI COORDINATE IN TILE =====
     // Le tile sono 16x16 pixel
     var tile_x = floor(target_x / 16);
     var tile_y = floor(target_y / 16);
-    
+
     // Verifica che la tile sia valida
     if (tile_x < 0 || tile_y < 0) {
         show_debug_message("🚜: Coordinate tile non valide: " + string(tile_x) + ", " + string(tile_y));
         mouse_was_pressed = false;
         exit;
     }
-    
+
     // ===== ZAPPA LA TERRA =====
     if (farming_tilemap != -1) {
         // Ottieni tile corrente
         var current_tile = tilemap_get(farming_tilemap, tile_x, tile_y);
-        
+
         // Crea key per storage globale
         var tile_key = string(tile_x) + "," + string(tile_y);
-        
+
         // Verifica se già zappata (usa storage test)
         if (ds_map_exists(global.farmed_tiles, tile_key)) {
             show_debug_message("🚜: Tile già zappata a: " + string(tile_x) + ", " + string(tile_y));
@@ -87,41 +87,41 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
             // ===== USA AUTOTILING CON AGGIORNAMENTO VICINI =====
             // Salva prima nel storage TEST
             ds_map_add(global.farmed_tiles, tile_key, current_tile);
-            
+
             // Piazza la nuova tile con autotiling TEST - usa script pulito
             var tilemap_id = layer_tilemap_get_id(farming_tilemap_layer);
             scr_farming_autotile(tilemap_id, farming_autotile_index, tile_x, tile_y);
-            
+
             // Aggiorna le tile vicine per autotiling corretto
             for (var dx = -1; dx <= 1; dx++) {
                 for (var dy = -1; dy <= 1; dy++) {
                     if (dx == 0 && dy == 0) continue; // Salta il centro
-                    
+
                     var neighbor_x = tile_x + dx;
                     var neighbor_y = tile_y + dy;
-                    
+
                     // Se il vicino è una tile zappata TEST, ricalcola il suo autotiling
                     if (scr_is_farming_tile(neighbor_x, neighbor_y)) {
                         scr_farming_autotile(tilemap_id, farming_autotile_index, neighbor_x, neighbor_y);
                     }
                 }
             }
-            
+
             // ===== CREA OGGETTO TILLED SOIL =====
             // Converti coordinate tile in coordinate mondo (centro della tile)
             var soil_x = tile_x * 16 + 8;  // Centro della tile (16x16 pixel)
             var soil_y = tile_y * 16 + 8;
-            
+
             // Controlla se esiste già un tilled_soil in quella posizione
             var existing_soil = instance_position(soil_x, soil_y, obj_tilled_soil);
             if (existing_soil == noone) {
                 // Crea oggetto terreno zappato solo se non esiste già
                 instance_create_depth(soil_x, soil_y, 5, obj_tilled_soil);
             }
-            
+
             // Feedback visivo e audio
             show_debug_message("🚜: Terra zappata con AUTOTILING a: " + string(tile_x) + ", " + string(tile_y) + " (era tile: " + string(current_tile) + ")");
-            
+
             // Imposta cooldown
             farming_cooldown = 10; // 10 frame di cooldown
         }
@@ -139,4 +139,11 @@ if (!mouse_held) {
 if (keyboard_check_pressed(ord("G"))) {
     show_farming_debug = !show_farming_debug;
     show_debug_message("🚜 Debug farming: " + (show_farming_debug ? "ON" : "OFF"));
+}
+
+// ===== TOGGLE SISTEMA DISCRETO vs TILEMAP =====
+if (keyboard_check_pressed(ord("H"))) {
+    var is_visible = layer_get_visible(farming_tilemap_layer);
+    layer_set_visible(farming_tilemap_layer, !is_visible);
+    show_debug_message("🚜 Tilemap farming: " + (!is_visible ? "MOSTRATO" : "NASCOSTO") + " - H per toggle");
 }

@@ -89,14 +89,16 @@ function force_grow_all_plants() {
     var count = 0;
     with (obj_universal_plant) {
         if (plant_type != "") {
-            if (growth_stage < max_growth_stage) {
-                growth_stage++;
-                image_index = growth_stage;
-                
-                if (growth_stage >= max_growth_stage) {
-                    can_harvest = true;
+            var current_stage = self.growth_stage;
+            var max_stage = self.max_growth_stage;
+            if (current_stage < max_stage) {
+                self.growth_stage++;
+                self.image_index = self.growth_stage;
+
+                if (self.growth_stage >= max_stage) {
+                    self.can_harvest = true;
                 }
-                count++;
+                other.count++;
             }
         }
     }
@@ -107,9 +109,9 @@ function force_grow_all_plants() {
 function harvest_all_ready_plants() {
     var count = 0;
     with (obj_universal_plant) {
-        if (can_harvest && harvest_cooldown <= 0) {
+        if (self.can_harvest && self.harvest_cooldown <= 0) {
             harvest_plant_universal(id);
-            count++;
+            other.count++;
         }
     }
     // show_debug_message("🛠️ Harvested " + string(count) + " plants");

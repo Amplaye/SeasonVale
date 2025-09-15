@@ -496,19 +496,19 @@ if (hsp != 0 || vsp != 0) {
 is_moving = (hsp != 0) || (vsp != 0);
 
 
-// Controlla collision tilemap per push out
-if (check_tilemap_collision(x, y)) {
+// Push out semplice - solo obj_collision_block (disabilitato temporaneamente durante transizioni)
+if (collision_at_feet(x, y, obj_collision_block) && (!variable_global_exists("disable_pushout") || !global.disable_pushout)) {
     for (var push_dist = 1; push_dist <= 5; push_dist++) {
-        if (!check_tilemap_collision(x - push_dist, y)) {
+        if (!collision_at_feet(x - push_dist, y, obj_collision_block)) {
             x -= push_dist;
             break;
-        } else if (!check_tilemap_collision(x + push_dist, y)) {
+        } else if (!collision_at_feet(x + push_dist, y, obj_collision_block)) {
             x += push_dist;
             break;
-        } else if (!check_tilemap_collision(x, y - push_dist)) {
+        } else if (!collision_at_feet(x, y - push_dist, obj_collision_block)) {
             y -= push_dist;
             break;
-        } else if (!check_tilemap_collision(x, y + push_dist)) {
+        } else if (!collision_at_feet(x, y + push_dist, obj_collision_block)) {
             y += push_dist;
             break;
         }
@@ -516,57 +516,29 @@ if (check_tilemap_collision(x, y)) {
 }
 
 if (is_moving) {
-    // Movimento orizzontale con collisione precisa
+    // Movimento orizzontale - SOLO obj_collision_block (usando collision sui piedi)
     if (hsp != 0) {
-        var move_x = hsp;
-        var collision_found = false;
-        
-        // Controlla tilemap collision
-        if (check_tilemap_collision(x + move_x, y)) {
-            collision_found = true;
-        }
-        
-        if (collision_found) {
-            // Muovi fino al punto di contatto
-            while (abs(move_x) > 0.1) {
-                // Controlla tilemap collision
-                if (check_tilemap_collision(x + sign(move_x), y)) {
-                    break;
-                }
-                
-                x += sign(move_x);
-                move_x -= sign(move_x);
-            }
+        if (!collision_feet_horizontal(x + hsp, y, obj_collision_block)) {
+            x += hsp;
         } else {
-            // Movimento libero
-            x += move_x;
+            // Movimento pixel per pixel fino al contatto
+            var step_x = sign(hsp);
+            while (step_x != 0 && !collision_feet_horizontal(x + step_x, y, obj_collision_block)) {
+                x += step_x;
+            }
         }
     }
-    
-    // Movimento verticale con collisione precisa
+
+    // Movimento verticale - SOLO obj_collision_block (usando collision sui piedi)
     if (vsp != 0) {
-        var move_y = vsp;
-        var collision_found = false;
-        
-        // Controlla tilemap collision
-        if (check_tilemap_collision(x, y + move_y)) {
-            collision_found = true;
-        }
-        
-        if (collision_found) {
-            // Muovi fino al punto di contatto
-            while (abs(move_y) > 0.1) {
-                // Controlla tilemap collision
-                if (check_tilemap_collision(x, y + sign(move_y))) {
-                    break;
-                }
-                
-                y += sign(move_y);
-                move_y -= sign(move_y);
-            }
+        if (!collision_feet_vertical(x, y + vsp, obj_collision_block)) {
+            y += vsp;
         } else {
-            // Movimento libero
-            y += move_y;
+            // Movimento pixel per pixel fino al contatto
+            var step_y = sign(vsp);
+            while (step_y != 0 && !collision_feet_vertical(x, y + step_y, obj_collision_block)) {
+                y += step_y;
+            }
         }
     }
     

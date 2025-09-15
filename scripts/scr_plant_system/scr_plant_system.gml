@@ -93,23 +93,29 @@ function init_plant(plant_type, instance_id) {
 function advance_plant_growth(instance_id) {
     with (instance_id) {
         if (!variable_instance_exists(id, "plant_type")) return false;
-        
+
+        // Controlla crescita SOLO se il giorno è cambiato
+        if (global.game_day <= self.last_growth_check_day) return false;
+
         var days_passed = global.game_day - planted_day;
         var expected_stage = min(floor(days_passed), max_growth_stage);
-        
-        if (expected_stage > growth_stage) {
-            growth_stage = expected_stage;
-            image_index = growth_stage;
-            
+
+        if (expected_stage > self.growth_stage) {
+            self.growth_stage = expected_stage;
+            self.image_index = self.growth_stage;
+
             // Se raggiunge l'ultimo stadio, può essere raccolta
-            if (growth_stage >= max_growth_stage) {
-                can_harvest = true;
+            if (self.growth_stage >= self.max_growth_stage) {
+                self.can_harvest = true;
                 show_debug_message("🌻 " + string_upper(plant_type) + " ready for harvest!");
             }
-            
+
             show_debug_message("🌱 " + string_upper(plant_type) + " grown to stage " + string(growth_stage));
-            return true;
         }
+
+        // Aggiorna ultimo check indipendentemente dalla crescita
+        self.last_growth_check_day = global.game_day;
+        return true;
     }
     return false;
 }

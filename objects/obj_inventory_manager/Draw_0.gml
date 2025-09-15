@@ -7,8 +7,6 @@ if (!global.inventory_visible) {
     exit;
 }
 
-show_debug_message("🎒 Drawing inventory at position: " + string(x) + ", " + string(y));
-show_debug_message("🎒 Inventory sprite exists: " + string(sprite_exists(spr_inventory)));
 
 // ===== DISEGNA BACKGROUND INVENTARIO =====
 var bg_alpha = 0.8;

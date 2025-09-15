@@ -52,7 +52,11 @@
       "Bash(code:*)",
       "Bash(gh:*)",
       "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_universal_plant\\Draw_0.gml\")",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(del \"C:\\Users\\Steward\\SeasonVale\\sprites\\spr_player_collision_mask\\spr_player_collision_mask.yy\")",
+      "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_tilled_soil\\Draw_0.gml\")",
+      "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_transition\\Collision_obj_player.gml\")",
+      "Bash(del nul)"
     ],
     "deny": [],
     "ask": [],

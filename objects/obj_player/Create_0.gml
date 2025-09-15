@@ -3,6 +3,33 @@ if (instance_number(obj_player) > 1) {
     exit;
 }
 
+// Inizializza variabili di transizione
+if (!variable_global_exists("transitioning")) {
+    global.transitioning = false;
+}
+if (!variable_global_exists("disable_pushout")) {
+    global.disable_pushout = false;
+}
+
+// Variabili di istanza per transition target
+has_transition_target = false;
+target_x = 0;
+target_y = 0;
+
+// Funzioni per collision detection sui piedi del player
+// NOTA: Se origin è bottom center, y è già ai piedi!
+function collision_at_feet(_x, _y, _object) {
+    return place_meeting(_x, _y, _object); // NO offset se origin è bottom center
+}
+
+function collision_feet_horizontal(_x, _y, _object) {
+    return place_meeting(_x, _y, _object);
+}
+
+function collision_feet_vertical(_x, _y, _object) {
+    return place_meeting(_x, _y, _object);
+}
+
 // Riferimenti sprite tools (per confronti) - usa direttamente i nomi
 // axe e pickaxe sono già disponibili globalmente come sprite resources
 
@@ -171,46 +198,19 @@ if (collision_layer != -1) {
 }
 
 // ===== DEBUG COLLISION VISIBILITY =====
+global.collision_debug_enabled = false;
+
 function toggle_collision_debug() {
     var collision_layer = layer_get_id("Collision");
     if (collision_layer != -1) {
         var is_visible = layer_get_visible(collision_layer);
         layer_set_visible(collision_layer, !is_visible);
+        global.collision_debug_enabled = !is_visible;
         show_debug_message("🔍 Collision debug: " + (is_visible ? "OFF" : "ON"));
     }
 }
 
-// ===== CONTROLLO COLLISION TILEMAP AVANZATO =====
-function check_tilemap_collision(_x, _y) {
-    var collision_layer = layer_get_id("Collision");
-    if (collision_layer == -1) return false;
-    
-    var tilemap = layer_tilemap_get_id(collision_layer);
-    if (tilemap == -1) return false;
-    
-    // Controlla più punti della bounding box del player (16x16 circa)
-    var check_points = [
-        [_x - 6, _y - 6],   // top-left
-        [_x + 6, _y - 6],   // top-right
-        [_x - 6, _y + 6],   // bottom-left
-        [_x + 6, _y + 6],   // bottom-right
-        [_x, _y]            // center
-    ];
-    
-    for (var i = 0; i < array_length(check_points); i++) {
-        var check_x = check_points[i][0];
-        var check_y = check_points[i][1];
-        var tile_x = floor(check_x / 8);
-        var tile_y = floor(check_y / 8);
-        var tile_data = tilemap_get(tilemap, tile_x, tile_y);
-        
-        if (tile_data != 0) {
-            return true; // Collision trovata
-        }
-    }
-    
-    return false; // Nessuna collision
-}
+// Collision semplificata - SOLO obj_collision_block
 
 // Funzione per determinare direzione verso il cursor
 function get_direction_to_cursor() {

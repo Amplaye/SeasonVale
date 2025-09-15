@@ -23,9 +23,7 @@ var player_y = player_instance.y;
 // Ottieni il layer pickupable
 var pickup_layer = layer_get_id(global.pickup_layer_name);
 if (pickup_layer == -1) {
-    if (global.pickup_debug) {
-        show_debug_message("⚠️ Layer 'pickupable' non trovato!");
-    }
+    // Layer non trovato - esci silenziosamente
     exit;
 }
 

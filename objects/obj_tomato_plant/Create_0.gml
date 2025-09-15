@@ -1,3 +1,13 @@
+// Protezione: distruggi le piante se non sono in Room1 (per persistent)
+if (room != Room1) {
+    instance_destroy();
+    exit;
+}
+
+// Flag per sistema save/load - PRIMA di tutto
+is_loaded_from_save = false;  // Flag per bloccare recalcolo crescita
+last_growth_check_day = global.game_day;  // Traccia ultimo controllo crescita
+
 // Sistema di crescita della pianta di pomodoro
 growth_stage = 0;           // Stadio attuale (0-4)
 max_growth_stage = 4;       // 5 stadi totali (0-4)
