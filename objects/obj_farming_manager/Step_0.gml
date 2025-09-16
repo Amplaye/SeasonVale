@@ -7,6 +7,7 @@ if (farming_cooldown > 0) {
     farming_cooldown--;
 }
 
+
 // ===== VERIFICA CONDIZIONI PER FARMING =====
 // 1. Player deve esistere
 if (!instance_exists(obj_player)) exit;
@@ -26,7 +27,7 @@ if (variable_global_exists("tool_sprites") && variable_global_exists("selected_t
     }
 }
 
-// Se non ha la zappa, esci
+// Se non ha la zappa, esci dal farming (ma harvesting è già stato fatto sopra)
 if (!player_has_hoe) {
     mouse_was_pressed = false;
     exit;
@@ -134,6 +135,9 @@ if (mouse_pressed && !mouse_was_pressed && farming_cooldown <= 0) {
 if (!mouse_held) {
     mouse_was_pressed = false;
 }
+
+// Reset harvest flag ogni frame
+global.harvest_this_frame = false;
 
 // ===== DEBUG TOGGLE TEST =====
 if (keyboard_check_pressed(ord("G"))) {

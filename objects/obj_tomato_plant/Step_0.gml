@@ -1,3 +1,4 @@
+
 // Se caricata da save, NON fare mai controlli automatici di crescita
 if (is_loaded_from_save) {
     // Le piante caricate mantengono il loro stato esatto
@@ -22,16 +23,9 @@ if (harvest_cooldown > 0) {
     harvest_cooldown--;
 }
 
-// Controlla crescita giornaliera SOLO se il giorno è cambiato
-if (global.game_day > last_growth_check_day) {
-    var days_passed = global.game_day - planted_day;
-    var expected_stage = min(floor(days_passed), max_growth_stage);
-
-    if (expected_stage > growth_stage) {
-        advance_growth();
-    }
-
-    last_growth_check_day = global.game_day;  // Aggiorna ultimo check
+// Controlla crescita usando il sistema centralizzato - ma SOLO se NON è caricata da save
+if (!is_loaded_from_save) {
+    advance_plant_growth(id);
 }
 
 // Controlla se il player vuole raccogliere

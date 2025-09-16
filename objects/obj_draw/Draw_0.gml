@@ -15,8 +15,6 @@ if(ds_exists(ds_depthgrid, ds_type_grid)){
             // Usa funzioni personalizzate per oggetti specifici
             if (object_index == obj_player) {
                 draw_player_with_clothes();
-            } else if (object_index == obj_tomato_plant) {
-                draw_tomato_plant_with_indicator();
             } else if (object_index == obj_rock) {
                 // Draw rock with shake effect
                 if (shake_timer > 0) {

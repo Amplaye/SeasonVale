@@ -1,7 +1,7 @@
 // ===================================================================
 // 🌱 UNIVERSAL PLANT - OGGETTO PIANTA UNIVERSALE
 // ===================================================================
-// Sostituisce tutte le piante individuali (obj_tomato_plant, ecc.)
+// Sistema unificato per tutte le piante
 // Usa il sistema centralizzato scr_plant_system per la configurazione
 
 // Protezione: distruggi le piante se non sono in Room1 (per persistent)
@@ -20,6 +20,7 @@ planted_day = 0;
 can_harvest = false;
 is_loaded_from_save = false;  // Flag per bloccare recalcolo crescita
 last_growth_check_day = global.game_day;  // Traccia ultimo controllo crescita
+is_highlighted = false;  // Flag per evidenziare quando selezionabile
 harvest_cooldown = 0;
 harvest_amount = 0;
 harvest_item = noone;

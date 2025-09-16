@@ -1,5 +1,91 @@
-// Reset harvest flag all'inizio di ogni frame
+
+// ===== SISTEMA HARVESTING INDIPENDENTE =====
+// Reset harvest flag ogni frame
 global.harvest_this_frame = false;
+
+// Gestisce il raccolto delle piante basato sulla posizione del mouse
+if (mouse_check_button_pressed(mb_right) && !global.harvest_this_frame) {
+    // Debug generale del sistema
+    show_debug_message("🖱️ Click destro rilevato nel player");
+
+    // Converti coordinate mouse da view a mondo
+    var cam = camera_get_active();
+    var view_x = camera_get_view_x(cam);
+    var view_y = camera_get_view_y(cam);
+    var world_mouse_x = mouse_x + view_x;
+    var world_mouse_y = mouse_y + view_y;
+
+    // Trova la pianta più vicina al mouse che può essere raccolta
+    var closest_plant = noone;
+    var closest_distance = 999999;
+    var max_harvest_distance = 20; // Distanza massima per harvest (molto piccola)
+    var player_range = 48; // Distanza massima dal player
+
+    with (obj_universal_plant) {
+        if (can_harvest && harvest_cooldown <= 0) {
+            // Controlla distanza dal player
+            var dist_to_player = point_distance(x, y, other.x, other.y);
+            if (dist_to_player <= player_range) {
+                // Controlla distanza dal mouse
+                var dist_to_mouse = point_distance(x, y, world_mouse_x, world_mouse_y);
+                if (dist_to_mouse <= max_harvest_distance && dist_to_mouse < closest_distance) {
+                    closest_distance = dist_to_mouse;
+                    closest_plant = id;
+                }
+            }
+        }
+    }
+
+    // Se abbiamo trovato una pianta, raccoglila
+    if (closest_plant != noone) {
+        global.harvest_this_frame = true;
+        harvest_plant_universal(closest_plant);
+        show_debug_message("🌾 Pianta raccolta direttamente dal player! ID: " + string(closest_plant));
+    } else {
+        show_debug_message("❌ Click destro ma nessuna pianta nel raggio (max: " + string(max_harvest_distance) + " pixel)");
+    }
+}
+
+// ===== HIGHLIGHT SISTEMA SEPARATO =====
+// Aggiorna highlight per tutte le piante ogni frame
+var cam = camera_get_active();
+var view_x = camera_get_view_x(cam);
+var view_y = camera_get_view_y(cam);
+var world_mouse_x = mouse_x + view_x;
+var world_mouse_y = mouse_y + view_y;
+
+// Reset highlight per tutte le piante
+with (obj_universal_plant) {
+    if (variable_instance_exists(id, "is_highlighted")) {
+        is_highlighted = false;
+    }
+}
+
+// Trova la pianta più vicina al mouse per highlight
+var closest_plant_highlight = noone;
+var closest_distance_highlight = 999999;
+var max_harvest_distance = 20;
+var player_range = 48;
+
+with (obj_universal_plant) {
+    if (can_harvest && harvest_cooldown <= 0) {
+        var dist_to_player = point_distance(x, y, other.x, other.y);
+        if (dist_to_player <= player_range) {
+            var dist_to_mouse = point_distance(x, y, world_mouse_x, world_mouse_y);
+            if (dist_to_mouse <= max_harvest_distance && dist_to_mouse < closest_distance_highlight) {
+                closest_distance_highlight = dist_to_mouse;
+                closest_plant_highlight = id;
+            }
+        }
+    }
+}
+
+// Evidenzia la pianta selezionabile
+if (closest_plant_highlight != noone) {
+    with (closest_plant_highlight) {
+        is_highlighted = true;
+    }
+}
 
 // ===== INIZIALIZZAZIONE DIRETTA VARIABILI =====
 if (!variable_global_exists("player_initialized")) {

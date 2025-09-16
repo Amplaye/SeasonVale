@@ -125,12 +125,6 @@ function remove_all_plants() {
     }
     // show_debug_message("🛠️ Removed " + string(count) + " universal plants");
     
-    // Anche vecchie piante di pomodoro per compatibilità
-    count = instance_number(obj_tomato_plant);
-    with (obj_tomato_plant) {
-        instance_destroy();
-    }
-    // show_debug_message("🛠️ Removed " + string(count) + " tomato plants");
 }
 
 // Rifornisci semi esistenti nella toolbar

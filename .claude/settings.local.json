@@ -56,7 +56,8 @@
       "Bash(del \"C:\\Users\\Steward\\SeasonVale\\sprites\\spr_player_collision_mask\\spr_player_collision_mask.yy\")",
       "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_tilled_soil\\Draw_0.gml\")",
       "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_transition\\Collision_obj_player.gml\")",
-      "Bash(del nul)"
+      "Bash(del nul)",
+      "Read(//c/Users/Steward/AppData/Local/GameMakerStudio2/GMS2TEMP/**)"
     ],
     "deny": [],
     "ask": [],

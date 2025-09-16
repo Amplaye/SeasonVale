@@ -85,7 +85,6 @@
     {"id":{"name":"obj_scaling_manager","path":"objects/obj_scaling_manager/obj_scaling_manager.yy",},},
     {"id":{"name":"obj_tilled_soil","path":"objects/obj_tilled_soil/obj_tilled_soil.yy",},},
     {"id":{"name":"obj_time_manager","path":"objects/obj_time_manager/obj_time_manager.yy",},},
-    {"id":{"name":"obj_tomato_plant","path":"objects/obj_tomato_plant/obj_tomato_plant.yy",},},
     {"id":{"name":"obj_toolbar_item_manager","path":"objects/obj_toolbar_item_manager/obj_toolbar_item_manager.yy",},},
     {"id":{"name":"obj_toolbar","path":"objects/obj_toolbar/obj_toolbar.yy",},},
     {"id":{"name":"obj_transition","path":"objects/obj_transition/obj_transition.yy",},},

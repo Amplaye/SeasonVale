@@ -15,7 +15,7 @@ function save_room_objects(room_id) {
     global.saved_game_hour = global.game_hour;
     global.saved_game_minute = global.game_minute;
 
-    // Salva tutte le piante in questa room
+    // Salva tutte le piante universal in questa room
     with (obj_universal_plant) {
         var plant_data = {
             x: x,
@@ -33,22 +33,6 @@ function save_room_objects(room_id) {
         array_push(room_plants, plant_data);
     }
 
-    with (obj_tomato_plant) {
-        var plant_data = {
-            x: x,
-            y: y,
-            growth_stage: growth_stage,
-            max_growth_stage: max_growth_stage,
-            planted_day: planted_day,
-            can_harvest: can_harvest,
-            sprite_index: sprite_index,
-            image_index: image_index,
-            last_growth_check_day: last_growth_check_day,
-            object_type: "tomato_plant",
-            is_loaded_from_save: true
-        };
-        array_push(room_plants, plant_data);
-    }
 
     // Aggiorna la variabile globale
     variable_global_set(room_key, room_plants);
@@ -82,13 +66,22 @@ function load_room_objects(room_id) {
         var plant_data = room_plants[i];
         var new_plant = noone;
 
+        // Usa sempre obj_universal_plant per consistenza
+        new_plant = instance_create_layer(plant_data.x, plant_data.y, "World", obj_universal_plant);
+
+        // Converti vecchi tomato_plant in universal_plant
         if (variable_struct_exists(plant_data, "object_type") && plant_data.object_type == "tomato_plant") {
-            new_plant = instance_create_layer(plant_data.x, plant_data.y, "World", obj_tomato_plant);
+            new_plant.plant_type = "tomato";  // Converti a tipo universal
         } else {
-            new_plant = instance_create_layer(plant_data.x, plant_data.y, "World", obj_universal_plant);
             new_plant.plant_type = plant_data.plant_type;
         }
 
+        // Inizializza con il sistema centralizzato se è una pianta universal
+        if (new_plant.plant_type != "") {
+            init_plant(new_plant.plant_type, new_plant);
+        }
+
+        // Sovrascrivi con i dati salvati
         new_plant.growth_stage = plant_data.growth_stage;
         new_plant.max_growth_stage = plant_data.max_growth_stage;
         new_plant.planted_day = plant_data.planted_day;
@@ -96,7 +89,7 @@ function load_room_objects(room_id) {
         new_plant.sprite_index = plant_data.sprite_index;
         new_plant.image_index = plant_data.image_index;
         new_plant.last_growth_check_day = plant_data.last_growth_check_day;
-        new_plant.is_loaded_from_save = true;  // IMPORTANTE: mantiene stato
+        new_plant.is_loaded_from_save = true;  // IMPORTANTE: mantiene stato e blocca crescita automatica
     }
 }
 

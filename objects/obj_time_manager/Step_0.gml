@@ -19,13 +19,9 @@ if (keyboard_check_pressed(ord("Y"))) {
     // show_debug_message("⏰ +30min - Time: " + format_time());
 }
 
-// U = toggle auto advance tempo
-if (keyboard_check_pressed(ord("U"))) {
-    auto_advance = !auto_advance;
-    // show_debug_message("🕐 Auto time: " + (auto_advance ? "ON" : "OFF"));
-}
+// U key removed - time is now always continuous
 
-// Avanzamento automatico tempo (se abilitato)
+// Avanzamento automatico tempo (sempre attivo)
 if (auto_advance) {
     time_timer += 1/60;  // Delta time in secondi
     

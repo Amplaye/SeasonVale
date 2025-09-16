@@ -19,11 +19,8 @@ info_y += line_height;
 
 // Statistiche piante
 var universal_plants = instance_number(obj_universal_plant);
-var old_tomato_plants = instance_number(obj_tomato_plant);
 
 draw_text(info_x, info_y, "Universal Plants: " + string(universal_plants));
-info_y += line_height;
-draw_text(info_x, info_y, "Old Tomato Plants: " + string(old_tomato_plants));
 info_y += line_height;
 
 // Seeds in toolbar

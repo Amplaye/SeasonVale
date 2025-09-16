@@ -26,9 +26,11 @@ hours_per_day = 19;  // Dalle 6:00 alle 01:00 (19 ore giocabili)
 min_hour = 6;        // 6:00 AM
 max_hour = 25;       // 01:00 AM (25 = 1:00 del giorno dopo)
 
-// Timer per avanzamento automatico tempo (opzionale - per ora disabilitato)
-time_speed = 1;      // Secondi reali per minuto di gioco
-auto_advance = false; // Per ora avanzamento manuale
+// Timer per avanzamento automatico tempo
+// Calcolo per 20 minuti reali = 1 giorno completo (19 ore)
+// 19 ore × 60 min = 1140 min di gioco → 1140 ÷ 20 = 57 min/min reale
+time_speed = 60.0/57.0;  // ~1.053 secondi reali per minuto di gioco (20 min per giorno)
+auto_advance = true;     // Tempo sempre attivo
 time_timer = 0;
 
 // Sistema giorno/notte - colori overlay

@@ -10,7 +10,7 @@ function advance_day() {
     global.game_hour = time_manager.min_hour;  // Reset alle 6:00 AM
     global.game_minute = 0;
 
-    // Notifica crescita piante - anche quelle caricate da save
+    // Notifica crescita piante universal - anche quelle caricate da save
     with (obj_universal_plant) {
         // Temporaneamente disabilita il flag per permettere crescita
         var was_loaded = is_loaded_from_save;
@@ -19,14 +19,6 @@ function advance_day() {
         is_loaded_from_save = was_loaded;  // Ripristina flag
     }
 
-    // Mantieni compatibilità con vecchie piante durante transizione
-    with (obj_tomato_plant) {
-        // Temporaneamente disabilita il flag per permettere crescita
-        var was_loaded = is_loaded_from_save;
-        is_loaded_from_save = false;
-        advance_growth();
-        is_loaded_from_save = was_loaded;  // Ripristina flag
-    }
 
     with (time_manager) {
         update_time_overlay();

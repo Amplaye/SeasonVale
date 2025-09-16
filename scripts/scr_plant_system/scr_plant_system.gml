@@ -76,6 +76,8 @@ function init_plant(plant_type, instance_id) {
         self.harvest_cooldown_frames = config.harvest_cooldown_frames;
         self.reset_stage_after_harvest = config.reset_stage_after_harvest;
         self.can_regrow = config.can_regrow;
+        self.is_loaded_from_save = false;  // Nuove piante possono crescere normalmente
+        self.last_growth_check_day = global.game_day - 1;  // Permetti crescita immediata se appropriato
         
         // Imposta sprite e frame
         sprite_index = config.sprite;
@@ -94,8 +96,15 @@ function advance_plant_growth(instance_id) {
     with (instance_id) {
         if (!variable_instance_exists(id, "plant_type")) return false;
 
+        // IMPORTANTE: Se è caricata da save, NON crescere automaticamente
+        if (variable_instance_exists(id, "is_loaded_from_save") && self.is_loaded_from_save) {
+            return false;
+        }
+
         // Controlla crescita SOLO se il giorno è cambiato
-        if (global.game_day <= self.last_growth_check_day) return false;
+        if (global.game_day <= self.last_growth_check_day) {
+            return false;
+        }
 
         var days_passed = global.game_day - planted_day;
         var expected_stage = min(floor(days_passed), max_growth_stage);
@@ -113,7 +122,7 @@ function advance_plant_growth(instance_id) {
             show_debug_message("🌱 " + string_upper(plant_type) + " grown to stage " + string(growth_stage));
         }
 
-        // Aggiorna ultimo check indipendentemente dalla crescita
+        // Aggiorna ultimo check SOLO se la pianta non è caricata da save
         self.last_growth_check_day = global.game_day;
         return true;
     }
@@ -131,11 +140,12 @@ function harvest_plant_universal(instance_id) {
         var success = false;
         
         if (toolbar_instance != noone) {
-            success = toolbar_instance.toolbar_add_item(harvest_item, harvest_amount);
+            // Raccogli solo 1 item alla volta
+            success = toolbar_instance.toolbar_add_item(harvest_item, 1);
             if (success) {
-                show_debug_message("🌾 Harvested " + string(harvest_amount) + "x " + sprite_get_name(harvest_item) + " - Added to toolbar");
+                show_debug_message("🌾 Harvested 1x " + sprite_get_name(harvest_item) + " - Added to toolbar");
             } else {
-                show_debug_message("⚠️ Harvest failed - Toolbar full! " + string(harvest_amount) + "x " + sprite_get_name(harvest_item) + " lost");
+                show_debug_message("⚠️ Harvest failed - Toolbar full! 1x " + sprite_get_name(harvest_item) + " lost");
             }
         } else {
             show_debug_message("⚠️ Harvest failed - No toolbar instance found!");
