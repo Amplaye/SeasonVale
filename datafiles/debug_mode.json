@@ -1,0 +1,16 @@
+{
+  "debug_enabled": true,
+  "show_npc_info": true,
+  "show_collision_circles": true,
+  "show_pathfinding": false,
+  "debug_controls": {
+    "F2": "Show NPC info",
+    "F3": "Show quest info",
+    "F4": "Toggle NPC debug visuals"
+  },
+  "test_settings": {
+    "auto_start_quests": false,
+    "fast_dialogue": false,
+    "skip_animations": false
+  }
+}
