@@ -37,6 +37,8 @@ npc_direction = 0; // 0=down, 1=left, 2=right, 3=up
 sprite_index = npc_sprite_idle;
 image_speed = 1.0; // Same as working right/back sprites (4 fps base)
 
+// Collision mask is set in the object editor (spr_idle_front)
+
 // Ensure sprite origins are correct (like player - bottom center)
 // This prevents offset issues when changing direction
 

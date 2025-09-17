@@ -23,7 +23,7 @@
   ],
   "name":"spr_collision",
   "nineSlice":null,
-  "origin":4,
+  "origin":7,
   "parent":{
     "name":"Global",
     "path":"folders/Sprites/Global.yy",
@@ -78,7 +78,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":16,
-    "yorigin":16,
+    "yorigin":31,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

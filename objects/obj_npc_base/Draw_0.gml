@@ -1,8 +1,5 @@
-// NPC Base Draw - Draw with consistent origin like player
-
-// Draw the NPC with proper alignment (bottom center like player)
-// Using draw_sprite instead of draw_self ensures consistent positioning
-draw_sprite(sprite_index, image_index, x, y);
+// NPC Base Draw - handled through depth sorting system
+scr_addto_depthgrid();
 
 // Debug info (remove in production) - DISABILITATO
 // if (global.npc_debug_mode) {

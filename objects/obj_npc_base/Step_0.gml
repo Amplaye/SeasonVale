@@ -67,14 +67,14 @@ if (!npc_is_talking) {
         npc_state = "idle";
     }
 
-    // Apply movement with simple collision (like original)
+    // Apply movement with collision (obj_collision_block includes NPCs automatically, plus player)
     if (npc_hsp != 0) {
-        if (!place_meeting(x + npc_hsp, y, obj_collision_block)) {
+        if (!place_meeting(x + npc_hsp, y, obj_collision_block) && !place_meeting(x + npc_hsp, y, obj_player)) {
             x += npc_hsp;
         }
     }
     if (npc_vsp != 0) {
-        if (!place_meeting(x, y + npc_vsp, obj_collision_block)) {
+        if (!place_meeting(x, y + npc_vsp, obj_collision_block) && !place_meeting(x, y + npc_vsp, obj_player)) {
             y += npc_vsp;
         }
     }
@@ -84,39 +84,75 @@ if (!npc_is_talking) {
     var new_direction = "";
 
     if (npc_is_moving) {
-        // Direction logic with tolerance to prevent oscillation
-        var direction_tolerance = 0.5; // PARAMETRO CHIAVE: aumenta per meno cambi direzione
-        if (abs(npc_hsp) > abs(npc_vsp) + direction_tolerance) {
-            if (npc_hsp > 0) {
-                new_direction = "right";
-                new_sprite = spr_run_right;
+        // Use same direction bias logic as player to prevent flickering
+        if (npc_hsp != 0 && npc_vsp != 0) {
+            // Both horizontal and vertical movement - use bias system like player
+            if (npc_current_direction == "right" || npc_current_direction == "left") {
+                // Currently horizontal - favor horizontal unless vertical is significantly stronger
+                if (abs(npc_hsp) >= abs(npc_vsp) * 0.7) {
+                    if (npc_hsp > 0) {
+                        new_direction = "right";
+                        new_sprite = spr_walk_right;
+                    } else {
+                        new_direction = "left";
+                        new_sprite = spr_walk_left;
+                    }
+                } else {
+                    if (npc_vsp > 0) {
+                        new_direction = "front";
+                        new_sprite = spr_walk_front;
+                    } else {
+                        new_direction = "back";
+                        new_sprite = spr_walk_back;
+                    }
+                }
             } else {
-                new_direction = "left";
-                new_sprite = spr_run_left;
+                // Currently vertical - favor vertical unless horizontal is significantly stronger
+                if (abs(npc_vsp) >= abs(npc_hsp) * 0.7) {
+                    if (npc_vsp > 0) {
+                        new_direction = "front";
+                        new_sprite = spr_walk_front;
+                    } else {
+                        // Special case for back direction - be even more sticky
+                        if (npc_current_direction == "back" && npc_vsp < 0 && abs(npc_vsp) > 0.1) {
+                            new_direction = "back";
+                            new_sprite = spr_walk_back;
+                        } else {
+                            new_direction = "back";
+                            new_sprite = spr_walk_back;
+                        }
+                    }
+                } else {
+                    // Only change from back direction if horizontal movement is very strong
+                    if (npc_current_direction == "back" && abs(npc_hsp) < abs(npc_vsp) * 2.0) {
+                        // Stay in back direction
+                        new_direction = "back";
+                        new_sprite = spr_walk_back;
+                    } else {
+                        if (npc_hsp > 0) {
+                            new_direction = "right";
+                            new_sprite = spr_walk_right;
+                        } else {
+                            new_direction = "left";
+                            new_sprite = spr_walk_left;
+                        }
+                    }
+                }
             }
-        } else if (abs(npc_vsp) > abs(npc_hsp) + direction_tolerance) {
-            if (npc_vsp > 0) {
-                new_direction = "front";
-                new_sprite = spr_run_front;
-            } else {
-                new_direction = "back";
-                new_sprite = spr_run_back;
-            }
-        } else {
-            // When speeds are very close, keep current direction to avoid flickering
-            new_direction = npc_current_direction;
-            switch(npc_current_direction) {
-                case "right": new_sprite = spr_run_right; break;
-                case "left": new_sprite = spr_run_left; break;
-                case "front": new_sprite = spr_run_front; break;
-                case "back": new_sprite = spr_run_back; break;
-                default:
-                    new_direction = "front";
-                    new_sprite = spr_run_front;
-                    break;
-            }
+        } else if (npc_hsp > 0) {
+            new_direction = "right";
+            new_sprite = spr_walk_right;
+        } else if (npc_hsp < 0) {
+            new_direction = "left";
+            new_sprite = spr_walk_left;
+        } else if (npc_vsp > 0) {
+            new_direction = "front";
+            new_sprite = spr_walk_front;
+        } else if (npc_vsp < 0) {
+            new_direction = "back";
+            new_sprite = spr_walk_back;
         }
-        image_speed = 1.0; // Same animation speed as player (4 fps)
+        image_speed = 1.0; // Same animation speed as player
     } else {
         // Idle sprites based on current direction
         switch (npc_current_direction) {

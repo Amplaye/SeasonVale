@@ -15,6 +15,10 @@ if(ds_exists(ds_depthgrid, ds_type_grid)){
             // Usa funzioni personalizzate per oggetti specifici
             if (object_index == obj_player) {
                 draw_player_with_clothes();
+                // Player collision debug - yellow border
+                draw_set_color(c_yellow);
+                draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+                draw_set_color(c_white);
             } else if (object_index == obj_rock) {
                 // Draw rock with shake effect
                 if (shake_timer > 0) {
@@ -33,6 +37,13 @@ if(ds_exists(ds_depthgrid, ds_type_grid)){
                 } else {
                     draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, 0, c_white, image_alpha);
                 }
+            } else if (object_is_ancestor(object_index, obj_npc_base)) {
+                // Draw NPCs (all inherit from obj_npc_base)
+                draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, 0, c_white, image_alpha);
+                // NPC collision debug - yellow border
+                draw_set_color(c_yellow);
+                draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+                draw_set_color(c_white);
             } else {
                 draw_self();
             }

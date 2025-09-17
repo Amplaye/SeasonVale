@@ -108,9 +108,19 @@ if (!variable_global_exists("player_initialized")) {
     chopping_direction = "front";
 }
 
-// ===== DEBUG COLLISION TOGGLE =====
-if (keyboard_check_pressed(vk_f1)) {
-    toggle_collision_debug();
+// ===== DEBUG COLLISION - SEMPRE ATTIVO =====
+// Collision debug è sempre visibile - bordi gialli su player e NPCs
+
+// DEBUG: Cerca casa
+if (keyboard_check_pressed(ord("H"))) {
+    var house = instance_find(obj_house, 0);
+    if (house != noone) {
+        show_debug_message("Casa trovata a: " + string(house.x) + ", " + string(house.y));
+        x = house.x;
+        y = house.y + 50; // Teleporta player vicino alla casa
+    } else {
+        show_debug_message("CASA NON TROVATA!");
+    }
 }
 
 // ===== COOLDOWN CHOP =====
@@ -602,7 +612,7 @@ if (collision_at_feet(x, y, obj_collision_block) && (!variable_global_exists("di
 }
 
 if (is_moving) {
-    // Movimento orizzontale - SOLO obj_collision_block (usando collision sui piedi)
+    // Movimento orizzontale - obj_collision_block (include NPCs automaticamente)
     if (hsp != 0) {
         if (!collision_feet_horizontal(x + hsp, y, obj_collision_block)) {
             x += hsp;
@@ -615,7 +625,7 @@ if (is_moving) {
         }
     }
 
-    // Movimento verticale - SOLO obj_collision_block (usando collision sui piedi)
+    // Movimento verticale - obj_collision_block (include NPCs automaticamente)
     if (vsp != 0) {
         if (!collision_feet_vertical(x, y + vsp, obj_collision_block)) {
             y += vsp;

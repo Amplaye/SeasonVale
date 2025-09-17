@@ -14,7 +14,10 @@
     "name":"Gameplay",
     "path":"folders/Objects/Gameplay.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_depth_sorted",
+    "path":"objects/obj_depth_sorted/obj_depth_sorted.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.7,
@@ -36,9 +39,6 @@
     "name":"spr_tree",
     "path":"sprites/spr_tree/spr_tree.yy",
   },
-  "spriteMaskId":{
-    "name":"spr_tree",
-    "path":"sprites/spr_tree/spr_tree.yy",
-  },
+  "spriteMaskId":null,
   "visible":true,
 }

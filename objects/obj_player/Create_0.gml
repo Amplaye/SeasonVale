@@ -17,6 +17,8 @@ target_x = 0;
 target_y = 0;
 
 // Funzioni per collision detection sui piedi del player
+// Collision mask is set in the object editor (spr_idle_front)
+
 // NOTA: Se origin è bottom center, y è già ai piedi!
 function collision_at_feet(_x, _y, _object) {
     return place_meeting(_x, _y, _object); // NO offset se origin è bottom center

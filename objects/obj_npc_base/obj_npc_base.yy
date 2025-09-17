@@ -36,6 +36,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":null,
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_idle_front",
+    "path":"sprites/spr_idle_front/spr_idle_front.yy",
+  },
   "visible":true,
 }
