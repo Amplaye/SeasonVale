@@ -9,8 +9,8 @@
   "name":"obj_fps_counter",
   "overriddenProperties":[],
   "parent":{
-    "name":"System",
-    "path":"folders/Objects/System.yy",
+    "name":"Meta",
+    "path":"folders/Objects/Meta.yy",
   },
   "parentObjectId":null,
   "persistent":true,
