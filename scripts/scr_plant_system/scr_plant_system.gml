@@ -135,20 +135,20 @@ function harvest_plant_universal(instance_id) {
         if (!variable_instance_exists(id, "plant_type")) return false;
         if (!can_harvest || harvest_cooldown > 0) return false;
         
-        // Aggiungi item alla toolbar attraverso l'istanza obj_toolbar
-        var toolbar_instance = instance_find(obj_toolbar, 0);
+        // Aggiungi item alla toolbar attraverso l'istanza obj_toolbar (ottimizzato per Mac)
+        var toolbar_instance = get_cached_instance(obj_toolbar, "main_toolbar");
         var success = false;
         
         if (toolbar_instance != noone) {
             // Raccogli solo 1 item alla volta
             success = toolbar_instance.toolbar_add_item(harvest_item, 1);
             if (success) {
-                show_debug_message("🌾 Harvested 1x " + sprite_get_name(harvest_item) + " - Added to toolbar");
+                smart_debug_message("🌾 Harvested 1x " + sprite_get_name(harvest_item) + " - Added to toolbar");
             } else {
-                show_debug_message("⚠️ Harvest failed - Toolbar full! 1x " + sprite_get_name(harvest_item) + " lost");
+                smart_debug_message("⚠️ Harvest failed - Toolbar full! 1x " + sprite_get_name(harvest_item) + " lost");
             }
         } else {
-            show_debug_message("⚠️ Harvest failed - No toolbar instance found!");
+            smart_debug_message("⚠️ Harvest failed - No toolbar instance found!");
         }
         
         // Gestisci post-harvest

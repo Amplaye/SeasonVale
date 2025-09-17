@@ -1,6 +1,9 @@
 visible = false;  // Controllato dal sistema di menu
 depth = -1000;
 
+// Inizializza ottimizzazioni performance per Mac M2
+initialize_performance_optimizations();
+
 // Forza GameMaker a includere gli sprite nella compilazione
 sprite_add_to_cache = [spr_menu_basic, spr_menu_stats];
 
