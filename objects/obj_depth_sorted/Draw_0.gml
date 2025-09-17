@@ -1,2 +1,2 @@
-// Usa depth sorting ottimizzato per Mac M2
-optimized_depth_update(id);
+// Sistema di depth sorting con ottimizzazioni Mac M2
+scr_addto_depthgrid();

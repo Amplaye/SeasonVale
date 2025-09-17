@@ -4,6 +4,9 @@ depth = -1000;
 // Inizializza ottimizzazioni performance per Mac M2
 initialize_performance_optimizations();
 
+// Frame counter per performance tracking
+alarm[0] = 1;
+
 // Forza GameMaker a includere gli sprite nella compilazione
 sprite_add_to_cache = [spr_menu_basic, spr_menu_stats];
 

@@ -146,4 +146,12 @@ function initialize_performance_optimizations() {
     }
 }
 
+// ===== FRAME COUNTER =====
+function increment_frame_counter() {
+    global.frame_count++;
+
+    // Auto profiling per Mac
+    auto_profile_mac();
+}
+
 show_debug_message("🚀 Performance Optimizer loaded successfully!");
