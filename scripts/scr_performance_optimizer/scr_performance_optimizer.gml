@@ -128,6 +128,9 @@ function initialize_performance_optimizations() {
     global.frame_count = 0;
     global.performance_initialized = true;
 
+    // Inizializza profiler
+    init_profiler();
+
     var platform = detect_platform();
 
     switch(platform) {

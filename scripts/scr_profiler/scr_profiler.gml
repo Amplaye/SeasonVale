@@ -8,10 +8,28 @@ global.profiler_enabled = false;
 global.profiler_data = {};
 global.profiler_frame_start = 0;
 
+// ===== INIT PROFILER =====
+function init_profiler() {
+    if (!variable_global_exists("profiler_data") || global.profiler_data == undefined) {
+        global.profiler_data = {};
+    }
+    if (!variable_global_exists("profiler_enabled")) {
+        global.profiler_enabled = false;
+    }
+    if (!variable_global_exists("profiler_frame_start")) {
+        global.profiler_frame_start = 0;
+    }
+}
+
 // ===== PROFILER FUNCTIONS =====
 
 function profiler_start(section_name) {
     if (!global.profiler_enabled) return;
+
+    // Assicurati che profiler_data sia inizializzato
+    if (global.profiler_data == undefined) {
+        global.profiler_data = {};
+    }
 
     global.profiler_data[$ section_name] = {
         start_time: get_timer(),
@@ -22,6 +40,13 @@ function profiler_start(section_name) {
 
 function profiler_end(section_name) {
     if (!global.profiler_enabled) return;
+
+    // Assicurati che profiler_data sia inizializzato
+    if (global.profiler_data == undefined) {
+        global.profiler_data = {};
+        return;
+    }
+
     if (!variable_struct_exists(global.profiler_data, section_name)) return;
 
     var section = global.profiler_data[$ section_name];
@@ -44,6 +69,12 @@ function profiler_disable() {
 
 function profiler_report() {
     if (!global.profiler_enabled) return;
+
+    // Assicurati che profiler_data sia inizializzato
+    if (global.profiler_data == undefined) {
+        global.profiler_data = {};
+        return;
+    }
 
     var frame_time = get_timer() - global.profiler_frame_start;
     var sections = variable_struct_get_names(global.profiler_data);
