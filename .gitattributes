@@ -1,18 +1,30 @@
-<<<<<<< HEAD
-# Ignore .yy files for language statistics
-*.yy linguist-generated=true
- 
-# force LF for metadata files for merge simplicity
+# Git LFS per file binari GameMaker (per progetti grandi)
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.bmp filter=lfs diff=lfs merge=lfs -text
+
+# Audio files
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+
+# Font files binari
+*.ttf filter=lfs diff=lfs merge=lfs -text
+*.otf filter=lfs diff=lfs merge=lfs -text
+
+# Forza EOL consistente per file di testo
 *.gml text eol=lf
 *.yy text eol=lf
 *.yyp text eol=lf
-=======
-# Ignore .yy files for language statistics
-*.yy linguist-generated=true
- 
-# force LF for metadata files for merge simplicity
-*.gml text eol=lf
-*.yy text eol=lf
-*.yyp text eol=lf
->>>>>>> c994bbbc38e60888729406cbab5d6cf78a538b70
 *.json text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+
+# Script files platform-specific
+*.sh text eol=lf
+*.bat text eol=crlf
+
+# Linguist settings
+*.yy linguist-generated=true
