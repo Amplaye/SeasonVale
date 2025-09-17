@@ -37,6 +37,7 @@
     {"name":"obj_dressing_arrow_left","order":1,"path":"objects/obj_dressing_arrow_left/obj_dressing_arrow_left.yy",},
     {"name":"obj_dressing_arrow_right","order":3,"path":"objects/obj_dressing_arrow_right/obj_dressing_arrow_right.yy",},
     {"name":"obj_farming_manager","order":4,"path":"objects/obj_farming_manager/obj_farming_manager.yy",},
+    {"name":"obj_fps_counter","order":20,"path":"objects/obj_fps_counter/obj_fps_counter.yy",},
     {"name":"obj_house","order":9,"path":"objects/obj_house/obj_house.yy",},
     {"name":"obj_inventory_manager","order":1,"path":"objects/obj_inventory_manager/obj_inventory_manager.yy",},
     {"name":"obj_main_menu_stats","order":16,"path":"objects/obj_main_menu_stats/obj_main_menu_stats.yy",},

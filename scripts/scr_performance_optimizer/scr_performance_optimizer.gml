@@ -144,6 +144,12 @@ function initialize_performance_optimizations() {
         default:
             show_debug_message("🚀 Performance system initialized for generic platform");
     }
+
+    // Crea FPS counter automaticamente se non esiste
+    if (!instance_exists(obj_fps_counter)) {
+        instance_create_layer(0, 0, "Instances", obj_fps_counter);
+        smart_debug_message("📊 FPS Counter created automatically");
+    }
 }
 
 // ===== FRAME COUNTER =====

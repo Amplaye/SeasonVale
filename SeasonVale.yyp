@@ -64,6 +64,7 @@
     {"id":{"name":"obj_dressing_arrow_right","path":"objects/obj_dressing_arrow_right/obj_dressing_arrow_right.yy",},},
     {"id":{"name":"obj_dressing_menu","path":"objects/obj_dressing_menu/obj_dressing_menu.yy",},},
     {"id":{"name":"obj_farming_manager","path":"objects/obj_farming_manager/obj_farming_manager.yy",},},
+    {"id":{"name":"obj_fps_counter","path":"objects/obj_fps_counter/obj_fps_counter.yy",},},
     {"id":{"name":"obj_house","path":"objects/obj_house/obj_house.yy",},},
     {"id":{"name":"obj_inventory_manager","path":"objects/obj_inventory_manager/obj_inventory_manager.yy",},},
     {"id":{"name":"obj_main_menu_stats","path":"objects/obj_main_menu_stats/obj_main_menu_stats.yy",},},
