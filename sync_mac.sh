@@ -16,7 +16,8 @@ git stash
 
 echo ""
 echo "[3] Scaricamento ultime modifiche..."
-git pull --rebase
+git fetch --all
+git reset --hard origin/main
 
 echo ""
 echo "[4] Ripristino modifiche locali..."
@@ -37,10 +38,27 @@ SPRITE_COUNT=$(find sprites -name "*.png" 2>/dev/null | wc -l)
 echo "Trovati $SPRITE_COUNT file sprite"
 
 echo ""
-echo "[7] Impostazione permessi..."
+echo "[7] Verifica nuovi file sistema..."
+if [ -f "scripts/scr_performance_optimizer/scr_performance_optimizer.gml" ]; then
+    echo "✅ Sistema performance trovato"
+else
+    echo "❌ Sistema performance mancante - pull fallito!"
+    exit 1
+fi
+
+if [ -f "objects/obj_fps_counter/obj_fps_counter.yy" ]; then
+    echo "✅ FPS Counter trovato"
+else
+    echo "❌ FPS Counter mancante - pull fallito!"
+    exit 1
+fi
+
+echo ""
+echo "[8] Impostazione permessi..."
 find . -name "*.gml" -exec chmod 644 {} \;
 find . -name "*.yy" -exec chmod 644 {} \;
 find . -name "*.yyp" -exec chmod 644 {} \;
+chmod +x *.sh
 
 echo ""
 echo "==================================="
