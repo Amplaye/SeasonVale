@@ -72,7 +72,8 @@
       "Bash(timeout:*)",
       "Bash(/Users/Shared/GameMakerStudio2/Cache/runtimes/runtime-2024.13.1.242/bin/assetcompiler/osx/arm64/GMAssetCompiler.dll /c /mv=1 /j=8 /gn=\"SeasonVale\" /td=\"/tmp/GameMakerStudio2/GMS2TEMP\" /o=\"/tmp/GameMakerStudio2/GMS2TEMP/SeasonVale_test\" \"/Users/amplaye/Downloads/SeasonVale/SeasonVale.yyp\")",
       "Bash(./git-push.sh)",
-      "Bash(./git-push.sh \"🚪 Add directional transition system with configurable directions\")"
+      "Bash(./git-push.sh \"🚪 Add directional transition system with configurable directions\")",
+      "Bash(./git-push.sh \"🧹 Clean up unnecessary git/sync scripts\")"
     ],
     "deny": [],
     "ask": [],
