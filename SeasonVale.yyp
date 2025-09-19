@@ -43,7 +43,6 @@
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"debug_mode.json","CopyToMask":-1,"filePath":"datafiles","name":"debug_mode.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
-    {"$GMIncludedFile":"","%Name":"gude-2025-08-26.log","CopyToMask":-1,"filePath":"datafiles","name":"gude-2025-08-26.log","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"iz.eps","CopyToMask":-1,"filePath":"datafiles","name":"iz.eps","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"Simplified Gothic Regular.otf","CopyToMask":-1,"filePath":"datafiles","name":"Simplified Gothic Regular.otf","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],

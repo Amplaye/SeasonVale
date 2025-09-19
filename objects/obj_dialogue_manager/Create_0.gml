@@ -1,5 +1,7 @@
 // Dialogue Manager - Handles all conversation systems
 
+depth = -6000; // Dialogue manager - layer Meta
+
 // Dialogue state variables
 dialogue_active = false;
 dialogue_text = "";

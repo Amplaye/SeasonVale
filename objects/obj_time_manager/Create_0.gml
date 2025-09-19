@@ -4,6 +4,8 @@ if (instance_number(obj_time_manager) > 1) {
     exit;
 }
 
+depth = -3000; // Time manager - layer Meta
+
 // Inizializza variabili tempo SOLO se non esistono già
 if (!variable_global_exists("game_day") || global.game_day == undefined) {
     global.game_day = 1;

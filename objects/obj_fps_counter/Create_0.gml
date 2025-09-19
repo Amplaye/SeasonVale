@@ -1,5 +1,5 @@
 // FPS Counter - Debug performance in tempo reale
-depth = -9999;  // Sopra tutto
+depth = -11000;  // FPS counter - layer Meta
 
 // Variables per FPS tracking
 fps_current = 60;
@@ -18,6 +18,8 @@ fps_warning = 30;
 fps_critical = 20;
 
 // Platform info
-platform_name = detect_platform();
+// platform_name = detect_platform();
+platform_name = "mac"; // Temporary fix
 
-smart_debug_message("🖥️ FPS Counter created for " + platform_name);
+// smart_debug_message("🖥️ FPS Counter created for " + platform_name);
+show_debug_message("🖥️ FPS Counter created for " + platform_name);

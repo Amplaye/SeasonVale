@@ -21,15 +21,66 @@ target_y = 0;
 
 // NOTA: Se origin è bottom center, y è già ai piedi!
 function collision_at_feet(_x, _y, _object) {
-    return place_meeting(_x, _y, _object); // NO offset se origin è bottom center
+    // Check collision ma ignora oggetti "morti"
+    var colliding_instances = ds_list_create();
+    var num_instances = collision_point_list(_x, _y, _object, false, true, colliding_instances, false);
+
+    var has_valid_collision = false;
+    for (var i = 0; i < num_instances; i++) {
+        var inst = colliding_instances[| i];
+        // Ignora oggetti che sono is_dying o hanno sprite_index = -1
+        if (!variable_instance_exists(inst, "is_dying") || !inst.is_dying) {
+            if (inst.sprite_index != -1) {
+                has_valid_collision = true;
+                break;
+            }
+        }
+    }
+
+    ds_list_destroy(colliding_instances);
+    return has_valid_collision;
 }
 
 function collision_feet_horizontal(_x, _y, _object) {
-    return place_meeting(_x, _y, _object);
+    // Check collision ma ignora oggetti "morti"
+    var colliding_instances = ds_list_create();
+    var num_instances = collision_rectangle_list(_x-8, _y-8, _x+8, _y+8, _object, false, true, colliding_instances, false);
+
+    var has_valid_collision = false;
+    for (var i = 0; i < num_instances; i++) {
+        var inst = colliding_instances[| i];
+        // Ignora oggetti che sono is_dying o hanno sprite_index = -1
+        if (!variable_instance_exists(inst, "is_dying") || !inst.is_dying) {
+            if (inst.sprite_index != -1) {
+                has_valid_collision = true;
+                break;
+            }
+        }
+    }
+
+    ds_list_destroy(colliding_instances);
+    return has_valid_collision;
 }
 
 function collision_feet_vertical(_x, _y, _object) {
-    return place_meeting(_x, _y, _object);
+    // Check collision ma ignora oggetti "morti"
+    var colliding_instances = ds_list_create();
+    var num_instances = collision_rectangle_list(_x-8, _y-8, _x+8, _y+8, _object, false, true, colliding_instances, false);
+
+    var has_valid_collision = false;
+    for (var i = 0; i < num_instances; i++) {
+        var inst = colliding_instances[| i];
+        // Ignora oggetti che sono is_dying o hanno sprite_index = -1
+        if (!variable_instance_exists(inst, "is_dying") || !inst.is_dying) {
+            if (inst.sprite_index != -1) {
+                has_valid_collision = true;
+                break;
+            }
+        }
+    }
+
+    ds_list_destroy(colliding_instances);
+    return has_valid_collision;
 }
 
 // Riferimenti sprite tools (per confronti) - usa direttamente i nomi

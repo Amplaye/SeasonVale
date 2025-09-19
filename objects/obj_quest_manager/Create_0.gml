@@ -1,5 +1,7 @@
 // Quest Manager - Handles all quest systems
 
+depth = -5000; // Quest manager - layer Meta
+
 // Active quests storage
 global.active_quests = ds_map_create();
 global.completed_quests = ds_list_create();

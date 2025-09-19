@@ -6,9 +6,14 @@ last_hit_frame = -1;
 hit_cooldown = 0;
 
 // Sistema di salute e rilascio materiali
-max_health = 12;  // Rocce più resistenti degli alberi
-health = max_health;
+max_health = 10;  // Stessa resistenza degli alberi per consistenza
+self.health = max_health;  // SELF per assicurarsi sia una variabile di istanza
 hit_count = 0;
-total_mining_drops = 6;  // 6 materiali totali durante mining (divisi su 12 colpi)
+show_debug_message("🪨 Rock created with health: " + string(health) + "/" + string(max_health));
+total_mining_drops = 5;  // 5 materiali totali durante mining (divisi su 10 colpi)
 final_drops = 8;         // 8 materiali all'esplosione
 is_dying = false;
+
+// Variabili per cooldown danno
+last_hit_time = 0;
+last_damage_time = 0;

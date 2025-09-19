@@ -1,5 +1,5 @@
 visible = false;
-depth = -1001;
+depth = -15001; // Deve essere sopra il menu (-15000) - layer Meta
 
 // Forza GameMaker a includere lo sprite nella compilazione
 sprite_ref = spr_idle_front;

@@ -6,7 +6,7 @@
 // Riga 2-3: 20 slot bloccati (acquistabili in futuro)
 // Gap verticale: 2 pixel tra righe
 
-depth = -1001; // Sopra la toolbar (-1000) quando visibile
+depth = -7000; // Inventory manager - layer Meta
 
 // ===== IMPOSTAZIONI INVENTARIO =====
 global.inventory_rows = 3;

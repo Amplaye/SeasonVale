@@ -61,8 +61,5 @@ if (show_selector) {
 // Gestisci cursor solo quando il place_selector è visibile (fuori dal menu)
 if (visible) {
     window_set_cursor(cr_none);
-    if (cursor_sprite != -1) cursor_sprite = -1;
-} else if (instance_exists(obj_main_menu) && obj_main_menu.visible) {
-    // Quando il menu è aperto, mostra cursor normale
-    window_set_cursor(cr_default);
+    // Non toccare cursor_sprite qui - lascia che GameMaker lo gestisca
 }

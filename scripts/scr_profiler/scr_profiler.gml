@@ -59,12 +59,12 @@ function profiler_end(section_name) {
 function profiler_enable() {
     global.profiler_enabled = true;
     global.profiler_frame_start = get_timer();
-    show_debug_message("📊 Profiler enabled - monitoring performance");
+    // show_debug_message("📊 Profiler enabled - monitoring performance");
 }
 
 function profiler_disable() {
     global.profiler_enabled = false;
-    show_debug_message("📊 Profiler disabled");
+    // show_debug_message("📊 Profiler disabled");
 }
 
 function profiler_report() {
@@ -79,17 +79,18 @@ function profiler_report() {
     var frame_time = get_timer() - global.profiler_frame_start;
     var sections = variable_struct_get_names(global.profiler_data);
 
-    show_debug_message("📊 === PERFORMANCE REPORT ===");
-    show_debug_message("Frame time: " + string(frame_time / 1000) + "ms");
-    show_debug_message("FPS: " + string(fps_real));
-    show_debug_message("Platform: " + detect_platform());
+    // Commenta i report per evitare spam nella console
+    // show_debug_message("📊 === PERFORMANCE REPORT ===");
+    // show_debug_message("Frame time: " + string(frame_time / 1000) + "ms");
+    // show_debug_message("FPS: " + string(fps_real));
+    // show_debug_message("Platform: " + detect_platform());
 
     for (var i = 0; i < array_length(sections); i++) {
         var section_name = sections[i];
         var section = global.profiler_data[$ section_name];
 
         var avg_time = section.total_time / max(section.calls, 1);
-        show_debug_message("  " + section_name + ": " + string(avg_time / 1000) + "ms avg (" + string(section.calls) + " calls)");
+        // show_debug_message("  " + section_name + ": " + string(avg_time / 1000) + "ms avg (" + string(section.calls) + " calls)");
     }
 
     // Reset data for next frame
@@ -141,7 +142,7 @@ function auto_profile_mac() {
     // Enable profiling automatically on Mac if FPS drops
     if (fps_real < 30 && !global.profiler_enabled) {
         profiler_enable();
-        show_debug_message("🚨 Low FPS detected on Mac - enabling profiler");
+        // show_debug_message("🚨 Low FPS detected on Mac - enabling profiler");
     }
 
     // Generate report every 3 seconds if profiling
@@ -150,4 +151,4 @@ function auto_profile_mac() {
     }
 }
 
-show_debug_message("📊 Profiler system loaded successfully!");
+// show_debug_message("📊 Profiler system loaded successfully!");

@@ -41,7 +41,9 @@ function apply_mac_optimizations() {
     }
 
     // 2. Ottimizza find operations per Mac
-    global.mac_instance_cache ??= {};
+    if (!variable_global_exists("mac_instance_cache")) {
+        global.mac_instance_cache = {};
+    }
 
     // 3. Disabilita debug messages su Mac per performance
     global.debug_enabled = false;
@@ -75,7 +77,9 @@ function get_cached_instance(object_type, cache_key) {
     }
 
     // Su Mac usa cache per ridurre find operations
-    global.mac_instance_cache ??= {};
+    if (!variable_global_exists("mac_instance_cache")) {
+        global.mac_instance_cache = {};
+    }
 
     if (!variable_struct_exists(global.mac_instance_cache, cache_key)) {
         global.mac_instance_cache[$ cache_key] = instance_find(object_type, 0);
@@ -127,6 +131,7 @@ function optimized_depth_update(instance_id) {
 function initialize_performance_optimizations() {
     global.frame_count = 0;
     global.performance_initialized = true;
+    global.force_debug_mac = false;
 
     // Inizializza profiler
     init_profiler();

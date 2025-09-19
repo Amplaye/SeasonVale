@@ -1,9 +1,7 @@
 if (keyboard_check_pressed(vk_escape)) {
     visible = !visible;
-    show_debug_message("ESC pressed! Main Menu visible: " + string(visible));
-    
+
     if (visible) {
-        
         // Blocca il movimento del player
         if (instance_exists(obj_player)) {
             obj_player.can_move = false;
@@ -12,14 +10,11 @@ if (keyboard_check_pressed(vk_escape)) {
         // Mostra tutti i mark come inattivi
         for (var i = 0; i < array_length(mark_objects); i++) {
             if (instance_exists(mark_objects[i])) {
-                show_debug_message("Found mark object: " + object_get_name(mark_objects[i]));
                 with (mark_objects[i]) {
                     visible = true;
                     is_active = false;
                     image_index = 0; // Tutti inattivi all'apertura
                 }
-            } else {
-                show_debug_message("Mark object NOT found: " + object_get_name(mark_objects[i]));
             }
         }
         
@@ -38,7 +33,7 @@ if (keyboard_check_pressed(vk_escape)) {
             }
         }
     } else {
-        
+
         // Riabilita il movimento del player
         if (instance_exists(obj_player)) {
             obj_player.can_move = true;

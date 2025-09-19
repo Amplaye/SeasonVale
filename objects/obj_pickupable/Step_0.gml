@@ -20,15 +20,40 @@ if (player_instance == noone) exit; // Nessun player trovato
 var player_x = player_instance.x;
 var player_y = player_instance.y;
 
-// Ottieni il layer pickupable
-var pickup_layer = layer_get_id(global.pickup_layer_name);
-if (pickup_layer == -1) {
-    // Layer non trovato - esci silenziosamente
-    exit;
+// Ottieni il layer appropriato - cerca in ordine di priorità
+var pickup_layer = -1;
+var layer_elements = [];
+
+// Prima prova con "pickupable"
+if (layer_exists("pickupable")) {
+    pickup_layer = layer_get_id("pickupable");
+    layer_elements = layer_get_all_elements(pickup_layer);
 }
 
-// Ottieni tutti gli elementi del layer
-var layer_elements = layer_get_all_elements(pickup_layer);
+// Se non trovato o vuoto, prova "Instances"
+if (array_length(layer_elements) == 0 && layer_exists("Instances")) {
+    pickup_layer = layer_get_id("Instances");
+    var instances_elements = layer_get_all_elements(pickup_layer);
+    // Aggiungi elementi al nostro array
+    for (var k = 0; k < array_length(instances_elements); k++) {
+        array_push(layer_elements, instances_elements[k]);
+    }
+}
+
+// Se ancora vuoto, prova "World"
+if (array_length(layer_elements) == 0 && layer_exists("World")) {
+    pickup_layer = layer_get_id("World");
+    var world_elements = layer_get_all_elements(pickup_layer);
+    // Aggiungi elementi al nostro array
+    for (var k = 0; k < array_length(world_elements); k++) {
+        array_push(layer_elements, world_elements[k]);
+    }
+}
+
+// Se nessun layer trovato, esci
+if (pickup_layer == -1) {
+    exit;
+}
 
 // Sistema semplificato - solo sprite nel layer
 

@@ -2,7 +2,7 @@
 // 🚜 FARMING TEST SYSTEM - SISTEMA DI TEST PER AUTOTILING
 // ===================================================================
 
-depth = -600; // Sopra altri manager (diverso depth per evitare conflitti)
+depth = -2000; // Farming manager - layer Meta
 
 // ===== CONFIGURAZIONE FARMING TEST =====
 // Usa layer "soil" per i test con tiles diverse

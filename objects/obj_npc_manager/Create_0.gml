@@ -1,6 +1,8 @@
 // NPC Manager - Core system for managing all NPCs
 // Persistent object that tracks all NPC instances and coordinates systems
 
+depth = -4000; // NPC manager - layer Meta
+
 // NPC Registry - stores all active NPCs
 global.npc_registry = ds_map_create();
 global.npc_count = 0;

@@ -4,7 +4,7 @@
 // Gestisce le scale individuali di ogni sprite nel layer "pickupable"
 // Permette di modificare facilmente le dimensioni di ogni tipo di oggetto
 
-depth = -10000; // Molto alto per essere eseguito prima di tutto
+depth = -12000; // System controller - layer Meta
 
 // Variabile per applicare scale solo una volta
 scales_applied = false;

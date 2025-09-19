@@ -592,19 +592,19 @@ if (hsp != 0 || vsp != 0) {
 is_moving = (hsp != 0) || (vsp != 0);
 
 
-// Push out semplice - solo obj_collision_block (disabilitato temporaneamente durante transizioni)
-if (collision_at_feet(x, y, obj_collision_block) && (!variable_global_exists("disable_pushout") || !global.disable_pushout)) {
+// Push out semplice - obj_collision_block + NPCs (disabilitato temporaneamente durante transizioni)
+if ((collision_at_feet(x, y, obj_collision_block) || collision_at_feet(x, y, obj_npc_base)) && (!variable_global_exists("disable_pushout") || !global.disable_pushout)) {
     for (var push_dist = 1; push_dist <= 5; push_dist++) {
-        if (!collision_at_feet(x - push_dist, y, obj_collision_block)) {
+        if (!collision_at_feet(x - push_dist, y, obj_collision_block) && !collision_at_feet(x - push_dist, y, obj_npc_base)) {
             x -= push_dist;
             break;
-        } else if (!collision_at_feet(x + push_dist, y, obj_collision_block)) {
+        } else if (!collision_at_feet(x + push_dist, y, obj_collision_block) && !collision_at_feet(x + push_dist, y, obj_npc_base)) {
             x += push_dist;
             break;
-        } else if (!collision_at_feet(x, y - push_dist, obj_collision_block)) {
+        } else if (!collision_at_feet(x, y - push_dist, obj_collision_block) && !collision_at_feet(x, y - push_dist, obj_npc_base)) {
             y -= push_dist;
             break;
-        } else if (!collision_at_feet(x, y + push_dist, obj_collision_block)) {
+        } else if (!collision_at_feet(x, y + push_dist, obj_collision_block) && !collision_at_feet(x, y + push_dist, obj_npc_base)) {
             y += push_dist;
             break;
         }
@@ -612,27 +612,27 @@ if (collision_at_feet(x, y, obj_collision_block) && (!variable_global_exists("di
 }
 
 if (is_moving) {
-    // Movimento orizzontale - obj_collision_block (include NPCs automaticamente)
+    // Movimento orizzontale - obj_collision_block + NPCs
     if (hsp != 0) {
-        if (!collision_feet_horizontal(x + hsp, y, obj_collision_block)) {
+        if (!collision_feet_horizontal(x + hsp, y, obj_collision_block) && !collision_feet_horizontal(x + hsp, y, obj_npc_base)) {
             x += hsp;
         } else {
             // Movimento pixel per pixel fino al contatto
             var step_x = sign(hsp);
-            while (step_x != 0 && !collision_feet_horizontal(x + step_x, y, obj_collision_block)) {
+            while (step_x != 0 && !collision_feet_horizontal(x + step_x, y, obj_collision_block) && !collision_feet_horizontal(x + step_x, y, obj_npc_base)) {
                 x += step_x;
             }
         }
     }
 
-    // Movimento verticale - obj_collision_block (include NPCs automaticamente)
+    // Movimento verticale - obj_collision_block + NPCs
     if (vsp != 0) {
-        if (!collision_feet_vertical(x, y + vsp, obj_collision_block)) {
+        if (!collision_feet_vertical(x, y + vsp, obj_collision_block) && !collision_feet_vertical(x, y + vsp, obj_npc_base)) {
             y += vsp;
         } else {
             // Movimento pixel per pixel fino al contatto
             var step_y = sign(vsp);
-            while (step_y != 0 && !collision_feet_vertical(x, y + step_y, obj_collision_block)) {
+            while (step_y != 0 && !collision_feet_vertical(x, y + step_y, obj_collision_block) && !collision_feet_vertical(x, y + step_y, obj_npc_base)) {
                 y += step_y;
             }
         }

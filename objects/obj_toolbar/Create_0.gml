@@ -6,7 +6,7 @@
 // Debug: Ctrl+D = mostra/nascondi posizioni slot
 // Auto-posizionamento: Items si centrano automaticamente negli slot
 
-depth = -1000;
+depth = -1500; // Toolbar - layer Meta
 
 // ===== DRAG & DROP SISTEMA =====
 global.toolbar_dragging = false;

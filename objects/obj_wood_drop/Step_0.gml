@@ -28,8 +28,21 @@ if (abs(vspeed) < 0.1 && abs(hspeed) < 0.1 && y >= ground_y) {
     hspeed = 0;
     y = ground_y;
     
-    // Crea sprite wood nel layer pickupable
-    var wood_sprite = layer_sprite_create("pickupable", x, y, spr_wood);
+    // Crea sprite wood nel layer appropriato
+    var target_layer = "pickupable";
+    if (!layer_exists(target_layer)) {
+        // Se il layer non esiste, usa "Instances" o crealo
+        if (layer_exists("Instances")) {
+            target_layer = "Instances";
+        } else if (layer_exists("World")) {
+            target_layer = "World";
+        } else {
+            // Crea il layer se non esiste
+            target_layer = layer_create(-500, "pickupable");
+        }
+    }
+
+    var wood_sprite = layer_sprite_create(target_layer, x, y, spr_wood);
     layer_sprite_xscale(wood_sprite, 0.2);
     layer_sprite_yscale(wood_sprite, 0.2);
     

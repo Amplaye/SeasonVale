@@ -5,7 +5,7 @@
 // nella toolbar. Cerca tutti gli items nella room e li posiziona 
 // automaticamente nel centro degli slot più vicini.
 
-depth = -1500; // Sopra alla toolbar
+depth = -8000; // Toolbar item manager - layer Meta
 
 // ===== CONFIGURAZIONE =====
 auto_positioning_enabled = true;
