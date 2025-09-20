@@ -22,14 +22,15 @@ cursor_already_set = false;
 // Tutti i mark objects disponibili
 mark_objects = [
     obj_mark_settings,
-    obj_mark_map, 
+    obj_mark_quests,
     obj_mark_npc,
     obj_mark_stats,
     obj_mark_help,
     obj_mark_animals,
     obj_mark_crafting,
     obj_mark_potions,
-    obj_mark_scrolls
+    obj_mark_scrolls,
+    obj_mark_exit
 ];
 
 // Player preview collegato solo a stats

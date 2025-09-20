@@ -11,7 +11,7 @@ if (overlay_alpha > 0) {
 var gui_w = display_get_gui_width();
 var time_text = "Day " + string(global.game_day) + " - " + format_time();
 
-draw_set_font(-1);  // Font default
+draw_set_font(main_font);
 draw_set_halign(fa_right);
 draw_set_valign(fa_top);
 
@@ -29,7 +29,7 @@ draw_set_valign(fa_top);
 draw_set_color(c_white);
 
 // CONTROLLI TEMPO TEMPORANEI (da rimuovere dopo test)
-var controls_text = "TIME CONTROLS (TEST):\nF = Skip Day | T = +1 Hour | Y = +30min | U = Auto " + (auto_advance ? "ON" : "OFF");
+var controls_text = "TIME CONTROLS (TEST):\nF = Skip Day | U = +1 Hour | Y = +30min";
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 

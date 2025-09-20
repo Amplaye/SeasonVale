@@ -157,7 +157,7 @@ function initialize_performance_optimizations() {
     if (!instance_exists(obj_fps_counter)) {
         // Usa layer "World" che esiste in tutte le room
         instance_create_layer(0, 0, "World", obj_fps_counter);
-        smart_debug_message("📊 FPS Counter created automatically");
+        // FPS Counter created automatically
     }
 }
 

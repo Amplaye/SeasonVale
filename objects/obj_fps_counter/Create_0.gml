@@ -21,5 +21,4 @@ fps_critical = 20;
 // platform_name = detect_platform();
 platform_name = "mac"; // Temporary fix
 
-// smart_debug_message("🖥️ FPS Counter created for " + platform_name);
-show_debug_message("🖥️ FPS Counter created for " + platform_name);
+// FPS Counter created (no debug output)

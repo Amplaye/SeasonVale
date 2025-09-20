@@ -1,5 +1,8 @@
 /// @description Draw Instances in Grid - Ottimizzato per Mac M2
 
+// Imposta font principale del gioco
+draw_set_font(main_font);
+
 if(ds_exists(ds_depthgrid, ds_type_grid)){
 
     //sort the grid by Y value (lowest Y values first)

@@ -13,7 +13,7 @@ if (visible && global.popup_active) {
     
     // Imposta stile testo
     draw_set_color(c_black);
-    draw_set_font(-1);  // Font normale
+    draw_set_font(main_font);
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     

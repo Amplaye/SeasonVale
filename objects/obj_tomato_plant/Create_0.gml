@@ -36,7 +36,7 @@ function draw_tomato_plant_with_indicator() {
             
             if (dist_to_player < 64) {
                 // Indicatore tasto destro sopra la pianta
-                draw_set_font(-1);
+                draw_set_font(main_font);
                 draw_set_halign(fa_center);
                 draw_set_valign(fa_bottom);
                 

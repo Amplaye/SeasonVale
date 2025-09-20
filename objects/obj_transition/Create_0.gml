@@ -1,6 +1,9 @@
 // === TRANSITION CREATE EVENT ===
 // Le proprietà targetRoom, targetX, targetY sono definite nelle proprietà dell'oggetto
 
+// Transition invisibile ma attivo
+visible = false;
+
 // Inizializza requiredDirection se non è già impostata
 if (!variable_instance_exists(id, "requiredDirection") || requiredDirection == "") {
     requiredDirection = "any";

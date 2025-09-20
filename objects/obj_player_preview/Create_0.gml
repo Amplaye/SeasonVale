@@ -7,11 +7,7 @@ base_sprite = spr_idle_front;
 current_frame = 0;
 frame_speed = 8;
 
-// Calcola l'offset dalla posizione dell'editor rispetto al centro del menu
-// Coordinate del centro del menu nell'editor (provate empiricamente)
-var editor_menu_center_x = 240;
-var editor_menu_center_y = 180;
-
-// Memorizza l'offset rispetto al centro del menu
-offset_from_menu_x = x - editor_menu_center_x;
-offset_from_menu_y = y - editor_menu_center_y;
+// Offset fisso relativo al centro del menu (calcolato dalla posizione editor)
+// Player preview è a x=189, y=160 nell'editor, centro menu è circa 240,137
+offset_from_menu_x = -51; 
+offset_from_menu_y = -20;   

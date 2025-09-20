@@ -14,7 +14,7 @@ if (variable_instance_exists(id, "is_highlighted") && is_highlighted && can_harv
 
     // Testo indicatore
     draw_set_alpha(pulse);
-    draw_set_font(-1);
+    draw_set_font(main_font);
     draw_set_halign(fa_center);
     draw_set_valign(fa_bottom);
     draw_set_color(c_white);

@@ -16,7 +16,7 @@ if (dialogue_active) {
                    dialogue_box_y + dialogue_box_height, true);
 
     // Draw speaker name
-    draw_set_font(-1);
+    draw_set_font(main_font);
     draw_set_color(c_yellow);
     draw_text(dialogue_box_x + 10, dialogue_box_y + 5, dialogue_speaker);
 

@@ -1,5 +1,5 @@
 visible = false;
-page_name = "Map";
+page_name = "Quests";
 is_active = false;
 
 // Nascondi lo sprite automatico dell'oggetto

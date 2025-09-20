@@ -16,4 +16,11 @@ if (!variable_global_exists("quest_data_loaded")) {
     global.quest_data_loaded = true;
 }
 
+// Auto-start first quest if this is the first time playing
+if (!variable_global_exists("first_quest_triggered")) {
+    // Delay slightly to ensure everything is loaded
+    alarm[0] = 30; // 0.5 seconds
+    global.first_quest_triggered = true;
+}
+
 show_debug_message("Quest Manager initialized - Ready for adventure!");

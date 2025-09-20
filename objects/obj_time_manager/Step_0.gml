@@ -4,8 +4,8 @@ if (keyboard_check_pressed(ord("F"))) {
 }
 
 // BOTTONI TEST TEMPO (da rimuovere dopo i test)
-// T = avanza 1 ora
-if (keyboard_check_pressed(ord("T"))) {
+// U = avanza 1 ora
+if (keyboard_check_pressed(ord("U"))) {
     advance_hour();
 }
 

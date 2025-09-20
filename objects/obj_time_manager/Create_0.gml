@@ -69,8 +69,10 @@ ds_map_add(time_colors, 25, [make_color_rgb(10, 10, 60), 0.8]); // 01:00
 // Aggiorna overlay iniziale
 update_time_overlay();
 
-// Debug (disabled for performance)
-// show_debug_message("Time Manager created - Day: " + string(global.game_day) + " Time: " + format_time());
+// Crea FPS counter se non esiste già
+if (!instance_exists(obj_fps_counter)) {
+    instance_create_layer(0, 0, "World", obj_fps_counter);
+}
 
 // Funzione per formattare l'orario
 function format_time() {
