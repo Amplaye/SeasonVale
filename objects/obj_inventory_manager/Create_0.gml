@@ -24,6 +24,11 @@ global.inventory_background_scale = 1.0; // Scala background inventario
 // Variabile per trash chest dedicata all'inventario
 inventory_trash_chest = noone;
 
+// ===== SISTEMA HOVER TOOLTIP =====
+hovered_slot = -1;        // Slot attualmente in hover (-1 = nessuno)
+hovered_item_sprite = noone;  // Sprite dell'item in hover
+hover_tooltip_alpha = 0;  // Alpha per fade in/out del tooltip
+
 // ===== SISTEMA DI ESPANSIONE =====
 // Riga 0: slot 0-9 (condivisi con toolbar - sempre disponibili)
 // Riga 1: slot 10-19 (acquistabili)  

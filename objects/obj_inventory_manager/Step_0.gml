@@ -18,6 +18,11 @@ var cam_y = camera_get_view_y(cam);
 var screen_w = 480;
 var screen_h = 270;
 var scaled_slot_width = sprite_get_width(spr_slot) * global.slot_scale * global.inventory_scale;
+
+// ===== RESET HOVER STATE =====
+var old_hovered_slot = hovered_slot;
+hovered_slot = -1;
+hovered_item_sprite = noone;
 var scaled_slot_height = sprite_get_height(spr_slot) * global.slot_scale * global.inventory_scale;
 
 // Calcola dimensioni totali inventario
@@ -41,7 +46,20 @@ if (global.inventory_visible) {
         
         
         var mouse_over = point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + scaled_slot_width, slot_y + scaled_slot_height);
-        
+
+        // ===== HOVER DETECTION =====
+        if (mouse_over && is_slot_unlocked(i)) {
+            var slot_data = get_slot_data(i);
+            var item_sprite = slot_data[0];
+            var quantity = slot_data[1];
+
+            // Se c'è un item in questo slot, aggiorna hover state
+            if (item_sprite != noone && quantity > 0) {
+                hovered_slot = i;
+                hovered_item_sprite = item_sprite;
+            }
+        }
+
         if (mouse_over && is_slot_unlocked(i)) {
             var slot_data = get_slot_data(i);
             var item_sprite = slot_data[0];
@@ -126,6 +144,15 @@ if (global.inventory_visible) {
         }
         // Se droppato su trash, obj_trash_chest gestirà il reset
     }
+}
+
+// ===== AGGIORNA ALPHA TOOLTIP =====
+if (hovered_slot != -1 && hovered_item_sprite != noone) {
+    // Fade in tooltip
+    hover_tooltip_alpha = min(hover_tooltip_alpha + 0.15, 1.0);
+} else {
+    // Fade out tooltip
+    hover_tooltip_alpha = max(hover_tooltip_alpha - 0.2, 0.0);
 }
 
 // ===== GESTIONE TRASH CHEST =====

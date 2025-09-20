@@ -40,6 +40,7 @@
     {"name":"obj_fps_counter","order":20,"path":"objects/obj_fps_counter/obj_fps_counter.yy",},
     {"name":"obj_house","order":9,"path":"objects/obj_house/obj_house.yy",},
     {"name":"obj_inventory_manager","order":1,"path":"objects/obj_inventory_manager/obj_inventory_manager.yy",},
+    {"name":"obj_item_description_manager","order":21,"path":"objects/obj_item_description_manager/obj_item_description_manager.yy",},
     {"name":"obj_main_menu_stats","order":16,"path":"objects/obj_main_menu_stats/obj_main_menu_stats.yy",},
     {"name":"obj_main_menu","order":9,"path":"objects/obj_main_menu/obj_main_menu.yy",},
     {"name":"obj_mark_animals","order":11,"path":"objects/obj_mark_animals/obj_mark_animals.yy",},

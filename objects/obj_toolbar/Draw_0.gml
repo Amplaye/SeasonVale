@@ -161,3 +161,5 @@ if (global.toolbar_dragging && mouse_check_button_released(mb_left)) {
     global.toolbar_drag_from_slot = -1;
     global.toolbar_drag_item = noone;
 }
+
+// Hover tooltip rimosso - solo inventario ha tooltip
