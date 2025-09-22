@@ -5,7 +5,7 @@
 // Visibile solo quando il menu principale NON è aperto
 visible = !(instance_exists(obj_main_menu) && obj_main_menu.visible);
 
-// Cambia sprite in base al tool selezionato
+// Determina se mostrare il selector basato sul tool selezionato
 var show_selector = false;
 if (global.selected_tool >= 0 && global.selected_tool < array_length(global.tool_sprites)) {
     var selected_tool_sprite = global.tool_sprites[global.selected_tool];
@@ -14,17 +14,7 @@ if (global.selected_tool >= 0 && global.selected_tool < array_length(global.tool
         sprite_index = spr_place_selector;
         image_xscale = 0.5;
         image_yscale = 0.5;
-    } else {
-        show_selector = false;
-        sprite_index = spr_pointer;
-        image_xscale = 0.3;
-        image_yscale = 0.3;
     }
-} else {
-    show_selector = false;
-    sprite_index = spr_pointer;
-    image_xscale = 0.3;
-    image_yscale = 0.3;
 }
 
 // Posizionamento del puntatore

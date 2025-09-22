@@ -4,7 +4,7 @@
 // Oggetto che segue il mouse per indicare dove si può fare chopping/azioni
 
 // Configurazione
-depth = -5000; // Disegnato sopra tutto (ma sotto UI)
+depth = -10; // Sopra il gameplay ma sotto UI
 visible = true;
 // Scala normale per pointer, ridotta per selector
 image_xscale = 1.0;

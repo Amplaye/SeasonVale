@@ -3,10 +3,16 @@
 // ===================================================================
 
 // ===== TOGGLE INVENTARIO =====
-// Tasto I per aprire/chiudere inventario
+// Tasto I per aprire/chiudere inventario (solo se il menu non è aperto)
 if (keyboard_check_pressed(ord("I"))) {
-    global.inventory_visible = !global.inventory_visible;
-    show_debug_message("🎒 Inventario " + (global.inventory_visible ? "aperto" : "chiuso"));
+    var menu_is_open = (instance_exists(obj_main_menu) && obj_main_menu.visible);
+
+    if (!menu_is_open) {
+        global.inventory_visible = !global.inventory_visible;
+        show_debug_message("🎒 Inventario " + (global.inventory_visible ? "aperto" : "chiuso"));
+    } else {
+        show_debug_message("🚫 Impossibile aprire inventario: menu principale aperto");
+    }
 }
 
 // ===== UI FISSA - POSIZIONAMENTO IDENTICO TOOLBAR =====
@@ -38,60 +44,110 @@ y = inventory_start_y;
 
 // ===== GESTIONE DRAG & DROP INVENTORY =====
 if (global.inventory_visible) {
-    // Controlla click su slot per drag o selezione
-    for (var i = 0; i < global.inventory_total_slots; i++) {
-        var slot_pos = get_slot_position(i);
-        var slot_x = slot_pos[0];
-        var slot_y = slot_pos[1];
-        
-        
-        var mouse_over = point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + scaled_slot_width, slot_y + scaled_slot_height);
+    // Calcola slot mouse solo se mouse si è mosso o ci sono click
+    var mouse_moved = (mouse_x != previous_mouse_x || mouse_y != previous_mouse_y);
+    var mouse_clicked = mouse_check_button_pressed(mb_left);
 
-        // ===== HOVER DETECTION =====
-        if (mouse_over && is_slot_unlocked(i)) {
-            var slot_data = get_slot_data(i);
-            var item_sprite = slot_data[0];
-            var quantity = slot_data[1];
+    // Reset hover se mouse si muove
+    if (mouse_moved) {
+        hovered_slot = -1;
+        hovered_item_sprite = noone;
+        hover_start_time = 0;
+        mouse_stopped = false;
+    }
 
-            // Se c'è un item in questo slot, aggiorna hover state
-            if (item_sprite != noone && quantity > 0) {
-                hovered_slot = i;
-                hovered_item_sprite = item_sprite;
-            }
-        }
+    // Calcolo slot attuale sempre (per hover persistente)
+    var current_slot = -1;
+    var current_item = noone;
 
-        if (mouse_over && is_slot_unlocked(i)) {
-            var slot_data = get_slot_data(i);
-            var item_sprite = slot_data[0];
-            var quantity = slot_data[1];
-            
-            // DRAG START & SELEZIONE - stessa logica toolbar (click sinistro)
-            if (mouse_check_button_pressed(mb_left) && item_sprite != noone) {
-                global.toolbar_dragging = true;
-                global.toolbar_drag_from_slot = i;
-                global.toolbar_drag_item = item_sprite;
-                global.toolbar_drag_start_x = mouse_x;
-                global.toolbar_drag_start_y = mouse_y;
-                // Se prima riga, seleziona anche il tool
-                if (i < 10) {
-                    global.selected_tool = i;
+    var rel_x = mouse_x - x;
+    var rel_y = mouse_y - y;
+
+    if (rel_x >= 0 && rel_y >= 0) {
+        var col = floor(rel_x / (scaled_slot_width + global.inventory_gap_x));
+        var row = floor(rel_y / (scaled_slot_height + global.inventory_gap_y));
+
+        if (col >= 0 && col < global.inventory_cols && row >= 0 && row < global.inventory_rows) {
+            var slot_index = row * global.inventory_cols + col;
+
+            if (slot_index < global.inventory_total_slots) {
+                var slot_pos = get_slot_position(slot_index);
+                var slot_x = slot_pos[0];
+                var slot_y = slot_pos[1];
+                var mouse_over = point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + scaled_slot_width, slot_y + scaled_slot_height);
+
+                if (mouse_over && is_slot_unlocked(slot_index)) {
+                    var slot_data = get_slot_data(slot_index);
+                    var item_sprite = slot_data[0];
+                    var quantity = slot_data[1];
+
+                    if (item_sprite != noone && quantity > 0) {
+                        current_slot = slot_index;
+                        current_item = item_sprite;
+                    }
+
+                    // CLICK HANDLING
+                    if (mouse_clicked) {
+                        if (item_sprite != noone) {
+                            global.toolbar_dragging = true;
+                            global.toolbar_drag_from_slot = slot_index;
+                            global.toolbar_drag_item = item_sprite;
+                            global.toolbar_drag_start_x = mouse_x;
+                            global.toolbar_drag_start_y = mouse_y;
+                            if (slot_index < 10) {
+                                global.selected_tool = slot_index;
+                            }
+                        } else if (slot_index < 10) {
+                            global.selected_tool = slot_index;
+                        }
+                    }
+                } else if (mouse_over && !is_slot_unlocked(slot_index) && mouse_clicked) {
+                    show_debug_message("🔒 Slot bloccato! Espandi l'inventario per usarlo.");
                 }
-                show_debug_message("🖱️ DRAG INIZIATO: slot " + string(i) + " sprite " + sprite_get_name(item_sprite));
-                break;
             }
-            // SELEZIONE senza item - solo per prima riga (toolbar)
-            else if (mouse_check_button_pressed(mb_left) && !global.toolbar_dragging && i < 10) {
-                global.selected_tool = i;
-                show_debug_message("🔧 Tool selezionato dall'inventario: slot " + string(i));
-                break;
-            }
-        }
-        // Slot bloccato
-        else if (mouse_over && !is_slot_unlocked(i) && mouse_check_button_pressed(mb_left)) {
-            show_debug_message("🔒 Slot bloccato! Espandi l'inventario per usarlo.");
-            break;
         }
     }
+
+    // HOVER LOGIC semplificata
+    if (current_slot != -1 && current_item != noone) {
+        // Mouse sopra item valido
+        if (hovered_slot != current_slot) {
+            // Cambio di item - reset timer
+            hover_start_time = 0;
+            mouse_stopped = false;
+            hovered_slot = -1;
+            hovered_item_sprite = noone;
+        }
+
+        if (!mouse_moved && !mouse_stopped) {
+            // Mouse fermo su item, inizia/continua timer
+            if (hover_start_time == 0) {
+                hover_start_time = current_time;
+            }
+            if (current_time - hover_start_time >= (hover_delay * 1000 / 60)) {
+                // Timer scaduto - mostra tooltip e mantienilo
+                hovered_slot = current_slot;
+                hovered_item_sprite = current_item;
+                mouse_stopped = true;
+            }
+        } else if (mouse_stopped && hovered_slot == current_slot) {
+            // Tooltip già attivo su stesso item - mantieni
+            hovered_slot = current_slot;
+            hovered_item_sprite = current_item;
+        }
+    } else {
+        // Mouse non su nessun item - reset tutto
+        if (hovered_slot != -1) {
+            hovered_slot = -1;
+            hovered_item_sprite = noone;
+            hover_start_time = 0;
+            mouse_stopped = false;
+        }
+    }
+
+    // Aggiorna posizione mouse
+    previous_mouse_x = mouse_x;
+    previous_mouse_y = mouse_y;
     
     // DRAG DROP - gestione rilascio
     if (global.toolbar_dragging && mouse_check_button_released(mb_left)) {
@@ -148,11 +204,11 @@ if (global.inventory_visible) {
 
 // ===== AGGIORNA ALPHA TOOLTIP =====
 if (hovered_slot != -1 && hovered_item_sprite != noone) {
-    // Fade in tooltip
-    hover_tooltip_alpha = min(hover_tooltip_alpha + 0.15, 1.0);
+    // Tooltip attivo - mantieni alpha a 1.0
+    hover_tooltip_alpha = 1.0;
 } else {
-    // Fade out tooltip
-    hover_tooltip_alpha = max(hover_tooltip_alpha - 0.2, 0.0);
+    // Nessun hover - nasconde tooltip
+    hover_tooltip_alpha = 0.0;
 }
 
 // ===== GESTIONE TRASH CHEST =====

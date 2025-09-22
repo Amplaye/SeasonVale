@@ -29,6 +29,15 @@ hovered_slot = -1;        // Slot attualmente in hover (-1 = nessuno)
 hovered_item_sprite = noone;  // Sprite dell'item in hover
 hover_tooltip_alpha = 0;  // Alpha per fade in/out del tooltip
 
+// ===== OTTIMIZZAZIONE PERFORMANCE =====
+previous_mouse_x = mouse_x;  // Posizione mouse precedente X
+previous_mouse_y = mouse_y;  // Posizione mouse precedente Y
+
+// ===== TOOLTIP DELAY SYSTEM =====
+hover_start_time = 0;        // Quando è iniziato l'hover
+hover_delay = 60;            // 1 secondo a 60 FPS
+mouse_stopped = false;       // Se il mouse è fermo
+
 // ===== SISTEMA DI ESPANSIONE =====
 // Riga 0: slot 0-9 (condivisi con toolbar - sempre disponibili)
 // Riga 1: slot 10-19 (acquistabili)  

@@ -1,4 +1,15 @@
 if (keyboard_check_pressed(vk_escape)) {
+    // Non aprire menu se inventario è aperto
+    if (!visible && global.inventory_visible) {
+        show_debug_message("🚫 Impossibile aprire menu: inventario aperto");
+        exit;
+    }
+
+    // Chiudi inventario se il menu si sta aprendo
+    if (!visible) {
+        global.inventory_visible = false;
+    }
+
     visible = !visible;
 
     if (visible) {

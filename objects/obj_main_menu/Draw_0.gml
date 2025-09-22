@@ -1,8 +1,7 @@
 if (visible) {
-    // Gestione cursore personalizzato - ottimizzata per evitare chiamate ripetute
+    // Nascondi cursor di sistema, cursor_manager gestisce quello custom
     if (!variable_instance_exists(id, "cursor_already_set") || !cursor_already_set) {
         window_set_cursor(cr_none);
-        cursor_sprite = spr_pointer;
         cursor_already_set = true;
     }
 

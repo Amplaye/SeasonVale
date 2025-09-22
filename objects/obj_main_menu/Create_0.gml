@@ -1,5 +1,5 @@
 visible = false;  // Controllato dal sistema di menu
-depth = -15000; // Menu deve essere sopra tutto (layer Meta)
+depth = -1000; // Menu sopra tutto, anche sopra il depth grid
 
 // Inizializza ottimizzazioni performance per Mac M2
 // initialize_performance_optimizations(); // Temporary comment to fix build
