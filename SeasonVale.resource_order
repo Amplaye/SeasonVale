@@ -75,6 +75,7 @@
     {"name":"obj_tree","order":4,"path":"objects/obj_tree/obj_tree.yy",},
     {"name":"obj_universal_plant","order":6,"path":"objects/obj_universal_plant/obj_universal_plant.yy",},
     {"name":"obj_wood_drop","order":6,"path":"objects/obj_wood_drop/obj_wood_drop.yy",},
+    {"name":"ParticleSystem2","order":1,"path":"particles/ParticleSystem2/ParticleSystem2.yy",},
     {"name":"rm_interior","order":2,"path":"rooms/rm_interior/rm_interior.yy",},
     {"name":"Room1","order":1,"path":"rooms/Room1/Room1.yy",},
     {"name":"scr_addto_depthgrid","order":5,"path":"scripts/scr_addto_depthgrid/scr_addto_depthgrid.yy",},

@@ -106,6 +106,8 @@
     {"id":{"name":"obj_tree","path":"objects/obj_tree/obj_tree.yy",},},
     {"id":{"name":"obj_universal_plant","path":"objects/obj_universal_plant/obj_universal_plant.yy",},},
     {"id":{"name":"obj_wood_drop","path":"objects/obj_wood_drop/obj_wood_drop.yy",},},
+    {"id":{"name":"ParticleSystem1","path":"particles/ParticleSystem1/ParticleSystem1.yy",},},
+    {"id":{"name":"ParticleSystem2","path":"particles/ParticleSystem2/ParticleSystem2.yy",},},
     {"id":{"name":"rm_interior","path":"rooms/rm_interior/rm_interior.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"scr_addto_depthgrid","path":"scripts/scr_addto_depthgrid/scr_addto_depthgrid.yy",},},

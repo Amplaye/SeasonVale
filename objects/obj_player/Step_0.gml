@@ -15,10 +15,10 @@ if (mouse_check_button_pressed(mb_right) && !global.harvest_this_frame) {
     var world_mouse_x = mouse_x + view_x;
     var world_mouse_y = mouse_y + view_y;
 
-    // Trova la pianta più vicina al mouse che può essere raccolta
+    // Trova la pianta esattamente sotto il mouse che può essere raccolta
     var closest_plant = noone;
     var closest_distance = 999999;
-    var max_harvest_distance = 20; // Distanza massima per harvest (molto piccola)
+    var max_harvest_distance = 8; // Raggio molto piccolo - deve essere preciso
     var player_range = 48; // Distanza massima dal player
 
     with (obj_universal_plant) {
@@ -26,7 +26,7 @@ if (mouse_check_button_pressed(mb_right) && !global.harvest_this_frame) {
             // Controlla distanza dal player
             var dist_to_player = point_distance(x, y, other.x, other.y);
             if (dist_to_player <= player_range) {
-                // Controlla distanza dal mouse
+                // Controlla distanza dal mouse - deve essere molto precisa
                 var dist_to_mouse = point_distance(x, y, world_mouse_x, world_mouse_y);
                 if (dist_to_mouse <= max_harvest_distance && dist_to_mouse < closest_distance) {
                     closest_distance = dist_to_mouse;
@@ -42,7 +42,7 @@ if (mouse_check_button_pressed(mb_right) && !global.harvest_this_frame) {
         harvest_plant_universal(closest_plant);
         show_debug_message("🌾 Pianta raccolta direttamente dal player! ID: " + string(closest_plant));
     } else {
-        show_debug_message("❌ Click destro ma nessuna pianta nel raggio (max: " + string(max_harvest_distance) + " pixel)");
+        show_debug_message("❌ Click destro ma nessuna pianta nel raggio preciso (max: " + string(max_harvest_distance) + " pixel)");
     }
 }
 
@@ -64,7 +64,7 @@ with (obj_universal_plant) {
 // Trova la pianta più vicina al mouse per highlight
 var closest_plant_highlight = noone;
 var closest_distance_highlight = 999999;
-var max_harvest_distance = 20;
+var max_harvest_distance = 8; // Stesso raggio preciso del harvest
 var player_range = 48;
 
 with (obj_universal_plant) {
