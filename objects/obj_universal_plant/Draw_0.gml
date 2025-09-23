@@ -14,17 +14,16 @@ if (variable_instance_exists(id, "is_highlighted") && is_highlighted && can_harv
 
     // Testo indicatore
     draw_set_alpha(pulse);
-    draw_set_font(main_font);
     draw_set_halign(fa_center);
     draw_set_valign(fa_bottom);
     draw_set_color(c_white);
 
     // Ombra del testo
-    draw_text(x + 1, y - sprite_height/2 - 9, "RMB");
+    draw_plant_hint_text(x + 1, y - sprite_height/2 - 9, "RMB");
 
     // Testo principale
     draw_set_color(c_yellow);
-    draw_text(x, y - sprite_height/2 - 10, "RMB");
+    draw_plant_hint_text(x, y - sprite_height/2 - 10, "RMB");
 
     // Reset impostazioni draw
     draw_set_alpha(1);

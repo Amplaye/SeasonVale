@@ -41,6 +41,10 @@ speed_run = 4;
 hsp = 0;
 vsp = 0;
 
+// Posizioni reali (con decimali) per movimento fluido
+real_x = x;
+real_y = y;
+
 current_direction = "idle";
 is_moving = false;
 can_move = true;

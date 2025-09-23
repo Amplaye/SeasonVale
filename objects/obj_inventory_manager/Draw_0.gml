@@ -8,6 +8,9 @@ if (!global.inventory_visible) {
     exit;
 }
 
+// Check cache solo una volta per frame
+check_cache_validity();
+
 
 // ===== DISEGNA BACKGROUND INVENTARIO =====
 var bg_alpha = 0.8;
@@ -42,17 +45,27 @@ if (sprite_exists(spr_inventory)) {
 }
 
 // ===== DISEGNA SLOT E ITEMS OTTIMIZZATO =====
-// Precalcola valori comuni per performance
-var final_slot_scale = global.slot_scale * global.inventory_scale;
-var fixed_item_scale = 0.35;
+// Usa valori cached per performance
+var final_slot_scale = cached_final_slot_scale;
+scaled_slot_width = cached_scaled_slot_width;
+scaled_slot_height = cached_scaled_slot_height;
 
+// Debug: check se cache è valida
+if (array_length(slot_positions_cache) != global.inventory_total_slots) {
+    show_debug_message("⚠️ Cache non inizializzata! Forzando refresh...");
+    refresh_cache();
+}
+
+// Loop su tutti gli slot, ma ottimizzato per performance
 for (var i = 0; i < global.inventory_total_slots; i++) {
-    var slot_pos = get_slot_position(i);
-    var slot_x = slot_pos[0];
-    var slot_y = slot_pos[1];
+    // Usa sempre la cache per tutti gli slot
+    var cached_pos = slot_positions_cache[i];
+    var slot_x = x + cached_pos[0];
+    var slot_y = y + cached_pos[1];
+
     var is_unlocked = is_slot_unlocked(i);
 
-    // Scegli sprite slot (minimizzato)
+    // Scegli sprite slot basato su unlock status
     var slot_sprite = is_unlocked ? spr_slot : spr_slot_blocked;
     if (is_unlocked && i < 10 && global.selected_tool == i) {
         slot_sprite = spr_slot_select;
@@ -61,24 +74,42 @@ for (var i = 0; i < global.inventory_total_slots; i++) {
     // Disegna slot
     draw_sprite_ext(slot_sprite, 0, slot_x, slot_y, final_slot_scale, final_slot_scale, 0, c_white, 1.0);
 
-    // Disegna item solo se slot sbloccato (ottimizzazione)
+    // Disegna item solo se slot sbloccato
     if (is_unlocked) {
         var slot_data = get_slot_data(i);
         var item_sprite = slot_data[0];
         var quantity = slot_data[1];
 
         if (sprite_exists(item_sprite) && quantity > 0) {
-            var slot_center_x = slot_x + (scaled_slot_width / 2);
-            var slot_center_y = slot_y + (scaled_slot_height / 2);
+            var slot_center_x = slot_x + (scaled_slot_width * 0.5);
+            var slot_center_y = slot_y + (scaled_slot_height * 0.5);
+
+            // Ottieni scala dal scaling manager (stesso sistema della toolbar)
+            var fixed_item_scale = 0.35; // Default
+            if (variable_global_exists("sprite_scales")) {
+                var sprite_name = sprite_get_name(item_sprite);
+                if (variable_struct_exists(global.sprite_scales, sprite_name)) {
+                    var scale_data = global.sprite_scales[$ sprite_name];
+                    fixed_item_scale = scale_data.scale_x;
+                }
+            }
 
             // Calcolo dimensioni ottimizzato
             var half_width = sprite_get_width(item_sprite) * fixed_item_scale * 0.5;
             var half_height = sprite_get_height(item_sprite) * fixed_item_scale * 0.5;
 
+            // Correzione specifica per spr_rock (origin point decentrato)
+            var offset_x = 0;
+            var offset_y = 0;
+            if (item_sprite == spr_rock) {
+                offset_x = 2 * fixed_item_scale; // Sposta destra per centrare
+                offset_y = 2 * fixed_item_scale; // Sposta giù per centrare
+            }
+
             // Disegna item
             draw_sprite_ext(item_sprite, 0,
-                           slot_center_x - half_width,
-                           slot_center_y - half_height,
+                           slot_center_x - half_width + offset_x,
+                           slot_center_y - half_height + offset_y,
                            fixed_item_scale, fixed_item_scale, 0, c_white, 1.0);
 
             // Quantità (ottimizzata)
@@ -86,80 +117,68 @@ for (var i = 0; i < global.inventory_total_slots; i++) {
                 draw_set_color(c_white);
                 draw_set_halign(fa_right);
                 draw_set_valign(fa_bottom);
-                draw_text_transformed(slot_x + scaled_slot_width - 2,
-                                    slot_y + scaled_slot_height - 2,
-                                    string(quantity), 0.4, 0.4, 0);
+                draw_inventory_qty_text(slot_x + scaled_slot_width - 0,
+                                    slot_y + scaled_slot_height - -2,
+                                    string(quantity));
                 draw_set_halign(fa_left);
                 draw_set_valign(fa_top);
             }
         }
-    }
+    } // End if unlocked
 }
 
 // ===================================================================
 // 🖱️ ITEM HOVER TOOLTIP - MOSTRA SOLO NOME ITEM
 // ===================================================================
 
-// ===== TOOLTIP HOVER SEMPLICE =====
-if (global.inventory_visible) {
-    // Hover detection su tutti gli slot
-    for (var i = 0; i < global.inventory_total_slots; i++) {
-        var slot_pos = get_slot_position(i);
-        var slot_x = slot_pos[0];
-        var slot_y = slot_pos[1];
-        var mouse_over = point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + scaled_slot_width, slot_y + scaled_slot_height);
+// ===== TOOLTIP HOVER OTTIMIZZATO =====
+// Mostra tooltip solo se hovered_slot è valido (ottimizzazione major)
+if (global.inventory_visible && hovered_slot >= 0 && hovered_item_sprite != noone) {
+    // Assicurati che hovered_item_sprite sia uno sprite valido
+    if (is_real(hovered_item_sprite) && hovered_item_sprite >= 0 && sprite_exists(hovered_item_sprite)) {
+        // Ottieni nome item
+        var item_name = "Oggetto";
+        var item_rarity = "common";
 
-        if (mouse_over && is_slot_unlocked(i)) {
-            var slot_data = get_slot_data(i);
-            var item_sprite = slot_data[0];
-
-            if (item_sprite != noone && slot_data[1] > 0) {
-                // Ottieni nome item
-                var item_name = "Oggetto";
-                var item_rarity = "common";
-
-                if (instance_exists(obj_item_description_manager)) {
-                    item_name = obj_item_description_manager.get_item_name(item_sprite);
-                    item_rarity = obj_item_description_manager.get_item_rarity(item_sprite);
-                }
-
-                // Calcola dimensioni tooltip con testo piccolo
-                var text_scale = 0.3; // 70% più piccolo
-                var text_width = string_width(item_name) * text_scale;
-                var text_height = string_height(item_name) * text_scale;
-
-                // Posizione tooltip sopra mouse
-                var tooltip_x = mouse_x - (text_width / 2);
-                var tooltip_y = mouse_y - 35;
-                var padding = 4;
-
-                // Colore rarità
-                var rarity_color = c_white;
-                if (instance_exists(obj_item_description_manager)) {
-                    rarity_color = obj_item_description_manager.get_rarity_color(item_rarity);
-                }
-
-                // Sfondo tooltip con bordo
-                draw_set_alpha(0.9);
-                draw_set_color(c_black);
-                draw_rectangle(tooltip_x - padding, tooltip_y - padding,
-                             tooltip_x + text_width + padding, tooltip_y + text_height + padding, false);
-
-                draw_set_alpha(1.0);
-                draw_set_color(rarity_color);
-                draw_rectangle(tooltip_x - padding, tooltip_y - padding,
-                             tooltip_x + text_width + padding, tooltip_y + text_height + padding, true);
-
-                // Testo nome item piccolo
-                draw_set_color(rarity_color);
-                draw_text_transformed(tooltip_x, tooltip_y, item_name, text_scale, text_scale, 0);
-
-                // Reset
-                draw_set_alpha(1.0);
-                draw_set_color(c_white);
-                break;
-            }
+        if (instance_exists(obj_item_description_manager)) {
+            item_name = obj_item_description_manager.get_item_name(hovered_item_sprite);
+            item_rarity = obj_item_description_manager.get_item_rarity(hovered_item_sprite);
         }
+
+        // Calcola dimensioni tooltip con testo piccolo
+        var text_scale = 0.3;
+        var text_width = string_width(item_name) * text_scale;
+        var text_height = string_height(item_name) * text_scale;
+
+        // Posizione tooltip sopra mouse
+        var tooltip_x = mouse_x - (text_width * 0.5);
+        var tooltip_y = mouse_y - 35;
+        var padding = 4;
+
+        // Colore rarità
+        var rarity_color = c_white;
+        if (instance_exists(obj_item_description_manager)) {
+            rarity_color = obj_item_description_manager.get_rarity_color(item_rarity);
+        }
+
+        // Sfondo tooltip con bordo
+        draw_set_alpha(0.9);
+        draw_set_color(c_black);
+        draw_rectangle(tooltip_x - padding, tooltip_y - padding,
+                     tooltip_x + text_width + padding, tooltip_y + text_height + padding, false);
+
+        draw_set_alpha(1.0);
+        draw_set_color(rarity_color);
+        draw_rectangle(tooltip_x - padding, tooltip_y - padding,
+                     tooltip_x + text_width + padding, tooltip_y + text_height + padding, true);
+
+        // Testo nome item piccolo
+        draw_set_color(rarity_color);
+        draw_inventory_tooltip_text(tooltip_x, tooltip_y, item_name);
+
+        // Reset
+        draw_set_alpha(1.0);
+        draw_set_color(c_white);
     }
 }
 

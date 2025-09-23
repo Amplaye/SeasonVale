@@ -67,15 +67,9 @@ for (var i = 0; i < array_length(layer_elements); i++) {
         var element_x = layer_sprite_get_x(element);
         var element_y = layer_sprite_get_y(element);
         
-        // Controlla se questo sprite è nella lista dei raccoglibili
-        var is_pickupable = false;
-        for (var j = 0; j < array_length(global.pickupable_sprites); j++) {
-            if (element_sprite == global.pickupable_sprites[j]) {
-                is_pickupable = true;
-                break;
-            }
-        }
-        
+        // Tutti gli sprite sono pickupable (non controllo più la lista)
+        var is_pickupable = true;
+
         if (is_pickupable) {
             var distance = point_distance(player_x, player_y, element_x, element_y);
             
@@ -95,8 +89,8 @@ for (var i = 0; i < array_length(layer_elements); i++) {
             // ===== RACCOLTA =====
             else if (distance <= global.pickup_range && global.pickup_cooldown <= 0) {
                 // Prova a raccogliere l'oggetto (quantità gestita internamente)
-                var was_added = pickup_item(element_sprite, element);
-                
+                var was_added = pickup_item(element_sprite, element, element_x, element_y);
+
                 // Rimuovi lo sprite dal layer SOLO se è stato aggiunto all'inventario
                 if (was_added) {
                     layer_sprite_destroy(element);
@@ -116,14 +110,23 @@ for (var i = 0; i < array_length(layer_elements); i++) {
 }
 
 // ===== FUNZIONE RACCOLTA =====
-function pickup_item(sprite_id, element_id) {
+function pickup_item(sprite_id, element_id, pickup_x, pickup_y) {
     // Trova l'istanza della toolbar
     var toolbar_instance = instance_find(obj_toolbar, 0);
     var added = false;
-    
+
     if (toolbar_instance != noone) {
         // Chiama la funzione toolbar_add_item dall'istanza della toolbar
         added = toolbar_instance.toolbar_add_item(sprite_id, 1);
+
+        // 📢 PICKUP NOTIFICATION
+        if (added) {
+            var notification_manager = instance_find(obj_pickup_notifications, 0);
+            if (notification_manager != noone) {
+                notification_manager.add_pickup_notification(sprite_id);
+            }
+        }
+
     }
     
     if (!added && global.pickup_debug) {

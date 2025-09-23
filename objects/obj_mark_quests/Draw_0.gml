@@ -26,7 +26,6 @@ if (visible) {
 
     // Se è attivo, mostra l'interfaccia quest
     if (is_active) {
-        draw_set_font(main_font);
         draw_set_halign(fa_left);
         draw_set_valign(fa_top);
 
@@ -35,20 +34,20 @@ if (visible) {
 
         // Titolo
         draw_set_color(c_yellow);
-        draw_text(quest_x, quest_y, "=== QUEST MANAGER ===");
+        draw_quest_text(quest_x, quest_y, "=== QUEST MANAGER ===");
         quest_y += 20;
 
         // Quest attive
         draw_set_color(c_white);
         var active_quests = quest_get_active();
         if (array_length(active_quests) > 0) {
-            draw_text(quest_x, quest_y, "Active Quests:");
+            draw_quest_text(quest_x, quest_y, "Active Quests:");
             quest_y += 15;
 
             for (var i = 0; i < array_length(active_quests); i++) {
                 var quest = active_quests[i];
                 draw_set_color(c_lime);
-                draw_text(quest_x + 10, quest_y, "• " + quest.name);
+                draw_quest_text(quest_x + 10, quest_y, "• " + quest.name);
                 quest_y += 12;
 
                 // Mostra obiettivi
@@ -57,26 +56,26 @@ if (visible) {
                     var obj_color = obj.completed ? c_lime : c_yellow;
                     draw_set_color(obj_color);
                     var progress_text = "  - " + obj.description + " (" + string(obj.current) + "/" + string(obj.count) + ")";
-                    draw_text(quest_x + 20, quest_y, progress_text);
+                    draw_quest_text(quest_x + 20, quest_y, progress_text);
                     quest_y += 10;
                 }
                 quest_y += 5;
             }
         } else {
-            draw_text(quest_x, quest_y, "No active quests");
+            draw_quest_text(quest_x, quest_y, "No active quests");
             quest_y += 20;
         }
 
         // Controlli
         draw_set_color(c_aqua);
-        draw_text(quest_x, quest_y, "Controls:");
+        draw_quest_text(quest_x, quest_y, "Controls:");
         quest_y += 15;
         draw_set_color(c_white);
-        draw_text(quest_x, quest_y, "Q = First Harvest");
+        draw_quest_text(quest_x, quest_y, "Q = First Harvest");
         quest_y += 12;
-        draw_text(quest_x, quest_y, "W = Welcome to Valley");
+        draw_quest_text(quest_x, quest_y, "W = Welcome to Valley");
         quest_y += 12;
-        draw_text(quest_x, quest_y, "E = Resource Gathering");
+        draw_quest_text(quest_x, quest_y, "E = Resource Gathering");
 
         // Reset
         draw_set_halign(fa_left);

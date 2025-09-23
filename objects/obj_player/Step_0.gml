@@ -118,6 +118,8 @@ if (keyboard_check_pressed(ord("H"))) {
         show_debug_message("Casa trovata a: " + string(house.x) + ", " + string(house.y));
         x = house.x;
         y = house.y + 50; // Teleporta player vicino alla casa
+        real_x = x; // Sincronizza posizioni reali
+        real_y = y;
     } else {
         show_debug_message("CASA NON TROVATA!");
     }
@@ -179,16 +181,24 @@ if (movement_blocked) {
     exit;
 }
 
-// ===== CONTROLLO POPUP ATTIVO - BLOCCA MOVIMENTO =====
-// Blocca solo se popup_active E non stiamo facendo drag & drop
+// ===== CONTROLLO POPUP ATTIVO E DIALOGHI - BLOCCA MOVIMENTO =====
+// Blocca movimento per popup o dialoghi attivi
 var popup_blocks_movement = false;
-if (variable_global_exists("popup_active") && global.popup_active) {
+
+// Controlla se dialogo è attivo
+var dialogue_manager = instance_find(obj_dialogue_manager, 0);
+if (dialogue_manager != noone && dialogue_manager.dialogue_active) {
+    popup_blocks_movement = true;
+}
+
+// Controlla popup solo se dialogo non è già attivo
+if (!popup_blocks_movement && variable_global_exists("popup_active") && global.popup_active) {
     // Permetti il movimento se il popup throw è attivo (per poter fare drag & drop)
     if (variable_global_exists("popup_throw_active") && global.popup_throw_active) {
         popup_blocks_movement = false;
     } else {
         popup_blocks_movement = true;
-        
+
         // Ma permetti drag se stiamo trascinando dalla toolbar
         if (variable_global_exists("toolbar_dragging") && global.toolbar_dragging) {
             popup_blocks_movement = false;
@@ -597,15 +607,19 @@ if ((collision_at_feet(x, y, obj_collision_block) || collision_at_feet(x, y, obj
     for (var push_dist = 1; push_dist <= 5; push_dist++) {
         if (!collision_at_feet(x - push_dist, y, obj_collision_block) && !collision_at_feet(x - push_dist, y, obj_npc_base)) {
             x -= push_dist;
+            real_x = x; // Sincronizza posizioni reali
             break;
         } else if (!collision_at_feet(x + push_dist, y, obj_collision_block) && !collision_at_feet(x + push_dist, y, obj_npc_base)) {
             x += push_dist;
+            real_x = x; // Sincronizza posizioni reali
             break;
         } else if (!collision_at_feet(x, y - push_dist, obj_collision_block) && !collision_at_feet(x, y - push_dist, obj_npc_base)) {
             y -= push_dist;
+            real_y = y; // Sincronizza posizioni reali
             break;
         } else if (!collision_at_feet(x, y + push_dist, obj_collision_block) && !collision_at_feet(x, y + push_dist, obj_npc_base)) {
             y += push_dist;
+            real_y = y; // Sincronizza posizioni reali
             break;
         }
     }
@@ -614,30 +628,39 @@ if ((collision_at_feet(x, y, obj_collision_block) || collision_at_feet(x, y, obj
 if (is_moving) {
     // Movimento orizzontale - obj_collision_block + NPCs
     if (hsp != 0) {
-        if (!collision_feet_horizontal(x + hsp, y, obj_collision_block) && !collision_feet_horizontal(x + hsp, y, obj_npc_base)) {
-            x += hsp;
+        if (!collision_feet_horizontal(real_x + hsp, real_y, obj_collision_block) && !collision_feet_horizontal(real_x + hsp, real_y, obj_npc_base)) {
+            real_x += hsp;
         } else {
             // Movimento pixel per pixel fino al contatto
             var step_x = sign(hsp);
-            while (step_x != 0 && !collision_feet_horizontal(x + step_x, y, obj_collision_block) && !collision_feet_horizontal(x + step_x, y, obj_npc_base)) {
-                x += step_x;
+            while (step_x != 0 && !collision_feet_horizontal(real_x + step_x, real_y, obj_collision_block) && !collision_feet_horizontal(real_x + step_x, real_y, obj_npc_base)) {
+                real_x += step_x;
             }
         }
     }
 
     // Movimento verticale - obj_collision_block + NPCs
     if (vsp != 0) {
-        if (!collision_feet_vertical(x, y + vsp, obj_collision_block) && !collision_feet_vertical(x, y + vsp, obj_npc_base)) {
-            y += vsp;
+        if (!collision_feet_vertical(real_x, real_y + vsp, obj_collision_block) && !collision_feet_vertical(real_x, real_y + vsp, obj_npc_base)) {
+            real_y += vsp;
         } else {
             // Movimento pixel per pixel fino al contatto
             var step_y = sign(vsp);
-            while (step_y != 0 && !collision_feet_vertical(x, y + step_y, obj_collision_block) && !collision_feet_vertical(x, y + step_y, obj_npc_base)) {
-                y += step_y;
+            while (step_y != 0 && !collision_feet_vertical(real_x, real_y + step_y, obj_collision_block) && !collision_feet_vertical(real_x, real_y + step_y, obj_npc_base)) {
+                real_y += step_y;
             }
         }
     }
-    
+
+    // Aggiorna posizione visiva - smooth quando in movimento, pixel-perfect quando fermo
+    if (is_moving) {
+        x = real_x; // Movimento smooth
+        y = real_y;
+    } else {
+        x = round(real_x); // Pixel-perfect quando fermo
+        y = round(real_y);
+    }
+
     var new_sprite = -1;
     var new_direction = "";
     
@@ -715,6 +738,8 @@ if (is_moving) {
             
             x = old_visual_x + sprite_get_xoffset(new_sprite);
             y = old_visual_y + sprite_get_yoffset(new_sprite);
+            real_x = x; // Sincronizza dopo correzione sprite
+            real_y = y;
             
             if (sprite_get_number(sprite_index) > 0) {
                 var frame_ratio = old_frame / max(sprite_get_number(sprite_index), 1);
@@ -757,6 +782,8 @@ if (is_moving) {
         
         x = old_visual_x + sprite_get_xoffset(new_sprite);
         y = old_visual_y + sprite_get_yoffset(new_sprite);
+        real_x = x; // Sincronizza dopo correzione sprite
+        real_y = y;
         
         if (sprite_get_number(sprite_index) > 0) {
             var frame_ratio = old_frame / max(sprite_get_number(sprite_index), 1);

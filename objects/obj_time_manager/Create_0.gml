@@ -6,6 +6,9 @@ if (instance_number(obj_time_manager) > 1) {
 
 depth = -3000; // Time manager - layer Meta
 
+// Crea wind manager se non esiste
+create_wind_manager_if_needed();
+
 // Inizializza variabili tempo SOLO se non esistono già
 if (!variable_global_exists("game_day") || global.game_day == undefined) {
     global.game_day = 1;

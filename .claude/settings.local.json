@@ -76,7 +76,10 @@
       "Bash(./git-push.sh \"🧹 Clean up unnecessary git/sync scripts\")",
       "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_cursor_manager\\Step_0.gml\")",
       "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_inventory_manager\\Draw_64.gml\")",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(findstr:*)",
+      "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_stellar_particle_manager\\obj_stellar_particle_manager.yy\")",
+      "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_dialogue_manager\\Mouse_4.gml\")"
     ],
     "deny": [],
     "ask": [],

@@ -34,13 +34,12 @@ if (fps_smooth >= fps_good) {
 
 // Display FPS solo - nessun background
 draw_set_color(fps_color);
-draw_set_font(main_font);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
 // Testo FPS principale
 var fps_text = "FPS: " + string_format(fps_smooth, 0, 1);
-draw_text(fps_x, fps_y, fps_text);
+draw_fps_text(fps_x, fps_y, fps_text);
 
 // Reset draw settings
 draw_set_color(c_white);

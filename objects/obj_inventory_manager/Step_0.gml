@@ -23,13 +23,15 @@ var cam_y = camera_get_view_y(cam);
 
 var screen_w = 480;
 var screen_h = 270;
-var scaled_slot_width = sprite_get_width(spr_slot) * global.slot_scale * global.inventory_scale;
+// Usa cached values per performance
+check_cache_validity();
+var scaled_slot_width = cached_scaled_slot_width;
 
 // ===== RESET HOVER STATE =====
 var old_hovered_slot = hovered_slot;
 hovered_slot = -1;
 hovered_item_sprite = noone;
-var scaled_slot_height = sprite_get_height(spr_slot) * global.slot_scale * global.inventory_scale;
+var scaled_slot_height = cached_scaled_slot_height;
 
 // Calcola dimensioni totali inventario
 var total_width = (global.inventory_cols * scaled_slot_width) + ((global.inventory_cols - 1) * global.inventory_gap_x);
@@ -42,8 +44,11 @@ var inventory_start_y = cam_y + (screen_h - total_height) / 2;
 x = inventory_start_x;
 y = inventory_start_y;
 
-// ===== GESTIONE DRAG & DROP INVENTORY =====
+// ===== GESTIONE DRAG & DROP INVENTORY OTTIMIZZATO =====
 if (global.inventory_visible) {
+    // Check cache validity
+    check_cache_validity();
+
     // Calcola slot mouse solo se mouse si è mosso o ci sono click
     var mouse_moved = (mouse_x != previous_mouse_x || mouse_y != previous_mouse_y);
     var mouse_clicked = mouse_check_button_pressed(mb_left);
@@ -56,7 +61,7 @@ if (global.inventory_visible) {
         mouse_stopped = false;
     }
 
-    // Calcolo slot attuale sempre (per hover persistente)
+    // Calcolo slot attuale ottimizzato (direct calculation)
     var current_slot = -1;
     var current_item = noone;
 
@@ -64,17 +69,19 @@ if (global.inventory_visible) {
     var rel_y = mouse_y - y;
 
     if (rel_x >= 0 && rel_y >= 0) {
-        var col = floor(rel_x / (scaled_slot_width + global.inventory_gap_x));
-        var row = floor(rel_y / (scaled_slot_height + global.inventory_gap_y));
+        var col = floor(rel_x / (cached_scaled_slot_width + global.inventory_gap_x));
+        var row = floor(rel_y / (cached_scaled_slot_height + global.inventory_gap_y));
 
         if (col >= 0 && col < global.inventory_cols && row >= 0 && row < global.inventory_rows) {
             var slot_index = row * global.inventory_cols + col;
 
             if (slot_index < global.inventory_total_slots) {
-                var slot_pos = get_slot_position(slot_index);
-                var slot_x = slot_pos[0];
-                var slot_y = slot_pos[1];
-                var mouse_over = point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + scaled_slot_width, slot_y + scaled_slot_height);
+                // Usa cache per tutti gli slot
+                var cached_pos = slot_positions_cache[slot_index];
+                var slot_x = x + cached_pos[0];
+                var slot_y = y + cached_pos[1];
+
+                var mouse_over = point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + cached_scaled_slot_width, slot_y + cached_scaled_slot_height);
 
                 if (mouse_over && is_slot_unlocked(slot_index)) {
                     var slot_data = get_slot_data(slot_index);
@@ -167,18 +174,26 @@ if (global.inventory_visible) {
             
             var drop_slot = -1;
         
-        // Trova slot di drop nell'inventory
-        for (var i = 0; i < global.inventory_total_slots; i++) {
-            if (!is_slot_unlocked(i)) continue;
-            
-            var slot_pos = get_slot_position(i);
-            var slot_x = slot_pos[0];
-            var slot_y = slot_pos[1];
-            
-            
-            if (point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + scaled_slot_width, slot_y + scaled_slot_height)) {
-                drop_slot = i;
-                break;
+        // Drop detection ottimizzato con calcolo diretto
+        var drop_rel_x = mouse_x - x;
+        var drop_rel_y = mouse_y - y;
+
+        if (drop_rel_x >= 0 && drop_rel_y >= 0) {
+            var col = floor(drop_rel_x / (cached_scaled_slot_width + global.inventory_gap_x));
+            var row = floor(drop_rel_y / (cached_scaled_slot_height + global.inventory_gap_y));
+
+            if (col >= 0 && col < global.inventory_cols && row >= 0 && row < global.inventory_rows) {
+                var potential_slot = row * global.inventory_cols + col;
+
+                if (potential_slot < global.inventory_total_slots && is_slot_unlocked(potential_slot)) {
+                    var cached_pos = slot_positions_cache[potential_slot];
+                    var slot_x = x + cached_pos[0];
+                    var slot_y = y + cached_pos[1];
+
+                    if (point_in_rectangle(mouse_x, mouse_y, slot_x, slot_y, slot_x + cached_scaled_slot_width, slot_y + cached_scaled_slot_height)) {
+                        drop_slot = potential_slot;
+                    }
+                }
             }
         }
         

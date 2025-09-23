@@ -26,18 +26,17 @@ if (visible) {
 
     // Se è attivo, mostra istruzioni per uscire (centrate nella view)
     if (is_active) {
-        draw_set_font(main_font);
         draw_set_halign(fa_center);
         draw_set_valign(fa_middle);
 
         // Testo principale
         draw_set_color(c_white);
-        draw_text(center_x, center_y + 20, "Vuoi uscire dal gioco?");
+        draw_exit_menu_text(center_x, center_y + 20, "Vuoi uscire dal gioco?");
 
         // Istruzioni
         draw_set_color(c_yellow);
-        draw_text(center_x, center_y + 40, "ENTER = Conferma");
-        draw_text(center_x, center_y + 55, "ESC = Annulla");
+        draw_exit_menu_text(center_x, center_y + 40, "ENTER = Conferma");
+        draw_exit_menu_text(center_x, center_y + 55, "ESC = Annulla");
 
         // Reset
         draw_set_halign(fa_left);

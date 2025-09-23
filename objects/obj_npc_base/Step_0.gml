@@ -8,8 +8,8 @@ if (npc_can_talk && !global.dialogue_in_progress) {
     if (distance_to_player <= npc_talk_range) {
         npc_player_nearby = true;
 
-        // Check for interaction input (E key or Left Mouse)
-        if (keyboard_check_pressed(ord("E")) || mouse_check_button_pressed(mb_left)) {
+        // Check for interaction input (E key only)
+        if (keyboard_check_pressed(ord("E"))) {
             // Start dialogue with this NPC
             if (variable_struct_exists(npc_data, "dialogue_id")) {
                 dialogue_start(npc_data.dialogue_id, id);

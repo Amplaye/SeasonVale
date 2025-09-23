@@ -24,7 +24,7 @@ if (global.toolbar_dragging && global.toolbar_drag_from_slot >= 0) {
 
     if (item_sprite != noone && sprite_exists(item_sprite)) {
 
-        // Scala fissa 1.0 per drag & drop
+        // Scaling fisso per drag come prima
         var drag_scale = 1.0;
 
         // Ottieni dimensioni sprite per centratura

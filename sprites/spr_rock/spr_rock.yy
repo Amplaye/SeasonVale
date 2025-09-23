@@ -23,7 +23,7 @@
   ],
   "name":"spr_rock",
   "nineSlice":null,
-  "origin":4,
+  "origin":9,
   "parent":{
     "name":"Items",
     "path":"folders/Sprites/Items.yy",
@@ -77,7 +77,7 @@
     ],
     "visibleRange":null,
     "volume":1.0,
-    "xorigin":8,
+    "xorigin":10,
     "yorigin":8,
   },
   "swatchColours":null,

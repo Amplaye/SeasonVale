@@ -1,7 +1,7 @@
 /// @description Draw Instances in Grid - Ottimizzato per Mac M2
 
 // Imposta font principale del gioco
-draw_set_font(main_font);
+set_main_font();
 
 if(ds_exists(ds_depthgrid, ds_type_grid)){
 
@@ -54,14 +54,21 @@ if(ds_exists(ds_depthgrid, ds_type_grid)){
                     }
                 }
             } else if (object_index == obj_tree) {
-                // Draw tree with shake effect - solo se sprite valido
+                // Draw tree with frame-based wind (frame 0=tronco fisso, frame 1=foglie con vento)
                 if (sprite_index != -1 && sprite_exists(sprite_index)) {
+                    // Crea wind manager se necessario
+                    create_wind_manager_if_needed();
+
                     if (shake_timer > 0) {
+                        // Con shake: usa funzione specializzata per shake + vento
                         var shake_x = cos(shake_direction) * shake_intensity;
                         var shake_y = sin(shake_direction) * shake_intensity;
-                        draw_sprite_ext(sprite_index, image_index, x + shake_x, y + shake_y, 1, 1, 0, c_white, image_alpha);
+
+                        apply_tree_frame_wind_with_shake(sprite_index, x, y, "tree", id,
+                                                        shake_x, shake_y, 1, 1, image_alpha);
                     } else {
-                        draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, 0, c_white, image_alpha);
+                        // Solo vento: tronco fisso, foglie si muovono
+                        apply_tree_frame_wind(sprite_index, x, y, "tree", id, 1, 1, image_alpha);
                     }
                 }
             } else if (object_is_ancestor(object_index, obj_npc_base)) {

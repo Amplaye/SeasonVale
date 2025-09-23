@@ -144,6 +144,13 @@ function harvest_plant_universal(instance_id) {
             success = toolbar_instance.toolbar_add_item(harvest_item, 1);
             if (success) {
                 smart_debug_message("🌾 Harvested 1x " + sprite_get_name(harvest_item) + " - Added to toolbar");
+
+                // 📢 HARVEST NOTIFICATION
+                var notification_manager = instance_find(obj_pickup_notifications, 0);
+                if (notification_manager != noone) {
+                    notification_manager.add_pickup_notification(harvest_item);
+                }
+
             } else {
                 smart_debug_message("⚠️ Harvest failed - Toolbar full! 1x " + sprite_get_name(harvest_item) + " lost");
             }
@@ -240,5 +247,6 @@ function debug_print_plant_status(instance_id) {
         show_debug_message("  Cooldown: " + string(harvest_cooldown));
     }
 }
+
 
 // show_debug_message("🌱 Plant System loaded successfully!");

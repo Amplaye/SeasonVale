@@ -55,16 +55,24 @@ for (var slot_i = 0; slot_i < global.toolbar_slots_count; slot_i++) {
         if (sprite_exists(item_sprite)) {
             var item_width = sprite_get_width(item_sprite) * fixed_scale;
             var item_height = sprite_get_height(item_sprite) * fixed_scale;
-            
+
                 var item_alpha = 1.0;
                 // Rimuovo l'opacità durante il drag
                 // if (global.toolbar_dragging && global.toolbar_drag_from_slot == slot_i) {
                 //     item_alpha = 0.3;
                 // }
-            
-            draw_sprite_ext(item_sprite, 0, 
-                           slot_center_x - (item_width / 2), 
-                           slot_center_y - (item_height / 2), 
+
+            // Correzione specifica per spr_rock (origin point decentrato)
+            var offset_x = 0;
+            var offset_y = 0;
+            if (item_sprite == spr_rock) {
+                offset_x = 9 * fixed_scale; // Sposta destra per centrare
+                offset_y = 7 * fixed_scale; // Sposta giù per centrare
+            }
+
+            draw_sprite_ext(item_sprite, 0,
+                           slot_center_x - (item_width / 2) + offset_x,
+                           slot_center_y - (item_height / 2) + offset_y,
                            fixed_scale, fixed_scale, 0, c_white, item_alpha);
         } else {
             // Placeholder per item non validi
@@ -76,21 +84,19 @@ for (var slot_i = 0; slot_i < global.toolbar_slots_count; slot_i++) {
             // Disegna quantità se > 1
             if (slot_i < array_length(global.tool_quantities) && global.tool_quantities[slot_i] > 1) {
                 var quantity = global.tool_quantities[slot_i];
-                
-                // Posizione in basso a destra dello slot
-                var text_x = slot_x + scaled_slot_width - 3;
-                var text_y = slot_y + scaled_slot_height - 1;
-            
+
+                // Posizione in basso a destra dello slot (interno)
+                var text_x = slot_x + scaled_slot_width - 0;
+                var text_y = slot_y + scaled_slot_height - -2;
+
             // Imposta allineamento
             draw_set_halign(fa_right);
             draw_set_valign(fa_bottom);
-            
-            var scale = 0.3; // Scala per testo più piccolo       
-            
+
             // Disegna testo principale
             draw_set_color(c_white);
-            draw_text_transformed(text_x, text_y, string(quantity), scale, scale, 0);
-            
+            draw_toolbar_qty_text(text_x, text_y, string(quantity));
+
             // Reset allineamento
             draw_set_halign(fa_left);
             draw_set_valign(fa_top);
