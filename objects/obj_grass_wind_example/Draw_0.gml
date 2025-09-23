@@ -3,7 +3,7 @@
 // ===================================================================
 
 // METODO 1: Utilizzo della funzione helper completa
-apply_wind_to_sprite(grass_sprite, x, y, "grass", unique_wind_offset, grass_scale, grass_scale, 1.0);
+apply_wind_to_sprite(grass_sprite, x, y, "grass", real(unique_wind_offset), grass_scale, grass_scale, 1.0);
 
 // METODO 2: Calcolo manuale degli offset (per controllo maggiore)
 /*

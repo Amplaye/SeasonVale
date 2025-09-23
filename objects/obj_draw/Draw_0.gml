@@ -64,11 +64,11 @@ if(ds_exists(ds_depthgrid, ds_type_grid)){
                         var shake_x = cos(shake_direction) * shake_intensity;
                         var shake_y = sin(shake_direction) * shake_intensity;
 
-                        apply_tree_frame_wind_with_shake(sprite_index, x, y, "tree", id,
+                        apply_tree_frame_wind_with_shake(sprite_index, x, y, "tree", real(id),
                                                         shake_x, shake_y, 1, 1, image_alpha);
                     } else {
                         // Solo vento: tronco fisso, foglie si muovono
-                        apply_tree_frame_wind(sprite_index, x, y, "tree", id, 1, 1, image_alpha);
+                        apply_tree_frame_wind(sprite_index, x, y, "tree", real(id), 1, 1, image_alpha);
                     }
                 }
             } else if (object_is_ancestor(object_index, obj_npc_base)) {

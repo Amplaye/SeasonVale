@@ -1,5 +1,5 @@
 // ===================================================================
-// 🖥️ DISPLAY MANAGER - GESTIONE QUALITÀ GRAFICA E SCALING
+// 🖥️ DISPLAY MANAGER - VERSIONE SEMPLIFICATA
 // ===================================================================
 
 // Singleton pattern - solo un display manager
@@ -8,172 +8,110 @@ if (instance_number(obj_display_manager) > 1) {
     exit;
 }
 
-depth = -5000; // Display manager - layer sistema
-persistent = true; // Mantieni tra le room
+depth = -5000;
+persistent = true;
 
 // ===== CONFIGURAZIONE BASE =====
-// Risoluzione nativa del gioco (camera size)
 global.base_width = 480;
 global.base_height = 270;
 
-// Risoluzione finestra predefinita (2x scaling perfetto)
-global.window_width = 960;
-global.window_height = 540;
+// ===== RILEVAMENTO DISPLAY =====
+var display_w = display_get_width();
+var display_h = display_get_height();
 
-// ===== IMPOSTAZIONI QUALITÀ =====
-// Disabilita interpolazione per pixel art crisp
-gpu_set_tex_filter(false);
+// ===== CALCOLO SCALING AUTOMATICO SEMPLIFICATO =====
+var selected_scale = 3; // Default
+var selected_name = "Auto";
 
-// Imposta scaling nearest neighbor per mantenere pixel perfetti
-// display_set_gui_size(global.base_width, global.base_height); // Commentato per evitare scaling del cursor
+// Rilevamento diretto per le risoluzioni più comuni
+if (display_w == 2560 && display_h == 1664) {
+    // MacBook Air M2 - scaling speciale per Retina
+    selected_scale = 3; // Usiamo 3x invece di 4x per pixel perfect su Retina
+    selected_name = "MacBook Air M2 Retina";
+} else if (display_w == 1920 && display_h == 1080) {
+    selected_scale = 3; // Full HD
+    selected_name = "Full HD";
+} else if (display_w == 2560 && display_h == 1440) {
+    selected_scale = 4; // 1440p
+    selected_name = "1440p Gaming";
+} else if (display_w == 3840 && display_h == 2160) {
+    selected_scale = 5; // 4K
+    selected_name = "4K";
+} else if (display_w == 1366 && display_h == 768) {
+    selected_scale = 2; // HD Laptop
+    selected_name = "HD Laptop";
+} else if (display_w == 1280 && display_h == 800) {
+    selected_scale = 2; // Steam Deck
+    selected_name = "Steam Deck";
+} else {
+    // Calcolo automatico per altre risoluzioni
+    var auto_scale_x = floor(display_w / global.base_width / 1.3);
+    var auto_scale_y = floor(display_h / global.base_height / 1.3);
+    selected_scale = min(auto_scale_x, auto_scale_y);
+    selected_scale = clamp(selected_scale, 2, 5);
+    selected_name = "Auto (" + string(selected_scale) + "x)";
+}
+
+// Applica scaling calcolato
+global.optimal_scale = selected_scale;
+global.window_width = global.base_width * selected_scale;
+global.window_height = global.base_height * selected_scale;
 
 // ===== GESTIONE FULLSCREEN =====
 global.is_fullscreen = false;
-global.target_fps = 60;
 
-// Salva le dimensioni originali della finestra
-global.windowed_width = global.window_width;
-global.windowed_height = global.window_height;
-
-// ===== FUNZIONI UTILITY =====
-
-/// @function toggle_fullscreen()
-/// @description Alterna tra fullscreen e windowed mode
+// ===== FUNZIONE FULLSCREEN AVANZATA =====
 function toggle_fullscreen() {
     global.is_fullscreen = !global.is_fullscreen;
 
     if (global.is_fullscreen) {
-        // Vai in fullscreen con scaling perfetto
-        var display_w = display_get_width();
-        var display_h = display_get_height();
+        // FULLSCREEN: Usa stesso scaling di windowed per qualità identica
+        var fs_width = global.base_width * global.optimal_scale;
+        var fs_height = global.base_height * global.optimal_scale;
 
-        // Calcola il miglior scaling mantenendo proporzioni
-        var scale_x = floor(display_w / global.base_width);
-        var scale_y = floor(display_h / global.base_height);
-        var scale = min(scale_x, scale_y);
+        // Verifica che entri nello schermo, altrimenti riduci di 1
+        var current_display_w = display_get_width();
+        var current_display_h = display_get_height();
 
-        // Assicurati che lo scale sia almeno 1
-        scale = max(scale, 1);
-
-        // Calcola dimensioni finali centrate
-        var final_w = global.base_width * scale;
-        var final_h = global.base_height * scale;
+        if (fs_width > current_display_w || fs_height > current_display_h) {
+            var reduced_scale = global.optimal_scale - 1;
+            reduced_scale = max(reduced_scale, 2); // Minimo 2x
+            fs_width = global.base_width * reduced_scale;
+            fs_height = global.base_height * reduced_scale;
+        }
 
         window_set_fullscreen(true);
-        surface_resize(application_surface, final_w, final_h);
+        surface_resize(application_surface, fs_width, fs_height);
 
-        show_debug_message("🖥️ Fullscreen attivato: " + string(final_w) + "x" + string(final_h) + " (scale: " + string(scale) + "x)");
+        show_debug_message("🖥️ Fullscreen: " + string(fs_width) + "x" + string(fs_height) + " (qualità identica)");
     } else {
-        // Torna in windowed mode
+        // WINDOWED: Torna alle dimensioni ottimali
         window_set_fullscreen(false);
-        window_set_size(global.windowed_width, global.windowed_height);
-        surface_resize(application_surface, global.windowed_width, global.windowed_height);
-
-        // Centra la finestra
-        var display_w = display_get_width();
-        var display_h = display_get_height();
-        window_set_position((display_w - global.windowed_width) / 2, (display_h - global.windowed_height) / 2);
-
-        show_debug_message("🖥️ Windowed mode attivato: " + string(global.windowed_width) + "x" + string(global.windowed_height));
-    }
-}
-
-/// @function set_display_quality(quality_level)
-/// @description Imposta il livello di qualità (1-4, dove 4 è la massima)
-/// @param {real} quality_level - Livello qualità da 1 a 4
-function set_display_quality(quality_level) {
-    quality_level = clamp(quality_level, 1, 4);
-
-    switch (quality_level) {
-        case 1: // Bassa qualità - 1x scaling
-            global.window_width = global.base_width;
-            global.window_height = global.base_height;
-            break;
-
-        case 2: // Media qualità - 2x scaling
-            global.window_width = global.base_width * 2;
-            global.window_height = global.base_height * 2;
-            break;
-
-        case 3: // Alta qualità - 3x scaling
-            global.window_width = global.base_width * 3;
-            global.window_height = global.base_height * 3;
-            break;
-
-        case 4: // Massima qualità - 4x scaling
-            global.window_width = global.base_width * 4;
-            global.window_height = global.base_height * 4;
-            break;
-    }
-
-    if (!global.is_fullscreen) {
         window_set_size(global.window_width, global.window_height);
         surface_resize(application_surface, global.window_width, global.window_height);
-    }
 
-    show_debug_message("🖥️ Qualità impostata: Livello " + string(quality_level) + " (" + string(global.window_width) + "x" + string(global.window_height) + ")");
-}
+        // Centra la finestra
+        var center_display_w = display_get_width();
+        var center_display_h = display_get_height();
+        window_set_position((center_display_w - global.window_width) / 2, (center_display_h - global.window_height) / 2);
 
-/// @function perfect_pixel_setup()
-/// @description Configurazione ottimale per pixel art
-function perfect_pixel_setup() {
-    // Disabilita texture filtering
-    gpu_set_tex_filter(false);
-
-    // NON cambiare GUI size - lascia la dimensione della finestra
-    // display_set_gui_size(global.base_width, global.base_height);
-
-    // Assicura che il surface sia delle dimensioni corrette
-    if (!global.is_fullscreen) {
-        surface_resize(application_surface, global.window_width, global.window_height);
+        show_debug_message("🖥️ Windowed: " + string(global.window_width) + "x" + string(global.window_height));
     }
 }
 
-/// @function fix_pixel_perfect()
-/// @description Forza il setup pixel perfect corretto
-function fix_pixel_perfect() {
-    show_debug_message("🔧 Fixing pixel perfect setup...");
+// ===== INIZIALIZZAZIONE CON PIXEL PERFECT MAC =====
+gpu_set_tex_filter(false);
 
-    // Force texture filtering off
-    gpu_set_tex_filter(false);
+// Ottimizzazioni specifiche per Mac
+if (os_type == os_macosx) {
+    // Force tutti i filtri off per Mac
     gpu_set_tex_filter_ext(0, false);
     gpu_set_tex_filter_ext(1, false);
 
-    // NON resettare GUI size - mantieni dimensioni finestra
-    // display_set_gui_size(global.base_width, global.base_height);
-
-    if (global.is_fullscreen) {
-        // Ricalcola fullscreen perfetto
-        var display_w = display_get_width();
-        var display_h = display_get_height();
-
-        // Trova il più grande scaling intero che entra nello schermo
-        var scale_x = floor(display_w / global.base_width);
-        var scale_y = floor(display_h / global.base_height);
-        var scale = min(scale_x, scale_y);
-        scale = max(scale, 1); // Minimo 1x
-
-        // Applica il nuovo surface con dimensioni perfette
-        var final_w = global.base_width * scale;
-        var final_h = global.base_height * scale;
-
-        surface_resize(application_surface, final_w, final_h);
-
-        show_debug_message("🔧 Fixed fullscreen: " + string(final_w) + "x" + string(final_h) + " (scale: " + string(scale) + "x)");
-    } else {
-        // Fix windowed mode
-        surface_resize(application_surface, global.window_width, global.window_height);
-        window_set_size(global.window_width, global.window_height);
-
-        show_debug_message("🔧 Fixed windowed: " + string(global.window_width) + "x" + string(global.window_height));
-    }
+    show_debug_message("🍎 Ottimizzazioni Mac Retina applicate");
 }
 
-// ===== INIZIALIZZAZIONE =====
-perfect_pixel_setup();
-set_display_quality(2); // Inizia con qualità media (2x)
-
 show_debug_message("🖥️ Display Manager inizializzato");
-show_debug_message("🖥️ Risoluzione base: " + string(global.base_width) + "x" + string(global.base_height));
-show_debug_message("🖥️ Risoluzione finestra: " + string(global.window_width) + "x" + string(global.window_height));
-show_debug_message("🖥️ Texture filtering: DISABILITATO (pixel perfect)");
+show_debug_message("🖥️ Display rilevato: " + string(display_w) + "x" + string(display_h) + " (" + selected_name + ")");
+show_debug_message("🖥️ Scaling ottimale: " + string(selected_scale) + "x");
+show_debug_message("🖥️ Risoluzione gioco: " + string(global.window_width) + "x" + string(global.window_height));

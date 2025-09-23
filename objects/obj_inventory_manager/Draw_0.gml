@@ -134,15 +134,27 @@ for (var i = 0; i < global.inventory_total_slots; i++) {
 // ===== TOOLTIP HOVER OTTIMIZZATO =====
 // Mostra tooltip solo se hovered_slot è valido (ottimizzazione major)
 if (global.inventory_visible && hovered_slot >= 0 && hovered_item_sprite != noone) {
-    // Assicurati che hovered_item_sprite sia uno sprite valido
-    if (is_real(hovered_item_sprite) && hovered_item_sprite >= 0 && sprite_exists(hovered_item_sprite)) {
+    // Controlla se è uno sprite o un'istanza con sprite
+    var item_sprite_to_use = hovered_item_sprite;
+
+    // Se è un'istanza, prendi il suo sprite_index
+    if (instance_exists(hovered_item_sprite)) {
+        with(hovered_item_sprite) {
+            if (sprite_index != -1) {
+                item_sprite_to_use = sprite_index;
+            }
+        }
+    }
+
+    // Assicurati che sia uno sprite valido
+    if (sprite_exists(item_sprite_to_use)) {
         // Ottieni nome item
         var item_name = "Oggetto";
         var item_rarity = "common";
 
         if (instance_exists(obj_item_description_manager)) {
-            item_name = obj_item_description_manager.get_item_name(hovered_item_sprite);
-            item_rarity = obj_item_description_manager.get_item_rarity(hovered_item_sprite);
+            item_name = obj_item_description_manager.get_item_name(item_sprite_to_use);
+            item_rarity = obj_item_description_manager.get_item_rarity(item_sprite_to_use);
         }
 
         // Calcola dimensioni tooltip con testo piccolo

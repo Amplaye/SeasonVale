@@ -1,24 +1,19 @@
-// Controlla input per toggle fullscreen
+// Toggle fullscreen con F11
 if (keyboard_check_pressed(vk_f11)) {
     toggle_fullscreen();
 }
 
-// Controlli per cambio qualità rimossi
-
-// Reset perfetto con R
-if (keyboard_check_pressed(ord("R"))) {
-    fix_pixel_perfect();
-}
-
-// Controlli scala font (con tasti + e -)
-if (keyboard_check_pressed(vk_add) || keyboard_check_pressed(ord("="))) {
-    set_font_scale(global.font_scale + 0.1);
-}
-if (keyboard_check_pressed(vk_subtract) || keyboard_check_pressed(ord("-"))) {
-    set_font_scale(max(0.3, global.font_scale - 0.1));
-}
-
-// Mantieni sempre le impostazioni pixel perfect
-if (gpu_get_tex_filter()) {
-    gpu_set_tex_filter(false);
+// Mantieni sempre pixel perfect su Mac
+if (os_type == os_macosx) {
+    // Force texture filtering off costantemente su Mac
+    if (gpu_get_tex_filter()) {
+        gpu_set_tex_filter(false);
+        gpu_set_tex_filter_ext(0, false);
+        gpu_set_tex_filter_ext(1, false);
+    }
+} else {
+    // Su altri OS, controllo normale
+    if (gpu_get_tex_filter()) {
+        gpu_set_tex_filter(false);
+    }
 }

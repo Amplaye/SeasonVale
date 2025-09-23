@@ -79,7 +79,8 @@
       "Bash(rg:*)",
       "Bash(findstr:*)",
       "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_stellar_particle_manager\\obj_stellar_particle_manager.yy\")",
-      "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_dialogue_manager\\Mouse_4.gml\")"
+      "Bash(del \"C:\\Users\\Steward\\SeasonVale\\objects\\obj_dialogue_manager\\Mouse_4.gml\")",
+      "Bash(brew install:*)"
     ],
     "deny": [],
     "ask": [],
